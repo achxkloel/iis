@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 // Main
 Route::get('/', function () {
-    return view('test', ['name' => (new TestController)->get()]);
+    return view('homepage', ['courses' => (new HomepageController())->get()]);
 })->middleware('auth');
 
 // Login
