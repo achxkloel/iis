@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('term', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 255);
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->string('type', 255);
+            $table->string('type');
             $table->integer('score');
             $table->dateTime('date_from');
             $table->dateTime('date_to');

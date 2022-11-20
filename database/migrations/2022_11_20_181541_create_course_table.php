@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('course', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('shortcut', 255)->unique();
-            $table->string('name', 255);
+            $table->string('shortcut')->unique();
+            $table->string('name');
             $table->text('description')->nullable();
-            $table->string('type', 255);
+            $table->string('type');
             $table->integer('price')->nullable();
             $table->integer('capacity');
             $table->integer('public')->default(0);
