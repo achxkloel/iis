@@ -16,3 +16,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+.fly
+.dockerignore
+Dockerfile
+fly.toml
