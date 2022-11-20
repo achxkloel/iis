@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\HomepageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('test', ['name' => (new TestController)->get()]);
+    return view('homepage', ['courses' => (new HomepageController())->get()]);
 });
