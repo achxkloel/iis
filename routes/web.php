@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\HomepageController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Main
 Route::get('/', function () {
     return view('homepage', ['courses' => (new HomepageController())->get()]);
+})->middleware('auth');
+
+// Login
+
+Route::middleware('guest')->controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login');
+    Route::post('/login', 'auth')->name('login');
 });
+
+// Logout
+Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
