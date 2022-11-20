@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 return new class extends Migration
 {
@@ -17,7 +19,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('login')->unique();
             $table->string('password');
-            $table->string('birth_number');
+            $table->string('birth_number')->unique()->nullable();
             $table->string('name');
             $table->string('surname');
             $table->string('address')->nullable();
@@ -27,6 +29,14 @@ return new class extends Migration
             $table->string('role')->nullable();
             $table->rememberToken();
         });
+
+        DB::table('person')->insert([
+            'login' => 'admin',
+            'password' => Hash::make('admin'),
+            'name' => 'Admin',
+            'surname' => '',
+            'role' => 'admin'
+        ]);
     }
 
     /**
