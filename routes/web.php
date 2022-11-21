@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\StudiesOverviewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,8 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 
 // Logout
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+
+// Study overview
+Route::get('/studies-overview', function () {
+    return view('studiesOverview', ['courses' => (new StudiesOverviewController())->get()]);
+})->middleware('auth');

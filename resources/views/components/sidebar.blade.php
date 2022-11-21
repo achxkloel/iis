@@ -5,6 +5,6 @@
         <a href="{{ route('login') }}">Přihlásit se</a>
     @endif
     <a href="#">Profil</a>
-    <a href="#">Přehled studia</a>
+    <a href="/studies-overview">Přehled studia</a>
     <a href="#">Mé kurzy</a>
 </div>

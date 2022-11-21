@@ -14,6 +14,10 @@ body {
     padding: 20px;
 }
 
+.body-top-margin {
+    padding-top: 80px;
+}
+
 .sidenav {
     height: 100%;
     width: 200px;
@@ -28,6 +32,7 @@ body {
 
 .sidenav img {
     width: 100%;
+    padding: 0 20px;
 }
 
 .sidenav a {
@@ -41,6 +46,19 @@ body {
 
 .sidenav a:hover {
     color: #d3d3d3;
+}
+
+.title {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 200px;
+    background-color: #e1e1e1;
+    line-height: 26px;
+    padding: 17px 20px;
+    font-size: 26px;
 }
 
 form {
@@ -57,4 +75,16 @@ form {
 .login-card {
     display: table-cell;
     vertical-align: middle;
+}
+
+.table {
+    width: 100%;
+}
+
+.main-card {
+    width: 1000px;
+}
+
+.bold {
+    font-weight: bold;
 }
