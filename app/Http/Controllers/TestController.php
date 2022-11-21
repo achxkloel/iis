@@ -12,12 +12,12 @@ class TestController
         // Schema::create('users', function (Blueprint $table) {
         //     $table->id();
         // });
-        DB::table('person')->insert([
-            'login' => 'test',
-            'birth_number' => '30.11.2000',
-            'name' => "Petr",
-            "surname" => "Peringer"
-        ]);
+        // DB::table('person')->insert([
+        //     'login' => 'test',
+        //     'birth_number' => '30.11.2000',
+        //     'name' => "Petr",
+        //     "surname" => "Peringer"
+        // ]);
         
         return 'Steve';
     }

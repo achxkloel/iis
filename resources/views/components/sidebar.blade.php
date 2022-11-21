@@ -1,7 +1,10 @@
 <div class="sidenav">
+    {{-- TODO: opravneni --}}
     <a href="#"><img src="{{ URL::asset('img/logo.png') }}" alt=""></a>
-    <a href="#">Přihlásit se</a>
-    <a href="#">Další odkaz</a>
-    <a href="#">A další</a>
-    <a href="#">A ještě jeden</a>
+    @if(!Route::is('login'))
+        <a href="{{ route('login') }}">Přihlásit se</a>
+    @endif
+    <a href="#">Profil</a>
+    <a href="/studies-overview">Přehled studia</a>
+    <a href="#">Mé kurzy</a>
 </div>

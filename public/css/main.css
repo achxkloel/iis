@@ -14,6 +14,10 @@ body {
     padding: 20px;
 }
 
+.body-top-margin {
+    padding-top: 80px;
+}
+
 .sidenav {
     height: 100%;
     width: 200px;
@@ -23,21 +27,64 @@ body {
     left: 0;
     background-color: #2cb9f1;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .sidenav img {
     width: 100%;
+    padding: 0 20px;
 }
 
 .sidenav a {
-    padding: 6px 24px;
+    padding: 10px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     color: #ffffff;
     display: block;
+    border-bottom: 1px solid white;
 }
 
 .sidenav a:hover {
     color: #d3d3d3;
+}
+
+.title {
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 200px;
+    background-color: #e1e1e1;
+    line-height: 26px;
+    padding: 17px 20px;
+    font-size: 26px;
+}
+
+form {
+    width: 500px;
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+.login-card-container {
+    height: 100%;
+    display: table;
+}
+
+.login-card {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.table {
+    width: 100%;
+}
+
+.main-card {
+    width: 1000px;
+}
+
+.bold {
+    font-weight: bold;
 }
