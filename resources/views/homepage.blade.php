@@ -10,7 +10,9 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $course->shortcut }} - {{ $course->name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $course->guarantor }}</h6>
-                        <a href="#" class="card-link">Registrovat</a>
+                        @if(Auth::check() && (Auth::user()->role == 'student' || Auth::user()->role == 'admin'))
+                            <a href="#" class="card-link">Registrovat</a>
+                        @endif
                         <a href="#" class="card-link">Přejít na detail předmětu</a>
                     </div>
                 </div>

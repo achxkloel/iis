@@ -36,3 +36,13 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 Route::get('/studies-overview', function () {
     return view('studiesOverview', ['courses' => (new StudiesOverviewController())->get()]);
 })->middleware('auth')->name('studies-overview');
+
+// Profile
+Route::get('/profile', function () {
+    return view('profile');
+})->middleware('auth')->name('profile');
+
+// Profile edit
+Route::get('/profile/edit', function () {
+    return view('profileEdit');
+})->middleware('auth')->name('profile-edit');

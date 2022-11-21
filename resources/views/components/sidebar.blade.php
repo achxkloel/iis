@@ -8,7 +8,7 @@
         <a href="{{ route('logout') }}">Odhlásit se</a>
     @endif
     @if(Auth::check())
-        <a href="#">Profil</a>
+        <a href="{{ route('profile') }}">Profil</a>
     @endif
     @if(Auth::check() && (Auth::user()->role == 'student' || Auth::user()->role == 'admin'))
         <a href="{{ route('studies-overview') }}">Přehled studia</a>
