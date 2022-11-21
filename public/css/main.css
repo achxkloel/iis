@@ -23,7 +23,7 @@ body {
     left: 0;
     background-color: #2cb9f1;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding: 20px;
 }
 
 .sidenav img {
@@ -31,11 +31,12 @@ body {
 }
 
 .sidenav a {
-    padding: 6px 24px;
+    padding: 10px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 22px;
     color: #ffffff;
     display: block;
+    border-bottom: 1px solid white;
 }
 
 .sidenav a:hover {
