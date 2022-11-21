@@ -41,3 +41,19 @@ body {
 .sidenav a:hover {
     color: #d3d3d3;
 }
+
+form {
+    width: 500px;
+    padding: 20px;
+    margin-bottom: 0;
+}
+
+.login-card-container {
+    height: 100%;
+    display: table;
+}
+
+.login-card {
+    display: table-cell;
+    vertical-align: middle;
+}

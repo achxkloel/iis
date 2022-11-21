@@ -1,22 +1,36 @@
-<h1>Login</h1>
+<x-skeleton>
+    @if ($errors->has('login'))
+        <p>
+            <strong>{{ $errors->first('login') }}</strong>
+        </p>
+    @endif
+        <div class="login-card-container">
+            <div class="login-card">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Přihlásit se
+                    </div>
+                    <form action="{{ route('login') }}" method="post">
+                        @csrf
 
-@if ($errors->has('login'))
-    <p>
-        <strong>{{ $errors->first('login') }}</strong>
-    </p>
-@endif
+                        <!-- Email-->
+                        <div class="row mb-3">
+                            <label for="login" class="col-sm-2 col-form-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="login" name="login" value="{{ old('login') }}">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label for="password" class="col-sm-2 col-form-label">Heslo</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                        </div>
 
-<form  action="{{ route('login') }}"  method="post">
-    @csrf
-
-    <!-- Email-->
-    <label for="login">Login</label>
-    <input type="login" name="login" id="login" value="{{ old('login') }}" />
-
-    <!-- Password -->
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" />
-
-    <!-- Submit button -->
-    <button type="submit">Login</button>
-</form>
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary">Přihlásit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+</x-skeleton>
