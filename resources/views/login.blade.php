@@ -8,33 +8,33 @@
                     <form action="{{ route('login') }}" method="post">
                         @csrf
 
-                        @if ($errors->has('alert'))
+                        @error('alert')
                             <div class="alert alert-danger" role="alert">
-                                {{ $errors->first('alert') }}
+                                {{ $message }}
                             </div>
-                        @endif
+                        @enderror
 
                         <!-- Email-->
                         <div class="row mb-3">
                             <label for="login" class="col-sm-2 col-form-label required-label">Login</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}" aria-describedby="loginError">
-                                @if ($errors->has('login'))
+                                @error('login')
                                     <div id="loginError" class="invalid-feedback">
-                                        {{ $errors->first('login') }}
+                                        {{ $message }}
                                     </div>
-                                @endif
+                                @enderror
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label for="password" class="col-sm-2 col-form-label required-label">Heslo</label>
                             <div class="col-sm-10">
                                 <input type="password" class="form-control @error('password') is-invalid  @enderror" id="password" name="password" aria-describedby="passwordError">
-                                @if ($errors->has('password'))
+                                @error('password')
                                     <div id="passwordError" class="invalid-feedback">
-                                        {{ $errors->first('password') }}
+                                        {{ $message }}
                                     </div>
-                                @endif
+                                @enderror
                             </div>
                         </div>
                         <!-- Submit button -->
