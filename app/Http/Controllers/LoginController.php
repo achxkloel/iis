@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
+
     public function index () {
         return view('login');
     }
@@ -16,12 +19,9 @@ class LoginController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function auth(Request $request)
+    public function auth(LoginRequest $request)
     {
-        $credentials = $request->validate([
-            'login' => ['required'],
-            'password' => ['required']
-        ]);
+        $credentials = $request->validated();
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -30,7 +30,7 @@ class LoginController extends Controller
         }
         
         return back()->withErrors([
-            'login' => 'Wrong login or password.',
-        ])->onlyInput('login');
+            'alert' => 'Nesprávný login nebo heslo',
+        ]);
     }
 }
