@@ -10,7 +10,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $course->shortcut }} - {{ $course->name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ $course->guarantor }}</h6>
-                        <a href="#" class="card-link">Registrovat</a> {{-- TODO: opravneni --}}
+                        <a href="#" class="card-link">Registrovat</a>
                         <a href="#" class="card-link">Přejít na detail předmětu</a>
                     </div>
                 </div>

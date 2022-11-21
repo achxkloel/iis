@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 // Main
 Route::get('/', function () {
     return view('homepage', ['courses' => (new HomepageController())->get()]);
-})->middleware('auth');
+})->middleware('auth')->name('homepage');
 
 // Login
 
@@ -35,4 +35,4 @@ Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 // Study overview
 Route::get('/studies-overview', function () {
     return view('studiesOverview', ['courses' => (new StudiesOverviewController())->get()]);
-})->middleware('auth');
+})->middleware('auth')->name('studies-overview');
