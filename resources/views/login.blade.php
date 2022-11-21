@@ -20,7 +20,7 @@
                             <div class="col-sm-10">
                                 <input type="text" class="form-control @error('login') is-invalid @enderror" id="login" name="login" value="{{ old('login') }}" aria-describedby="loginError">
                                 @error('login')
-                                    <div id="loginError" class="invalid-feedback">
+                                    <div id="loginError" class="invalid-feedback text-start">
                                         {{ $message }}
                                     </div>
                                 @enderror
@@ -31,7 +31,7 @@
                             <div class="col-sm-10">
                                 <input type="password" class="form-control @error('password') is-invalid  @enderror" id="password" name="password" aria-describedby="passwordError">
                                 @error('password')
-                                    <div id="passwordError" class="invalid-feedback">
+                                    <div id="passwordError" class="invalid-feedback text-start">
                                         {{ $message }}
                                     </div>
                                 @enderror
