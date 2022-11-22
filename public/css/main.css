@@ -14,6 +14,10 @@ body {
     padding: 20px;
 }
 
+svg {
+    width: 20px;
+}
+
 .body-top-margin {
     padding-top: 80px;
 }
@@ -81,6 +85,10 @@ form {
     width: 100%;
 }
 
+.card {
+    margin-bottom: 20px;
+}
+
 .main-card {
     width: 1000px;
 }
@@ -93,9 +101,13 @@ form {
     width: 150px;
 }
 
-.registration-column {
+.button-column {
     width: 150px;
     text-align: center;
+}
+
+.small-button-column {
+    width: 20px;
 }
 
 .required-label::after {
