@@ -14,6 +14,6 @@
         <a href="{{ route('studies-overview') }}">Přehled studia</a>
     @endif
     @if(Auth::check() && (Auth::user()->role == 'teacher' || Auth::user()->role == 'admin'))
-        <a href="#">Mé kurzy</a>
+        <a href="{{ route('my-courses') }}">Mé kurzy</a>
     @endif
 </div>

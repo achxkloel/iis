@@ -10,7 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col">Termín</th>
-                    <th scope="col" class="registration-column">Registrace</th>
+                    <th scope="col" class="button-column">Registrace</th>
                 </tr>
             </thead>
             <tbody>

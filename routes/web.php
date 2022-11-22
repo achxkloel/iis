@@ -50,3 +50,13 @@ Route::get('/profile', function () {
 Route::get('/profile/edit', function () {
     return view('profile');
 })->middleware('auth')->name('profile-edit');
+
+// My courses
+Route::get('/my-courses', function () {
+    return view('myCourses');
+})->middleware('auth')->name('my-courses');
+
+// Course edit
+Route::get('/course-edit/{courseId}', function ($courseId) {
+    return view('courseEdit', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
+})->middleware('auth')->name('course-edit');
