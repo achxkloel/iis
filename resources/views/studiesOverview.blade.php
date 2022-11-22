@@ -16,7 +16,7 @@
             <tbody>
             @foreach($courses as $course)
                 <tr>
-                    <td class="bold">{{ $course->shortcut }}</td>
+                    <td class="bold"><a href="{{ route('course-overview', ['courseId' => $course->id]) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->guarantor }}</td>
                     <td>D</td>

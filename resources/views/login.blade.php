@@ -2,9 +2,9 @@
         <div class="login-card-container">
             <div class="login-card">
                 <div class="card text-center">
-                    <div class="card-header">
+                    <h5 class="card-header">
                         Přihlásit se
-                    </div>
+                    </h5>
                     <form action="{{ route('login') }}" method="post">
                         @csrf
 

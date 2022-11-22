@@ -89,7 +89,16 @@ form {
     font-weight: bold;
 }
 
-.required-label::after { 
+.table-button {
+    width: 150px;
+}
+
+.registration-column {
+    width: 150px;
+    text-align: center;
+}
+
+.required-label::after {
     content:"*";
     color:red;
     margin-left: 2px;
