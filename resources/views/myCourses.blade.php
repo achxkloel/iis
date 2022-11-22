@@ -17,7 +17,7 @@
                 <tr>
                     <td>Kurz 1</td>
                     <td><a href="{{ route('course-edit', ['courseId' => 0]) }}" class="table-button btn btn-primary">Upravit</a></td>
-                    <td><a class="table-button btn btn-primary">Správa registrací</a></td>
+                    <td><a href="{{ route('registration-management', ['courseId' => 0]) }}" class="table-button btn btn-primary">Správa registrací</a></td>
                 </tr>
                 <tr>
                     <td>Kurz 2</td>

@@ -60,3 +60,7 @@ Route::get('/my-courses', function () {
 Route::get('/course-edit/{courseId}', function ($courseId) {
     return view('courseEdit', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
 })->middleware('auth')->name('course-edit');
+
+Route::get('/registration-management/{courseId}', function ($courseId) {
+    return view('registrationManagement', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
+})->middleware('auth')->name('registration-management');
