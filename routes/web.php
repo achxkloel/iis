@@ -44,5 +44,5 @@ Route::get('/profile', function () {
 
 // Profile edit
 Route::get('/profile/edit', function () {
-    return view('profileEdit');
+    return view('profile');
 })->middleware('auth')->name('profile-edit');
