@@ -73,5 +73,7 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/persons', 'showPersons')->name('persons');
         Route::get('/person/create', 'showPersonForm')->name('create-person');
+        Route::post('/person/create', 'createNewPerson')->name('create-person');
+        Route::post('/person/checkLogin', 'checkLogin')->name('check-login');
         Route::get('/classes', 'showClasses')->name('classes');
     });

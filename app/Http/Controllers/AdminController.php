@@ -17,4 +17,12 @@ class AdminController extends Controller
     public function showPersonForm () {
         return view('admin.personCreate');
     }
+
+    public function createNewPerson () {
+        return back();
+    }
+
+    public function checkLogin () {
+        return back();
+    }
 }
