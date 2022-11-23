@@ -14,9 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('teacher_course', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('teacherID');
             $table->integer('courseID');
-            $table->primary(['teacherID', 'courseID']);
+            $table->timestamps();
             $table->foreign('teacherID')->references('id')->on('person');
             $table->foreign('courseID')->references('id')->on('course');
         });

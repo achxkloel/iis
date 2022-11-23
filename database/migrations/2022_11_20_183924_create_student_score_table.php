@@ -14,11 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('student_score', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('teacherID');
             $table->integer('studentID');
             $table->integer('termID');
             $table->integer('score')->default(0);
-            $table->primary(['teacherID', 'studentID', 'termID']);
+            $table->timestamps();
             $table->foreign('teacherID')->references('id')->on('person');
             $table->foreign('studentID')->references('id')->on('person');
             $table->foreign('termID')->references('id')->on('term');

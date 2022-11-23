@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('capacity');
             $table->integer('public')->default(0);
             $table->integer('guarantorID');
+            $table->timestamps();
             $table->foreign('guarantorID')->references('id')->on('person');
         });
     }

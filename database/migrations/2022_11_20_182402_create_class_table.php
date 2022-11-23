@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('type');
             $table->integer('capacity');
             $table->integer('floor')->nullable();
+            $table->timestamps();
         });
     }
 
