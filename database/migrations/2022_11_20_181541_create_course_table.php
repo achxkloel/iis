@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('type');
             $table->integer('price')->nullable();
             $table->integer('capacity');
-            $table->integer('public')->default(0);
+            $table->integer('is_public')->default(0);
+            $table->integer('allow_registration')->default(0);
             $table->integer('guarantorID');
             $table->timestamps();
             $table->foreign('guarantorID')->references('id')->on('person');

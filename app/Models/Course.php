@@ -2,15 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class Course extends Authenticatable
+class Course extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The table associated with the model.
      *
@@ -24,7 +19,8 @@ class Course extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'public' => false
+        'is_public' => false,
+        'allow_registration' => false
     ];
 
     /**
@@ -47,6 +43,7 @@ class Course extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'public' => 'boolean',
+        'is_public' => 'boolean',
+        'allow_registration' => 'boolean'
     ];
 }
