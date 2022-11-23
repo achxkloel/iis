@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Person;
@@ -28,5 +27,11 @@ class PersonTableSeeder extends Seeder
         ];
 
         Person::insert($users);
+
+        // Add roles
+        Person::where('login', 'admin')->first()->assignRole('admin', 'guarantor', 'teacher', 'student');
+        Person::where('login', 'guarantor')->first()->assignRole('guarantor', 'teacher', 'student');
+        Person::where('login', 'teacher')->first()->assignRole('teacher', 'student');
+        Person::where('login', 'student')->first()->assignRole('student');
     }
 }
