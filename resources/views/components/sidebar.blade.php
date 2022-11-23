@@ -16,6 +16,9 @@
     @if(Auth::check() && (Auth::user()->role == 'teacher' || Auth::user()->role == 'admin'))
         <a href="{{ route('my-courses') }}">Mé kurzy</a>
     @endif
+    @if(Auth::check() && in_array(Auth::user()->role,['teacher','student']))
+        <a href="{{ route('schedule')}}">Rozvrh</a>
+    @endif
 
     {{-- Admin --}}
     

@@ -42,6 +42,12 @@ Route::get('/studies-overview/{courseId}', function ($courseId) {
     return view('courseOverview', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
 })->middleware('auth')->name('course-overview');
 
+//student schedule
+Route::get('/schedule', function(){
+    return view('schedule');
+})->middleware('auth')->name('schedule');
+
+
 // Profile
 Route::get('/profile', function () {
     return view('profile');
