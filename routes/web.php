@@ -4,6 +4,7 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\StudiesOverviewController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,3 +65,14 @@ Route::get('/course-edit/{courseId}', function ($courseId) {
 Route::get('/registration-management/{courseId}', function ($courseId) {
     return view('registrationManagement', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
 })->middleware('auth')->name('registration-management');
+
+// Admin
+Route::prefix('admin')
+    ->name('admin-')
+    ->middleware('auth', 'role:admin')
+    ->controller(AdminController::class)
+    ->group(function () {
+        Route::get('/persons', 'showPersons')->name('persons');
+        Route::get('/person/create', 'showPersonForm')->name('create-person');
+        Route::get('/classes', 'showClasses')->name('classes');
+    });

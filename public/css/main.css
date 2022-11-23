@@ -115,3 +115,9 @@ form {
     color:red;
     margin-left: 2px;
  }
+ 
+.table td.fit, 
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}
