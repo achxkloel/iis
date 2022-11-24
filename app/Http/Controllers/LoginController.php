@@ -30,6 +30,6 @@ class LoginController extends Controller
 
         return back()->withErrors([
             'alert' => 'Nesprávný login nebo heslo',
-        ]);
+        ])->onlyInput('login');
     }
 }
