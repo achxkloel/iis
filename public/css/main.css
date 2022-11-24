@@ -66,13 +66,17 @@ svg {
 }
 
 form {
-    width: 500px;
     padding: 20px;
     margin-bottom: 0;
 }
 
+.fulltext-bar {
+    width: 700px;
+}
+
 .login-card-container {
     height: 100%;
+    width: 500px;
     display: table;
 }
 
@@ -115,8 +119,12 @@ form {
     color:red;
     margin-left: 2px;
  }
- 
-.table td.fit, 
+
+.shortcut-column {
+    width: 50px;
+}
+
+.table td.fit,
 .table th.fit {
     white-space: nowrap;
     width: 1%;

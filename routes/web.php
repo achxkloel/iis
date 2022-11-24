@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\MyCoursesController;
 use App\Http\Controllers\StudiesOverviewController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
@@ -19,9 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Main
-Route::get('/', function () {
-    return view('homepage', ['courses' => (new HomepageController())->getAllCourses()]);
-})->middleware('auth')->name('homepage');
+Route::get('/', [HomepageController::class, 'getCourses'])->middleware('auth')->name('homepage');
 
 // Login
 Route::middleware('guest')->controller(LoginController::class)->group(function () {
@@ -33,13 +32,9 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
 // Study overview
-Route::get('/studies-overview', function () {
-    return view('studiesOverview', ['courses' => (new StudiesOverviewController())->get()]);
-})->middleware('auth')->name('studies-overview');
+Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->middleware('auth')->name('studies-overview');
 
-Route::get('/studies-overview/{courseId}', function ($courseId) {
-    return view('courseOverview', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
-})->middleware('auth')->name('course-overview');
+Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->middleware('auth')->name('course-overview');
 
 // Profile
 Route::get('/profile', function () {
@@ -52,18 +47,12 @@ Route::get('/profile/edit', function () {
 })->middleware('auth')->name('profile-edit');
 
 // My courses
-Route::get('/my-courses', function () {
-    return view('myCourses');
-})->middleware('auth')->name('my-courses');
+Route::get('/my-courses', [MyCoursesController::class, 'get'])->middleware('auth')->name('my-courses');
 
 // Course edit
-Route::get('/course-edit/{courseId}', function ($courseId) {
-    return view('courseEdit', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
-})->middleware('auth')->name('course-edit');
+Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->middleware('auth')->name('course-edit');
 
-Route::get('/registration-management/{courseId}', function ($courseId) {
-    return view('registrationManagement', ['course' => (new StudiesOverviewController())->getCourse($courseId)]);
-})->middleware('auth')->name('registration-management');
+Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->middleware('auth')->name('registration-management');
 
 // Admin
 Route::prefix('admin')
