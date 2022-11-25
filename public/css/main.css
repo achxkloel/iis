@@ -124,6 +124,10 @@ form {
     width: 50px;
 }
 
+.number-input {
+    width: 150px;
+}
+
 .table td.fit,
 .table th.fit {
     white-space: nowrap;

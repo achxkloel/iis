@@ -10,7 +10,7 @@
                     <th scope="col"></th>
                     <th scope="col" class="button-column"></th>
                     <th scope="col" class="button-column">
-                        <a class="table-button btn btn-primary">Nový kurz</a>
+                        <a href="{{ route('course-create') }}" class="table-button btn btn-primary">Nový kurz</a>
                     </th>
                 </tr>
             </thead>

@@ -37,21 +37,19 @@ Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->midd
 Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->middleware('auth')->name('course-overview');
 
 // Profile
-Route::get('/profile', function () {
-    return view('profile');
-})->middleware('auth')->name('profile');
+Route::get('/profile', fn() => view('profile'))->middleware('auth')->name('profile');
 
 // Profile edit
-Route::get('/profile/edit', function () {
-    return view('profile');
-})->middleware('auth')->name('profile-edit');
+Route::get('/profile/edit', fn() => view('profile'))->middleware('auth')->name('profile-edit');
 
 // My courses
 Route::get('/my-courses', [MyCoursesController::class, 'get'])->middleware('auth')->name('my-courses');
 
 // Course edit
 Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->middleware('auth')->name('course-edit');
-
+Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->middleware('auth')->name('course-edit');
+Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->middleware('auth')->name('course-create');
+Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->middleware('auth')->name('course-create');
 Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->middleware('auth')->name('registration-management');
 
 // Admin
