@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -53,6 +54,12 @@ class AdminController extends Controller
             'login' => $data['login'],
             'password' => $password
         ]);
+    }
+
+    public function deletePerson (Request $request) {
+        Log::debug($request->input('id'));
+        Person::where('id', $request->input('id'))->delete();
+        return back();
     }
 
     public function checkLogin (Request $request) {
