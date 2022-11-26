@@ -21,6 +21,9 @@ return new class extends Migration
             $table->integer('score');
             $table->dateTime('date_from');
             $table->dateTime('date_to');
+            // $table->dateTime('duration_from');
+            // $table->dateTime('duration_to');
+            // $table->string('day');
             $table->integer('capacity');
             $table->integer('open')->default(0);
             $table->integer('courseID');

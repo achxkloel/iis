@@ -17,6 +17,7 @@ return new class extends Migration
             $table->increments('id');
             $table->integer('studentID');
             $table->integer('courseID');
+            $table->integer('is_active')->default(0);
             $table->timestamps();
             $table->foreign('studentID')->references('id')->on('person')->onDelete('cascade');
             $table->foreign('courseID')->references('id')->on('course')->onDelete('cascade');

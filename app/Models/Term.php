@@ -53,7 +53,9 @@ class Term extends Model
      */
     protected $dates = [
         'date_from',
-        'date_to'
+        'date_to',
+        // 'duration_from',
+        // 'duration_to'
     ];
 
     public function class() {
