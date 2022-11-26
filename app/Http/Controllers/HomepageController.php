@@ -17,4 +17,8 @@ class HomepageController
 
         return view('homepage', ['courses' => $courses]);
     }
+
+    public function regCourse(Request $reauest) {
+        
+    }
 }
