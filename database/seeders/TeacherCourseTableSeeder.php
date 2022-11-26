@@ -18,14 +18,16 @@ class TeacherCourseTableSeeder extends Seeder
     }
 
     public function createDefaultTeacherCourse (): void {
-        $classes = [
-            ['name' => 'Domaci uloha', 'description' => 'Domaci uloha', 'type' => 'practical', 'capacity' => 0, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'A100', 'description' => 'Short description', 'type' => 'practical', 'capacity' => 20, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'B100', 'description' => 'Short description', 'type' => 'laboratory', 'capacity' => 10, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'C200', 'description' => 'Short description', 'type' => 'auditorium', 'capacity' => 200, 'floor' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['name' => 'D300', 'description' => 'Short description', 'type' => 'auditorium', 'capacity' => 100, 'floor' => 3, 'created_at' => now(), 'updated_at' => now()]
+        $teacher_courses = [
+            ['teacherID' => 8, 'courseID' => 1],
+            ['teacherID' => 4, 'courseID' => 1],
+            ['teacherID' => 4, 'courseID' => 2],
+            ['teacherID' => 9, 'courseID' => 2],
+            ['teacherID' => 3, 'courseID' => 2],
+            ['teacherID' => 10, 'courseID' => 3],
+            ['teacherID' => 10, 'courseID' => 4]
         ];
 
-        TeacherCourse::insert($classes);
+        TeacherCourse::insert($teacher_courses);
     }
 }
