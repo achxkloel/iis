@@ -26,6 +26,8 @@ Route::get('/', [HomepageController::class, 'getCourses'])->middleware('auth')->
 Route::middleware('guest')->controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/login', 'auth')->name('login');
+    Route::get('/activate', 'showActivatePage')->name('activate');
+    Route::post('/activate', 'activatePerson')->name('activate');
 });
 
 // Logout
@@ -61,5 +63,8 @@ Route::prefix('admin')
     ->group(function () {
         Route::get('/persons', 'showPersons')->name('persons');
         Route::get('/person/create', 'showPersonForm')->name('create-person');
+        Route::post('/person/create', 'createNewPerson')->name('create-person');
+        Route::delete('/person/delete', 'deletePerson')->name('delete-person');
+        Route::post('/person/checkLogin', 'checkLogin')->name('check-login');
         Route::get('/classes', 'showClasses')->name('classes');
     });
