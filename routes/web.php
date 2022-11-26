@@ -27,6 +27,8 @@ Route::get('/', function () {
 Route::middleware('guest')->controller(LoginController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/login', 'auth')->name('login');
+    Route::get('/activate', 'showActivatePage')->name('activate');
+    Route::post('/activate', 'activatePerson')->name('activate');
 });
 
 // Logout
