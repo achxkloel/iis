@@ -2,24 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Log;
-use Laravel\Sanctum\HasApiTokens;
-use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Person extends Authenticatable
+class Term extends Model
 {
-    use HasRoles, HasApiTokens, HasFactory, Notifiable;
-
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'person';
+    protected $table = 'term';
 
     /**
      * The model's default values for attributes.
@@ -27,7 +20,7 @@ class Person extends Authenticatable
      * @var array
      */
     protected $attributes = [
-        'is_active' => false
+        'open' => false
     ];
 
     /**
@@ -42,10 +35,7 @@ class Person extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token'
-    ];
+    protected $hidden = [];
 
     /**
      * The attributes that should be cast.
@@ -53,6 +43,20 @@ class Person extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'is_active' => 'boolean',
+        'open' => 'boolean'
     ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'date_from',
+        'date_to'
+    ];
+
+    public function class() {
+        return $this->belongsTo(Classroom::class, 'classID');
+    }
 }
