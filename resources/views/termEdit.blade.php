@@ -39,6 +39,17 @@
                 </div>
             </div>
             <div class="mb-3 row">
+                <label for="room" class="col-sm-2 col-form-label">Místnost</label>
+                <div class="col-sm-10">
+                    <select id="room" name="room" class="form-select">
+                        <option>Nevybráno</option>
+                        @foreach($rooms as $room)
+                            <option @if($room->id == $term->classID) selected @endif value="{{ $room->id }}">{{ $room->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="mb-3 row">
                 <label for="score" class="col-sm-2 col-form-label required-label">Max. bodů</label>
                 <div class="col-sm-10">
                     <input id="score" name="score" class="form-control @error('score') is-invalid @enderror" type="text" value="{{ $term->score }}">

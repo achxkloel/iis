@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
 use App\Http\Requests\TermRequest;
+use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Term;
 use DateTime;
@@ -51,11 +52,11 @@ class MyCoursesController
     }
 
     function getTerm($courseId, $termId) {
-        return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId)]);
+        return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId), 'rooms' => Classroom::all()]);
     }
 
     public function newTerm($courseId) {
-        return view('termEdit', ['courseId' => $courseId, 'term' => new Term()]);
+        return view('termEdit', ['courseId' => $courseId, 'term' => new Term(), 'rooms' => Classroom::all()]);
     }
 
     function deleteCourseTerm($courseId, $termId) {
@@ -84,6 +85,7 @@ class MyCoursesController
             'date_to' => $request->input('date-to'),
             'capacity' => (int)$request->input('capacity'),
             'courseID' => $courseId,
+            'classID' => $request->input('room') != 0 ? $request->input('room') : null,
             'teacherID' => Auth::id()
         ]);
 
@@ -100,6 +102,7 @@ class MyCoursesController
             'date_to' => $request->input('date-to'),
             'capacity' => (int)$request->input('capacity'),
             'courseID' => $courseId,
+            'classID' => (int)$request->input('room') != 0 ? $request->input('room') : null,
             'teacherID' => Auth::id()
         ]);
 
