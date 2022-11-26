@@ -19,41 +19,58 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Main
-Route::get('/', [HomepageController::class, 'getCourses'])->middleware('auth')->name('homepage');
+// Main page (for all users)
+Route::get('/', [HomepageController::class, 'getCourses'])->name('homepage');
 
-// Login
+// Only for guests
 Route::middleware('guest')->controller(LoginController::class)->group(function () {
+    // Login page
     Route::get('/login', 'index')->name('login');
     Route::post('/login', 'auth')->name('login');
+
+    // Account activation page
     Route::get('/activate', 'showActivatePage')->name('activate');
     Route::post('/activate', 'activatePerson')->name('activate');
 });
 
-// Logout
-Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
+// Only for authorized users
+Route::middleware('auth')->group(function () {
+    // Logout
+    Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
-// Study overview
-Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->middleware('auth')->name('studies-overview');
+    // Study overview page
+    Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->name('studies-overview');
+    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
 
-Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->middleware('auth')->name('course-overview');
+    // Profile
+    Route::get('/profile', fn() => view('profile'))->name('profile');
 
-// Profile
-Route::get('/profile', fn() => view('profile'))->middleware('auth')->name('profile');
+    // Profile edit
+    Route::get('/profile/edit', fn() => view('profile'))->name('profile-edit');
 
-// Profile edit
-Route::get('/profile/edit', fn() => view('profile'))->middleware('auth')->name('profile-edit');
+    // All roles except student
+    Route::middleware('hasRole:teacher')->group(function () {
+        // Courses
+        Route::get('/my-courses', [MyCoursesController::class, 'get'])->name('my-courses');
+        Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->name('course-edit');
+        Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->name('course-edit');
+        Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');
+        Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
+        Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management');
 
-// My courses
-Route::get('/my-courses', [MyCoursesController::class, 'get'])->middleware('auth')->name('my-courses');
+        // Terms
+        Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->name('course-edit-term');
+        Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->name('course-new-term');
+        Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->name('course-new-term');
+        Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->name('course-delete-term');
+    });
 
-// Course edit
-Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->middleware('auth')->name('course-edit');
-Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->middleware('auth')->name('course-edit');
-Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->middleware('auth')->name('course-create');
-Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->middleware('auth')->name('course-create');
-Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
-Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->middleware('auth')->name('registration-management');
+    // Term create/edit/delete
+    Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->middleware('auth')->name('course-edit-term');
+    Route::post('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'updateTerm'])->middleware('auth')->name('course-edit-term');
+    Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->middleware('auth')->name('course-new-term');
+    Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->middleware('auth')->name('course-new-term');
+    Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
 
 // Admin
 Route::prefix('admin')
