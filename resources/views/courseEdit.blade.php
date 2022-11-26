@@ -69,35 +69,21 @@
             <table class="table align-middle">
                 <thead>
                     <tr>
-                        <th scope="col">Termín</th>
-                        <th scope="col">Typ registrace</th>
                         <th scope="col">Čas</th>
+                        <th scope="col">Typ</th>
                         <th scope="col">Místnost</th>
                         <th scope="col" class="small-button-column"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Termín 1</td>
-                        <td>automaticky</td>
-                        <td>út 09-11</td>
-                        <td>D105</td>
-                        <td><x-go-trash-24 /></td> {{-- TODO: on click actions --}}
-                    </tr>
-                    <tr>
-                        <td>Termín 2</td>
-                        <td>ručně</td>
-                        <td>st 12-14</td>
-                        <td>E112</td>
-                        <td><x-go-trash-24 /></td>
-                    </tr>
-                    <tr>
-                        <td>Termín 3</td>
-                        <td>ručně</td>
-                        <td>čt 10-12</td>
-                        <td>D105</td>
-                        <td><x-go-trash-24 /></td>
-                    </tr>
+                    @foreach($terms as $term)
+                        <tr>
+                            <td>út 09-11</td>
+                            <td>{{ $term->type }}</td>
+                            <td>{{ $term->class?->name }}</td>
+                            <td><x-go-trash-24 /></td> {{-- TODO: on click actions --}}
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
             <div class="d-grid gap-2 col-6 mx-auto">

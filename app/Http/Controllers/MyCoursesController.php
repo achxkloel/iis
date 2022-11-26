@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
+use App\Models\Classroom;
 use App\Models\Course;
+use App\Models\Term;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MyCoursesController
 {
@@ -14,7 +17,9 @@ class MyCoursesController
     }
 
     public function getCourse($id) {
-        return view('courseEdit', ['course' => Course::find($id)]);
+        $courses = Course::find($id);
+        $terms = Term::all();
+        return view('courseEdit', ['course' => $courses, 'terms' => $terms]);
     }
 
     public function newCourse() {

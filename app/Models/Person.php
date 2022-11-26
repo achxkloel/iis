@@ -55,10 +55,4 @@ class Person extends Authenticatable
     protected $casts = [
         'is_active' => 'boolean',
     ];
-
-    public function courses($id): HasMany {
-        // TODO: maybe to delete, it wasn't needed after all
-        Log::debug($this->hasMany(Course::class, 'guarantorID')->where('guarantorID', $id)->first());
-        return $this->hasMany(Course::class, 'guarantorID')->where('guarantorID', $id);
-    }
 }
