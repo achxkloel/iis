@@ -44,14 +44,10 @@ Route::middleware('auth')->group(function () {
 
     // Profile
     Route::get('/profile', fn() => view('profile'))->name('profile');
-
-    //student schedule
-Route::get('/schedule', function(){
-    return view('schedule');
-})->middleware('auth')->name('schedule');
-
-    // Profile edit
     Route::get('/profile/edit', fn() => view('profile'))->name('profile-edit');
+
+    // Schedule
+    Route::get('/schedule', [ScheduleController::class, 'get'])->name('schedule');
 
     // All roles except student
     Route::middleware('hasRole:teacher')->group(function () {
