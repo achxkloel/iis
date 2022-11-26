@@ -82,8 +82,13 @@ form {
     width: 500px;
 }
 
+.fulltext-bar {
+    width: 700px;
+}
+
 .login-card-container {
     height: 100%;
+    width: 500px;
     display: table;
 }
 
@@ -126,8 +131,16 @@ form {
     color:red;
     margin-left: 2px;
  }
- 
-.table td.fit, 
+
+.shortcut-column {
+    width: 50px;
+}
+
+.number-input {
+    width: 150px;
+}
+
+.table td.fit,
 .table th.fit {
     white-space: nowrap;
     width: 1%;

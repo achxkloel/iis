@@ -27,9 +27,9 @@ return new class extends Migration
             $table->integer('classID')->nullable();
             $table->integer('teacherID');
             $table->timestamps();
-            $table->foreign('courseID')->references('id')->on('course');
-            $table->foreign('classID')->references('id')->on('class');
-            $table->foreign('teacherID')->references('id')->on('person');
+            $table->foreign('courseID')->references('id')->on('course')->onDelete('cascade');
+            $table->foreign('classID')->references('id')->on('class')->onDelete('cascade');
+            $table->foreign('teacherID')->references('id')->on('person')->onDelete('cascade');
         });
     }
 

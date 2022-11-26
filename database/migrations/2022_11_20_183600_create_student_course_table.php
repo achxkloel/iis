@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('studentID');
             $table->integer('courseID');
             $table->timestamps();
-            $table->foreign('studentID')->references('id')->on('person');
-            $table->foreign('courseID')->references('id')->on('course');
+            $table->foreign('studentID')->references('id')->on('person')->onDelete('cascade');
+            $table->foreign('courseID')->references('id')->on('course')->onDelete('cascade');
         });
     }
 

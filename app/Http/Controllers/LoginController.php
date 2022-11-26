@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ActivateRequest;
@@ -19,8 +19,8 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param LoginRequest $request
+     * @return RedirectResponse
      */
     public function auth(LoginRequest $request)
     {
@@ -29,7 +29,7 @@ class LoginController extends Controller
         if (!Auth::attempt($credentials)) {
             return back()->withErrors([
                 'alert' => 'Nesprávný login nebo heslo',
-            ]);
+            ])->onlyInput('login');
         }
 
         if (!Auth::user()->is_active) {
@@ -37,7 +37,7 @@ class LoginController extends Controller
 
             return back()->withErrors([
                 'alert' => 'Účet není aktivovaný'
-            ]);
+            ])->onlyInput('login');
         }
 
         $request->session()->regenerate();
