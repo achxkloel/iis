@@ -52,7 +52,7 @@
             <div class="mb-3 row">
                 <label for="date-from" class="col-sm-2 col-form-label required-label">Od</label>
                 <div class="col-sm-10">
-                    <input id="date-from" name="date-from" class="form-control @error('date-from') is-invalid @enderror" type="text" value="{{ $term->dateFrom }}">
+                    <input id="date-from" name="date-from" class="form-control @error('date-from') is-invalid @enderror" type="datetime-local" value="{{ $term->dateFrom }}">
                     @error('date-from')
                         <div class="invalid-feedback text-start">
                             {{ $message }}
@@ -63,7 +63,7 @@
             <div class="mb-3 row">
                 <label for="date-to" class="col-sm-2 col-form-label required-label">Do</label>
                 <div class="col-sm-10">
-                    <input id="date-to" name="date-to" class="form-control @error('date-to') is-invalid @enderror" type="text" value="{{ $term->dateTo }}">
+                    <input id="date-to" name="date-to" class="form-control @error('date-to') is-invalid @enderror" type="datetime-local" value="{{ $term->dateTo }}">
                     @error('date-to')
                         <div class="invalid-feedback text-start">
                             {{ $message }}

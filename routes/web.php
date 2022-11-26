@@ -65,6 +65,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->name('course-delete-term');
     });
 
+    // Term create/edit/delete
+    Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->middleware('auth')->name('course-edit-term');
+    Route::post('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'updateTerm'])->middleware('auth')->name('course-edit-term');
+    Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->middleware('auth')->name('course-new-term');
+    Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->middleware('auth')->name('course-new-term');
+    Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
+
     // Admin page
     Route::prefix('admin')
         ->name('admin-')
@@ -80,5 +87,5 @@ Route::middleware('auth')->group(function () {
 
             // Classes
             Route::get('/classes', 'showClasses')->name('classes');
-    });
+        });
 });

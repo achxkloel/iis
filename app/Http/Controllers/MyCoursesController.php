@@ -6,6 +6,8 @@ use App\Http\Requests\CourseRequest;
 use App\Http\Requests\TermRequest;
 use App\Models\Course;
 use App\Models\Term;
+use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class MyCoursesController
@@ -68,19 +70,39 @@ class MyCoursesController
         return view('registrationManagement', ['course' => Course::all()->where('id', $id)->first()]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function createTerm($courseId, TermRequest $request) {
+        // TODO: dates
         Term::create([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'description' => $request->input('description'),
             'score' => (int)$request->input('score'),
-            'date_from' => now(),
-            'date_to' => now(),
+            'date_from' => new DateTime($request->input('date-from')),
+            'date_to' => $request->input('date-to'),
             'capacity' => (int)$request->input('capacity'),
             'courseID' => $courseId,
             'teacherID' => Auth::id()
         ]);
 
-        return redirect('my-courses');
+        return redirect('course-edit/'.$courseId);
+    }
+
+    function updateTerm(TermRequest $request, $courseId, $termId) {
+        Term::find($termId)->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'description' => $request->input('description'),
+            'score' => (int)$request->input('score'),
+            'date_from' => $request->input('date-from'),
+            'date_to' => $request->input('date-to'),
+            'capacity' => (int)$request->input('capacity'),
+            'courseID' => $courseId,
+            'teacherID' => Auth::id()
+        ]);
+
+        return redirect('course-edit/'.$courseId);
     }
 }
