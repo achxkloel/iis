@@ -47,8 +47,7 @@ class LoginController extends Controller
     public function activatePerson (ActivateRequest $request) {
         $validated = $request->validated();
 
-        Log::debug($validated);
-        $person = Person::where('login', $validated->login)->first();
+        $person = Person::where('login', $validated['login'])->first();
 
         if (!$person) {
             return back()->withErrors([
@@ -56,14 +55,20 @@ class LoginController extends Controller
             ])->onlyInput('login');
         }
 
-        if (!Hash::check($validated->tempPassword, $person->password)) {
+        if (!Hash::check($validated['tempPassword'], $person->password)) {
             return back()->withErrors([
                 'alert' => 'Špatné dočasné heslo'
             ]);
         }
 
+        if ($person->is_active) {
+            return back()->withErrors([
+                'alert' => 'Účet už aktivovaný'
+            ]);
+        }
+
         $person->is_active = true;
-        $person->password = Hash::make($validated->newPassword);
+        $person->password = Hash::make($validated['newPassword']);
         $person->save();
 
         return redirect('login')->with([
