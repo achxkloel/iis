@@ -72,22 +72,23 @@ Route::middleware('auth')->group(function () {
     Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->middleware('auth')->name('course-new-term');
     Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
 
-// Admin
-Route::prefix('admin')
-    ->name('admin-')
-    ->middleware('auth', 'role:admin')
-    ->controller(AdminController::class)
-    ->group(function () {
-        // Users
-        Route::get('/persons', 'showPersons')->name('persons');
-        Route::get('/person/create', 'showPersonForm')->name('create-person');
-        Route::post('/person/create', 'createNewPerson')->name('create-person');
-        Route::delete('/person/delete', 'deletePerson')->name('delete-person');
-        Route::post('/person/checkLogin', 'checkLogin')->name('check-login');
+    // Admin
+    Route::prefix('admin')
+        ->name('admin-')
+        ->middleware('auth', 'role:admin')
+        ->controller(AdminController::class)
+        ->group(function () {
+            // Users
+            Route::get('/persons', 'showPersons')->name('persons');
+            Route::get('/person/create', 'showPersonForm')->name('create-person');
+            Route::post('/person/create', 'createNewPerson')->name('create-person');
+            Route::delete('/person/delete', 'deletePerson')->name('delete-person');
+            Route::post('/person/checkLogin', 'checkLogin')->name('check-login');
 
-        // Classes
-        Route::get('/classes', 'showClasses')->name('classes');
-        Route::get('/class/create', 'showClassForm')->name('create-class');
-        Route::post('/class/create', 'createNewClass')->name('create-class');
-        Route::delete('/class/delete', 'deleteClass')->name('delete-class');
-    });
+            // Classes
+            Route::get('/classes', 'showClasses')->name('classes');
+            Route::get('/class/create', 'showClassForm')->name('create-class');
+            Route::post('/class/create', 'createNewClass')->name('create-class');
+            Route::delete('/class/delete', 'deleteClass')->name('delete-class');
+        });
+});
