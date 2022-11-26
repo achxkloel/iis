@@ -8,6 +8,12 @@
                 <form action="{{ route('login') }}" method="post">
                     @csrf
 
+                    @if (Session::has('activated'))
+                        <div class="alert alert-success" role="alert">
+                            {{ Session::get('activated') }}
+                        </div>
+                    @endif
+
                     @error('alert')
                         <div class="alert alert-danger" role="alert">
                             {{ $message }}

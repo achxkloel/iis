@@ -73,6 +73,7 @@
                         <th scope="col">Typ</th>
                         <th scope="col">Místnost</th>
                         <th scope="col" class="small-button-column"></th>
+                        <th scope="col" class="small-button-column"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -81,13 +82,14 @@
                             <td>{{ $term->name }}</td>
                             <td>{{ $term->type }}</td>
                             <td>{{ $term->class?->name }}</td>
-                            <td><a href="{{ route('course-delete-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-trash-24 /></a></td> {{-- TODO: on click actions --}}
+                            <td><a href="{{ route('course-edit-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-pencil-24 /></a></td>
+                            <td><a href="{{ route('course-delete-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-trash-24 /></a></td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="d-grid gap-2 col-6 mx-auto">
-                <a href="{{ route('my-courses') }}" class="btn btn-primary">Nový termín</a>
+                <a href="{{ route('course-new-term', ['courseId' => $course->id]) }}" class="btn btn-primary">Nový termín</a>
             </div>
         </x-card>
         <x-card>
