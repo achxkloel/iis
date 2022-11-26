@@ -33,6 +33,13 @@
                 </tr>
                 <tr>
                     <th class="table-dark text-center align-middle" scope="row">Úterý</th>
+                    <td colspan="2" style="padding: 0">
+                        <p class="bg-primary" style="height: 50px; font-size: 15">ISA cviceni</p>
+                        <p class="bg-success" style="height: 50px">IMP cviceni</p>
+                    </td>
+                    <td style="padding: 0">
+                        <div class="bg-success" style="height: 50px">IMP cviceni</div>
+                    </td>
                 </tr>
                 <tr >
                     <th class="table-dark text-center align-middle" scope="row">Středa</th>
