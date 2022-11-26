@@ -3,27 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Classroom;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonRequest;
+use App\Http\Requests\CreateClassRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
-    // Validation rules for login
-    private $login_rules = 'required|min';
-
     public function showPersons () {
         return view('admin.persons', ['persons' => Person::all()]);
     }
 
     public function showClasses () {
-        return view('admin.classes');   
+        return view('admin.classes', ['classes' => Classroom::all()]);
     }
 
     public function showPersonForm () {
         return view('admin.personCreate');
+    }
+
+    public function showClassForm () {
+        return view('admin.classCreate');
     }
 
     public function createNewPerson (CreatePersonRequest $request) {
@@ -56,14 +59,25 @@ class AdminController extends Controller
         ]);
     }
 
+    public function createNewClass (CreateClassRequest $request) {
+        $data = $request->validated();
+
+        Classroom::create($data);
+
+        return redirect()->route('admin-classes')->with([
+            'success' => true,
+            'name' => $data['name']
+        ]);
+    }
+
     public function deletePerson (Request $request) {
-        Log::debug($request->input('id'));
         Person::where('id', $request->input('id'))->delete();
         return back();
     }
 
-    public function checkLogin (Request $request) {
-        return response()->json([ 'msg' => 'test' ]);
+    public function deleteClass (Request $request) {
+        Classroom::where('id', $request->input('id'))->delete();
+        return back();
     }
 
     private function getRolesList (string $role) {

@@ -44,7 +44,7 @@ class CreatePersonRequest extends FormRequest
     {
         return [
             'login.required' => 'Prazdný login',
-            'login.min' => 'Přilíš kratký login (min: 6)',
+            'login.min' => 'Přilíš kratký login (min: :min)',
             'login.regex' => 'Login obsahuje nepovolené znaky',
             'name.required' => 'Prazdné jméno',
             'surname.required' => 'Prazdné příjmení',
