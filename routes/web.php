@@ -43,8 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     // Study overview page
-    Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->name('studies-overview');
+    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview');
     Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
+    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm');
+    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm');
 
     // Profile
     Route::get('/profile', fn() => view('profile'))->name('profile');

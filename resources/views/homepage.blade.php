@@ -1,5 +1,10 @@
 <x-skeleton>
     <div style="display: flex; flex-direction: column; align-items: center">
+        @if (Session::has('register_error'))
+            <div style="width:100%" class="alert alert-danger" role="alert">
+                {{ Session::get('register_error') }}
+            </div>
+        @endif
         <form action="{{ route('homepage') }}" method="GET" class="fulltext-bar">
             <div class="input-group mb-3">
                 <input name="fulltext" type="text" class="form-control" placeholder="Vyhledávání v předmětech">

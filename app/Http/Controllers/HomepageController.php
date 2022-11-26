@@ -31,6 +31,9 @@ class HomepageController
                 'courseID'=>$courseID,
             ]);
         }
-        return redirect('/');
+        else{
+            return redirect()->route('homepage')->with(['register_error'=>'Kurz už je zaregistrovaný']);
+        }
+        return redirect()->route('homepage');
     }
 }
