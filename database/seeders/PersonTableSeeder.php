@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Person;
 
@@ -20,7 +18,7 @@ class PersonTableSeeder extends Seeder
         $this->createDefaultUsers();
     }
 
-    public function createDefaultUsers () {
+    public function createDefaultUsers (): void {
         $users = [
             ['login' => 'admin', 'password' => Hash::make('admin'), 'name' => 'Admin', 'surname' => '', 'role' => 'admin', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()], // 'phone_number' => '789 456 132', 'email' => 'testing@mail.cz'
             ['login' => 'student', 'password' => Hash::make('student'), 'name' => 'Student', 'surname' => '', 'role' => 'student', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
@@ -29,5 +27,11 @@ class PersonTableSeeder extends Seeder
         ];
 
         Person::insert($users);
+
+        // Add roles
+        Person::where('login', 'admin')->first()->assignRole('admin', 'guarantor', 'teacher', 'student');
+        Person::where('login', 'guarantor')->first()->assignRole('guarantor', 'teacher', 'student');
+        Person::where('login', 'teacher')->first()->assignRole('teacher', 'student');
+        Person::where('login', 'student')->first()->assignRole('student');
     }
 }

@@ -11,6 +11,7 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "spatie/laravel-permission": "^5.7",
         "twbs/bootstrap": "5.2.2"
     },
     "require-dev": {

@@ -2,16 +2,48 @@
 
 namespace App\Models;
 
-class Course
+use Illuminate\Database\Eloquent\Model;
+
+class Course extends Model
 {
-    public int $id;
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'course';
 
-    public string $shortcut, $name, $guarantor;
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'is_public' => false,
+        'allow_registration' => false
+    ];
 
-    public function __construct($id, $shortcut, $name, $guarantor) {
-        $this->id = $id;
-        $this->shortcut = $shortcut;
-        $this->name = $name;
-        $this->guarantor = $guarantor;
-    }
+    /**
+     * The attributes that are not mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var array<int, string>
+     */
+    protected $hidden = [];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'is_public' => 'boolean',
+        'allow_registration' => 'boolean'
+    ];
 }
