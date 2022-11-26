@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MyCoursesController;
 use App\Http\Controllers\StudiesOverviewController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*

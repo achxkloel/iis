@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class StudiesOverviewController
+class ScheduleController
 {
     public function get() {
         return view('schedule');
