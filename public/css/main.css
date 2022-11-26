@@ -6,6 +6,7 @@ html, body {
 
 html {
     display: table;
+    /* TODO: push content to the left side if bootstrap Modal window is opened */
     margin: auto;
 }
 
@@ -66,13 +67,28 @@ svg {
 }
 
 form {
-    width: 500px;
     padding: 20px;
     margin-bottom: 0;
 }
 
+.activation-card {
+    height: 100%;
+    display: table;
+}
+
+.activation-card {
+    display: table-cell;
+    vertical-align: table;
+    width: 500px;
+}
+
+.fulltext-bar {
+    width: 700px;
+}
+
 .login-card-container {
     height: 100%;
+    width: 500px;
     display: table;
 }
 
@@ -115,9 +131,30 @@ form {
     color:red;
     margin-left: 2px;
  }
- 
-.table td.fit, 
+
+.shortcut-column {
+    width: 50px;
+}
+
+.number-input {
+    width: 150px;
+}
+
+.table td.fit,
 .table th.fit {
     white-space: nowrap;
     width: 1%;
 }
+
+.form-hidden {
+    padding: 0;
+    margin: 0;
+}
+
+/* unset bs3 setting */
+/* TODO */
+/* body.modal-open {
+    width: 100% !important;
+    padding-right: 0 !important;
+    overflow-y: scroll !important;
+} */

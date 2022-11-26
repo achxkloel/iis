@@ -21,9 +21,8 @@
     @endif
 
     {{-- Admin --}}
-    
     @if (Auth::check() && (Auth::user()->role == 'admin'))
-        <a href="{{ route('admin-persons') }}">Uživatele</a>
+        <a href="{{ route('admin-persons') }}">Uživatelé</a>
         <a href="{{ route('admin-classes') }}">Místnosti</a>
     @endif
 </div>
