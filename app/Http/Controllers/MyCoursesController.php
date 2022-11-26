@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
+use App\Http\Requests\TeacherCourseRequest;
 use App\Http\Requests\TermRequest;
 use App\Models\Classroom;
 use App\Models\Course;
+use App\Models\Person;
+use App\Models\TeacherCourse;
 use App\Models\Term;
 use DateTime;
 use Exception;
@@ -19,9 +22,20 @@ class MyCoursesController
     }
 
     public function getCourse($id) {
-        $courses = Course::find($id);
+        $course = Course::find($id);
         $terms = Term::all()->where('courseID', $id);
-        return view('courseEdit', ['course' => $courses, 'terms' => $terms]);
+        $teacherCourse = TeacherCourse::all()->where('courseID', $id);
+
+        $teachers = Person::all()->where('role', 'teacher');
+        $guarantors = Person::all()->where('role', 'guarantor');
+        $teachers = $teachers->merge($guarantors);
+
+        $teachers = $teachers->filter(function ($item) use ($teacherCourse) {
+            $found = $teacherCourse->firstWhere('id', $item->id);
+            return $found == null;
+        });
+
+        return view('courseEdit', ['course' => $course, 'terms' => $terms, 'teacherCourse' => $teacherCourse, 'teachers' => $teachers]);
     }
 
     public function newCourse() {
@@ -106,6 +120,24 @@ class MyCoursesController
             'teacherID' => Auth::id()
         ]);
 
+        return redirect('course-edit/'.$courseId);
+    }
+
+    public function addTeacher($courseId, TeacherCourseRequest $request) {
+        TeacherCourse::create([
+            'teacherID' => $request->input('teacher'),
+            'courseID' => $courseId
+        ]);
+
+        return redirect('course-edit/'.$courseId);
+    }
+
+    public function deleteTeacher($teacherCourseId) {
+        $toDelete = TeacherCourse::find($teacherCourseId);
+        if (!$toDelete) return redirect('my-courses');
+        $courseId = $toDelete->courseID;
+
+        $toDelete->delete();
         return redirect('course-edit/'.$courseId);
     }
 }

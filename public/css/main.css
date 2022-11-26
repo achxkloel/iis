@@ -151,6 +151,10 @@ form {
     margin: 0;
 }
 
+.add-teacher-select {
+    padding: 0;
+}
+
 /* unset bs3 setting */
 /* TODO */
 /* body.modal-open {
