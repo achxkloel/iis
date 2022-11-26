@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\StudentCourse;
 use Illuminate\Http\Request;
+use App\Models\Person;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class HomepageController
 {
@@ -18,7 +22,15 @@ class HomepageController
         return view('homepage', ['courses' => $courses]);
     }
 
-    public function regCourse(Request $reauest) {
-        
+    public function regCourse(Request $request, $courseID) {
+
+        $course = Person::where('id', Auth::user()->id)->first()->registeredCourses()->where('courseID', $courseID)->first();
+        if(!$course){
+            StudentCourse::create([
+                'studentID'=>Auth::user()->id,
+                'courseID'=>$courseID,
+            ]);
+        }
+        return redirect('/');
     }
 }

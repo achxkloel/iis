@@ -35,6 +35,10 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 
 // Only for authorized users
 Route::middleware('auth')->group(function () {
+
+    // Main page (for all users)
+    Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse');
+
     // Logout
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 

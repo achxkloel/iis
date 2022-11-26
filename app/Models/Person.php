@@ -55,4 +55,8 @@ class Person extends Authenticatable
     protected $casts = [
         'is_active' => 'boolean'
     ];
+
+    public function registeredCourses() {
+        return $this->hasMany(StudentCourse::class, 'studentID');
+    }
 }
