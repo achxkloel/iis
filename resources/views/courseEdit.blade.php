@@ -17,7 +17,7 @@
                 <div class="col-sm-10">
                     <input id="name" name="name" class="form-control @error('name') is-invalid @enderror" type="text" value="{{ $course->name }}">
                     @error('name')
-                        <div id="nameError" class="invalid-feedback text-start">
+                        <div class="invalid-feedback text-start">
                             {{ $message }}
                         </div>
                     @enderror
@@ -28,7 +28,7 @@
                 <div class="col-sm-10">
                     <input id="shortcut" name="shortcut" class="form-control @error('shortcut') is-invalid @enderror" type="text" value="{{ $course->shortcut }}">
                     @error('shortcut')
-                        <div id="nameError" class="invalid-feedback text-start">
+                        <div class="invalid-feedback text-start">
                             {{ $message }}
                         </div>
                     @enderror
@@ -39,7 +39,7 @@
                 <div class="col-sm-10">
                     <input id="description" name="description" class="form-control @error('description') is-invalid @enderror" type="text" value="{{ $course->description }}">
                     @error('description')
-                        <div id="nameError" class="invalid-feedback text-start">
+                        <div class="invalid-feedback text-start">
                             {{ $message }}
                         </div>
                     @enderror
@@ -50,7 +50,7 @@
                 <div class="col-sm-10 number-input">
                     <input id="capacity" name="capacity" class="form-control @error('capacity') is-invalid @enderror" type="text" value="{{ $course->capacity }}">
                     @error('capacity')
-                        <div id="nameError" class="invalid-feedback text-start">
+                        <div class="invalid-feedback text-start">
                             {{ $message }}
                         </div>
                     @enderror
@@ -61,7 +61,7 @@
             </div>
         </form>
     </x-card>
-    @if(Route::is('course-edit'))
+    @unless(Route::is('course-create'))
         <x-card>
             <x-slot:title>
                 Seznam termínů
@@ -69,7 +69,7 @@
             <table class="table align-middle">
                 <thead>
                     <tr>
-                        <th scope="col">Čas</th>
+                        <th scope="col">Název</th>
                         <th scope="col">Typ</th>
                         <th scope="col">Místnost</th>
                         <th scope="col" class="small-button-column"></th>
@@ -78,10 +78,10 @@
                 <tbody>
                     @foreach($terms as $term)
                         <tr>
-                            <td>út 09-11</td>
+                            <td>{{ $term->name }}</td>
                             <td>{{ $term->type }}</td>
                             <td>{{ $term->class?->name }}</td>
-                            <td><x-go-trash-24 /></td> {{-- TODO: on click actions --}}
+                            <td><a href="{{ route('course-delete-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-trash-24 /></a></td> {{-- TODO: on click actions --}}
                         </tr>
                     @endforeach
                 </tbody>
@@ -120,5 +120,5 @@
                 <a href="{{ route('my-courses') }}" class="btn btn-primary">Přidat lektora</a>
             </div>
         </x-card>
-    @endif
+    @endunless
 </x-skeleton>

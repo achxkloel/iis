@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('studentID');
             $table->integer('termID');
             $table->timestamps();
-            $table->foreign('studentID')->references('id')->on('person');
-            $table->foreign('termID')->references('id')->on('term');
+            $table->foreign('studentID')->references('id')->on('person')->onDelete('cascade');
+            $table->foreign('termID')->references('id')->on('term')->onDelete('cascade');
         });
     }
 

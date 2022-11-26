@@ -57,6 +57,6 @@ class Term extends Model
     ];
 
     public function class() {
-        return $this->belongsTo(Classroom::class, 'classId');
+        return $this->belongsTo(Classroom::class, 'classID');
     }
 }

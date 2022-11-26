@@ -18,7 +18,7 @@ class MyCoursesController
 
     public function getCourse($id) {
         $courses = Course::find($id);
-        $terms = Term::all();
+        $terms = Term::all()->where('courseID', $id);
         return view('courseEdit', ['course' => $courses, 'terms' => $terms]);
     }
 
@@ -31,7 +31,6 @@ class MyCoursesController
             'shortcut' => $request->input('shortcut'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'type' => 'TODO',
             'capacity' => (int)$request->input('capacity'),
             'guarantorID' => Auth::id()
         ]);
@@ -44,11 +43,18 @@ class MyCoursesController
             'shortcut' => $request->input('shortcut'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'type' => 'TODO',
             'capacity' => (int)$request->input('capacity')
         ]);
 
         return redirect('my-courses');
+    }
+
+    function deleteCourseTerm($courseId, $termId) {
+        $toDelete = Term::find($termId);
+        if (!$toDelete) redirect('myCourses');
+
+        $toDelete->delete();
+        return redirect('courseEdit', $courseId);
     }
 
     function getCourseRegistrations($id) {

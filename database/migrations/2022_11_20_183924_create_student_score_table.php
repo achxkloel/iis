@@ -20,9 +20,9 @@ return new class extends Migration
             $table->integer('termID');
             $table->integer('score')->default(0);
             $table->timestamps();
-            $table->foreign('teacherID')->references('id')->on('person');
-            $table->foreign('studentID')->references('id')->on('person');
-            $table->foreign('termID')->references('id')->on('term');
+            $table->foreign('teacherID')->references('id')->on('person')->onDelete('cascade');
+            $table->foreign('studentID')->references('id')->on('person')->onDelete('cascade');
+            $table->foreign('termID')->references('id')->on('term')->onDelete('cascade');
         });
     }
 
