@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
-use App\Models\Classroom;
+use App\Http\Requests\TermRequest;
 use App\Models\Course;
 use App\Models\Term;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class MyCoursesController
 {
@@ -49,6 +48,14 @@ class MyCoursesController
         return redirect('my-courses');
     }
 
+    function getTerm($courseId, $termId) {
+        return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId)]);
+    }
+
+    public function newTerm($courseId) {
+        return view('termEdit', ['courseId' => $courseId, 'term' => new Term()]);
+    }
+
     function deleteCourseTerm($courseId, $termId) {
         $toDelete = Term::find($termId);
         if (!$toDelete) redirect('myCourses');
@@ -59,5 +66,21 @@ class MyCoursesController
 
     function getCourseRegistrations($id) {
         return view('registrationManagement', ['course' => Course::all()->where('id', $id)->first()]);
+    }
+
+    public function createTerm($courseId, TermRequest $request) {
+        Term::create([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'description' => $request->input('description'),
+            'score' => (int)$request->input('score'),
+            'date_from' => now(),
+            'date_to' => now(),
+            'capacity' => (int)$request->input('capacity'),
+            'courseID' => $courseId,
+            'teacherID' => Auth::id()
+        ]);
+
+        return redirect('my-courses');
     }
 }

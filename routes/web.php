@@ -47,13 +47,18 @@ Route::get('/profile/edit', fn() => view('profile'))->middleware('auth')->name('
 // My courses
 Route::get('/my-courses', [MyCoursesController::class, 'get'])->middleware('auth')->name('my-courses');
 
-// Course edit
+// Course create/edit/delete
 Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->middleware('auth')->name('course-edit');
 Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->middleware('auth')->name('course-edit');
 Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->middleware('auth')->name('course-create');
 Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->middleware('auth')->name('course-create');
-Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
 Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->middleware('auth')->name('registration-management');
+
+// Term create/edit/delete
+Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->middleware('auth')->name('course-edit-term');
+Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->middleware('auth')->name('course-new-term');
+Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->middleware('auth')->name('course-new-term');
+Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
 
 // Admin
 Route::prefix('admin')
