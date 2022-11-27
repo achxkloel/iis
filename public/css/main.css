@@ -6,7 +6,6 @@ html, body {
 
 html {
     display: table;
-    /* TODO: push content to the left side if bootstrap Modal window is opened */
     margin: auto;
 }
 
@@ -189,11 +188,3 @@ form {
 .course-detail-number {
     font-size: 40px;
 }
-
-/* unset bs3 setting */
-/* TODO */
-/* body.modal-open {
-    width: 100% !important;
-    padding-right: 0 !important;
-    overflow-y: scroll !important;
-} */

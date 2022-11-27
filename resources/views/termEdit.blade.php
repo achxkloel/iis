@@ -1,4 +1,3 @@
-{{-- TODO --}}
 <x-skeleton>
     <x-slot:title>
         @if(Route::is('course-new-term'))
