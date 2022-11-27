@@ -10,7 +10,7 @@
             <div class="mb-3 row">
                 <label for="login" class="col-sm-2 col-form-label">Login</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" value="{{ $person->login }}" disabled>
+                    <input type="text" class="form-control" id="login" value="{{ $person->login }}" disabled>
                 </div>
             </div>
             <div class="mb-3 row">
@@ -85,7 +85,7 @@
             <div class="mb-3 row">
                 <label for="role" class="col-sm-2 col-form-label">Role</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" value="{{ $person->role }}" disabled>
+                    <input type="text" class="form-control" id="role" value="{{ $person->role }}" disabled>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Změnit</button>

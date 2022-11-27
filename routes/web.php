@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MyCoursesController;
 use App\Http\Controllers\StudiesOverviewController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,10 +44,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview')->where('courseId', '[0-9]+');
 
     // Profile
-    Route::get('/profile', fn() => view('profile'))->name('profile');
-
-    // Profile edit
-    Route::get('/profile/edit', fn() => view('profile'))->name('profile-edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile');
 
     // All roles except student
     Route::middleware('hasRole:teacher')->group(function () {
