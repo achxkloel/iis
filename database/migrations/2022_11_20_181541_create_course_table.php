@@ -20,8 +20,6 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->integer('price')->nullable();
             $table->integer('capacity');
-            $table->integer('is_public')->default(0);
-            $table->integer('allow_registration')->default(0);
             $table->integer('guarantorID');
             $table->timestamps();
             $table->foreign('guarantorID')->references('id')->on('person')->onDelete('cascade');

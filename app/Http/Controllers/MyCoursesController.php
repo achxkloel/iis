@@ -13,7 +13,6 @@ use App\Models\StudentTerm;
 use App\Models\Term;
 use DateTime;
 use Exception;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +50,7 @@ class MyCoursesController
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'capacity' => (int)$request->input('capacity'),
+            'price' => (int)$request->input('price'),
             'guarantorID' => Auth::id()
         ]);
 
@@ -67,7 +67,8 @@ class MyCoursesController
             'shortcut' => $request->input('shortcut'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'capacity' => (int)$request->input('capacity')
+            'capacity' => (int)$request->input('capacity'),
+            'price' => (int)$request->input('price')
         ]);
 
         return redirect('my-courses');
