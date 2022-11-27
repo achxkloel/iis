@@ -6,7 +6,7 @@
     <x-card>
         <form class="form-hidden" action="{{ route('course-term-students', ['courseId' => $course->id, 'termId' => $term->id]) }}" method="post">
             @csrf
-            
+
             <table class="table table-striped">
                 <thead>
                 <tr>
@@ -27,7 +27,7 @@
                         <td>
                             <input type="number" class="form-control @error($student->id) is-invalid @enderror" id="{{ $student->id }}" name="{{ $student->id }}" />
                         </td>
-                        <td>{{ $student->studentScore ?? 0 }}</td>
+                        <td>{{ $student->studentScore ?? '-' }}</td>
                         <td>{{ $term->score }}</td>
                     </tr>
                 @endforeach
