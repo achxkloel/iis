@@ -46,10 +46,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     // Study overview page
-    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview');
+    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview')->where('courseId', '[0-9]+');
     Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
-    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm');
-    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm');
+    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);;
+    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);;
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
