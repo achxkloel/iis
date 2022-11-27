@@ -10,6 +10,7 @@
     @auth
         <a href="{{ route('profile') }}">Profil</a>
         <a href="{{ route('studies-overview') }}">Přehled studia</a>
+        <a href="{{ route('schedule')}}">Rozvrh</a>
 
         @if (Auth::user()->hasRole('teacher'))
             <a href="{{ route('my-courses') }}">Mé kurzy</a>

@@ -12,6 +12,8 @@ use App\Models\TeacherCourse;
 use App\Models\Term;
 use DateTime;
 use Exception;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class MyCoursesController
@@ -73,12 +75,13 @@ class MyCoursesController
         return view('termEdit', ['courseId' => $courseId, 'term' => new Term(), 'rooms' => Classroom::all()]);
     }
 
-    function deleteCourseTerm($courseId, $termId) {
-        $toDelete = Term::find($termId);
-        if (!$toDelete) redirect('myCourses');
+    function deleteCourseTerm(Request $request) {
+        $toDelete = Term::find($request->input('id'));
+        if (!$toDelete) return redirect('my-courses');
+        $courseId = $toDelete->courseID;
 
         $toDelete->delete();
-        return redirect('courseEdit', $courseId);
+        return redirect('course-edit/'.$courseId);
     }
 
     function getCourseRegistrations($id) {
@@ -124,16 +127,17 @@ class MyCoursesController
     }
 
     public function addTeacher($courseId, TeacherCourseRequest $request) {
-        TeacherCourse::create([
-            'teacherID' => $request->input('teacher'),
-            'courseID' => $courseId
-        ]);
-
+        if ($request->input('teacher') != 'Nevybráno') {
+            TeacherCourse::create([
+                'teacherID' => $request->input('teacher'),
+                'courseID' => $courseId
+            ]);
+        }
         return redirect('course-edit/'.$courseId);
     }
 
-    public function deleteTeacher($teacherCourseId) {
-        $toDelete = TeacherCourse::find($teacherCourseId);
+    public function deleteTeacher(Request $request) {
+        $toDelete = TeacherCourse::find($request->input('id'));
         if (!$toDelete) return redirect('my-courses');
         $courseId = $toDelete->courseID;
 

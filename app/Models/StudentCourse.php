@@ -18,7 +18,9 @@ class StudentCourse extends Model
      *
      * @var array
      */
-    protected $attributes = [];
+    protected $attributes = [
+        'is_active' => false
+    ];
 
     /**
      * The attributes that are not mass assignable.
@@ -39,5 +41,7 @@ class StudentCourse extends Model
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'is_active' => 'boolean'
+    ];
 }

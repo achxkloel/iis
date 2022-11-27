@@ -54,52 +54,40 @@
                         @endif
                     </td>
                     <td class="fit">
-                        <a href="{{ route('admin-person', $person->id) }}"><x-go-pencil-16 class="text-secondary"/></a>
-                    </td>
-                    <td class="fit">
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><x-go-circle-x-fill-16 class="text-danger"/></a>
+                        <button type="button" class="btn btn-link" onclick="showToast('confirmationToast', {{ $person->id }})">
+                            <x-go-circle-x-fill-16 class="text-danger"/>
+                        </button>
                     </td>
                 </tr>
             @endforeach
             </tbody>
         </table>
     </x-card>
-    
-    <div class="modal fade" tabindex="-1" id="deleteConfirmModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Uživatel <span id="modalLogin" class="fw-bold"></span></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Opravdu si přejete smazat zvoleného uživatele?</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ne</button>
-                    <form class="form-hidden" action="{{ route('admin-delete-person') }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <input type="hidden" id="deleteID" name="id" />
-                        <button type="submit" class="btn btn-danger">Ano</button>
-                    </form>
-                </div>
+
+    <div id="confirmationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            <p>Opravdu si přejete smazat tohoto uživatele?</p>
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('admin-delete-person') }}" method="post">
+                    @csrf
+                    @method('delete')
+                    <input type="hidden" id="confirmationToastID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
             </div>
         </div>
     </div>
-    
+
     <x-slot:js>
         <script>
-            jQuery(document).ready(function () {
-                jQuery('#deleteConfirmModal').on('show.bs.modal', function(e) {
-                    const button = jQuery(e.relatedTarget);
-                    const row = button.closest('tr');
-                    const login = row.find("td:nth-child(1)").text();
-                    const userID = row.data('id');
-                    jQuery('#modalLogin').text(login);
-                    document.getElementById('deleteID').value = userID;
-                });
-            });
+            function showToast(element, id) {
+                const toastElement = document.getElementById(element);
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                document.getElementById(element + 'ID').value = id;
+            }
         </script>
     </x-slot:js>
 </x-skeleton>

@@ -46,4 +46,8 @@ class Course extends Model
         'is_public' => 'boolean',
         'allow_registration' => 'boolean'
     ];
+
+    public function terms() {
+        return $this->hasMany(Term::class, 'courseID');
+    }
 }
