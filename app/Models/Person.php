@@ -53,4 +53,8 @@ class Person extends Authenticatable
     protected $casts = [
         'is_active' => 'boolean',
     ];
+
+    protected $dates = [
+        'birth_date'
+    ];
 }

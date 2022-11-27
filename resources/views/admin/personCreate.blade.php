@@ -12,18 +12,6 @@
                 </div>
             @enderror
 
-            @if (Session::has('success'))
-                <div class="alert alert-success text-start" role="alert">
-                    <h4 class="alert-heading">Uživatel byl úspěšně vytvořen</h4>
-                    <p>Po aktualizaci stranky heslo nebude dostupné!</p>
-                    <hr>
-                    <p class="mb-0">
-                        <div>Login: <span class="fw-bold">{{ Session::get('login') }}</span></div>
-                        <div>Heslo: <span class="fw-bold">{{ Session::get('password') }}</span></div>
-                    </p>
-                </div>
-            @endif
-
             <div class="mb-3 row">
                 <label for="login" class="col-sm-2 col-form-label required-label">Login</label>
                 <div class="col-sm-10">

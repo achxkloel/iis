@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class CreatePersonRequest extends FormRequest
+class UpdatePersonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,13 +24,12 @@ class CreatePersonRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => 'required|min:6|regex:/^[A-Za-z0-9_-]*$/i',
             'name' => 'required',
             'surname' => 'required',
-            'role' => [
-                'required',
-                Rule::in(['guarantor', 'teacher', 'student'])
-            ]
+            'birth_date' => 'date_format:d.m.Y|nullable',
+            'address' => 'nullable',
+            'phone_number' => 'nullable|regex:/^(\+420)? ?[1-9][0-9]{2} ?[0-9]{3} ?[0-9]{3}$/i',
+            'email' => 'email:rfc,dns|nullable'
         ];
     }
 
@@ -43,13 +41,11 @@ class CreatePersonRequest extends FormRequest
     public function messages()
     {
         return [
-            'login.required' => 'Prazdný login',
-            'login.min' => 'Přilíš kratký login (min: :min)',
-            'login.regex' => 'Login obsahuje nepovolené znaky',
             'name.required' => 'Prazdné jméno',
             'surname.required' => 'Prazdné příjmení',
-            'role.required' => 'Chybí role',
-            'role.in' => 'Nedefinovaná role'
+            'birth_date.date_format' => 'Špatný formát',
+            'phone_number.regex' => 'Špatné telefonní číslo',
+            'email.email' => 'Špatný email'
         ];
     }
 }

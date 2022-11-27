@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MyCoursesController;
 use App\Http\Controllers\StudiesOverviewController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -40,38 +41,36 @@ Route::middleware('auth')->group(function () {
 
     // Study overview page
     Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->name('studies-overview');
-    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
+    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview')->where('courseId', '[0-9]+');
 
     // Profile
-    Route::get('/profile', fn() => view('profile'))->name('profile');
-
-    // Profile edit
-    Route::get('/profile/edit', fn() => view('profile'))->name('profile-edit');
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::post('/profile', [ProfileController::class, 'update'])->name('profile');
 
     // All roles except student
     Route::middleware('hasRole:teacher')->group(function () {
         // Courses
         Route::get('/my-courses', [MyCoursesController::class, 'get'])->name('my-courses');
-        Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->name('course-edit');
-        Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->name('course-edit');
+        Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->name('course-edit')->where('courseId', '[0-9]+');
+        Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->name('course-edit')->where('courseId', '[0-9]+');
         Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');
         Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
-        Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management');
-        Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher');
-        Route::get('/delete-teacher/{teacherCourseId}', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher');
+        Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management')->where('courseId', '[0-9]+');
+        Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher')->where('courseId', '[0-9]+');
+        Route::get('/delete-teacher/{teacherCourseId}', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher')->where('teacherCourseId', '[0-9]+');;
 
-        // Term create/edit/delete
-        Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->middleware('auth')->name('course-edit-term');
-        Route::post('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'updateTerm'])->middleware('auth')->name('course-edit-term');
-        Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->middleware('auth')->name('course-new-term');
-        Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->middleware('auth')->name('course-new-term');
-        Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->middleware('auth')->name('course-delete-term');
+        // Terms
+        Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->name('course-edit-term')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
+        Route::post('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'updateTerm'])->name('course-edit-term')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
+        Route::get('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'newTerm'])->name('course-new-term')->where('courseId', '[0-9]+');
+        Route::post('/course-edit/{courseId}/term-create', [MyCoursesController::class, 'createTerm'])->name('course-new-term')->where('courseId', '[0-9]+');
+        Route::get('/course-delete/{courseId}/{termId}', [MyCoursesController::class, 'deleteCourseTerm'])->name('course-delete-term')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
     });
 
-    // Admin page
+    // Admin
     Route::prefix('admin')
         ->name('admin-')
-        ->middleware('role:admin')
+        ->middleware('auth', 'role:admin')
         ->controller(AdminController::class)
         ->group(function () {
             // Users
@@ -80,8 +79,15 @@ Route::middleware('auth')->group(function () {
             Route::post('/person/create', 'createNewPerson')->name('create-person');
             Route::delete('/person/delete', 'deletePerson')->name('delete-person');
             Route::post('/person/checkLogin', 'checkLogin')->name('check-login');
+            Route::get('/person/{personId}', 'showPerson')->name('person')->where('personId', '[0-9]+');
+            Route::post('/person/{personId}/update', 'updatePerson')->name('update-person')->where('personId', '[0-9]+');
+            Route::post('/person/{personId}/setPassword', 'setNewPassword')->name('person-set-password')->where('personId', '[0-9]+');
+            Route::get('/person/{personId}/course/{courseId}', 'showPersonCourse')->name('person-course')->where(['personId' => '[0-9]+', 'courseId' => '[0-9]+']);
 
             // Classes
             Route::get('/classes', 'showClasses')->name('classes');
+            Route::get('/class/create', 'showClassForm')->name('create-class');
+            Route::post('/class/create', 'createNewClass')->name('create-class');
+            Route::delete('/class/delete', 'deleteClass')->name('delete-class');
         });
 });
