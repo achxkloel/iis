@@ -83,7 +83,11 @@
                             <td>{{ $term->type }}</td>
                             <td>{{ $term->class?->name }}</td>
                             <td><a href="{{ route('course-edit-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-pencil-24 /></a></td>
-                            <td><a href="{{ route('course-delete-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-trash-24 /></a></td>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="showToast('confirmationToastTerm', {{ $term->id }})">
+                                    <x-go-trash-24 />
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -107,7 +111,11 @@
                     @foreach($teacherCourse as $item)
                         <tr>
                             <td>{{ $item->teacher->first()->name }} {{ $item->teacher->first()->surname }}</td>
-                            <td><a href="{{ route('delete-teacher', $item->id) }}"><x-go-trash-24 /></a></td>
+                            <td>
+                                <button type="button" class="btn btn-link" onclick="showToast('confirmationToastTeacher', {{ $item->id }})">
+                                    <x-go-trash-24 />
+                                </button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -125,4 +133,42 @@
             </form>
         </x-card>
     @endunless
+
+    <div id="confirmationToastTerm" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Opravdu chcete tento termín smazat?
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('course-delete-term') }}" method="get">
+                    @csrf
+                    <input type="hidden" id="confirmationToastTermID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="confirmationToastTeacher" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Opravdu chcete tohoto učitele odebrat?
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('delete-teacher') }}" method="get">
+                    @csrf
+                    <input type="hidden" id="confirmationToastTeacherID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <x-slot:js>
+        <script>
+            function showToast(element, id) {
+                const toastElement = document.getElementById(element);
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                document.getElementById(element + 'ID').value = id;
+            }
+        </script>
+    </x-slot:js>
 </x-skeleton>
