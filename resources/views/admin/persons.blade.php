@@ -54,6 +54,9 @@
                         @endif
                     </td>
                     <td class="fit">
+                        <a href="{{ route('admin-person', $person->id) }}"><x-go-pencil-16 class="text-secondary"/></a>
+                    </td>
+                    <td class="fit">
                         <button type="button" class="btn btn-link" onclick="showToast('confirmationToast', {{ $person->id }})">
                             <x-go-circle-x-fill-16 class="text-danger"/>
                         </button>
