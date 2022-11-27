@@ -27,6 +27,7 @@
                 <th scope="col">Počet míst</th>
                 <th scope="col">Vytvoření</th>
                 <th scope="col">Změna</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>

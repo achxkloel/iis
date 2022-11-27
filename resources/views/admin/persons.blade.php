@@ -35,6 +35,7 @@
                 <th scope="col">Změna</th>
                 <th class="fit" scope="col">Aktivní</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -51,6 +52,9 @@
                         @if ($person->is_active)
                             <x-go-check-circle-fill-16 class="text-success" />
                         @endif
+                    </td>
+                    <td class="fit">
+                        <a href="{{ route('admin-person', $person->id) }}"><x-go-pencil-16 class="text-secondary"/></a>
                     </td>
                     <td class="fit">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><x-go-circle-x-fill-16 class="text-danger"/></a>
