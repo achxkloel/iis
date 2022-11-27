@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\StudentScore;
 use App\Models\StudentCourse;
+use App\Models\TeacherCourse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonRequest;
 use App\Http\Requests\CreateClassRequest;
@@ -56,7 +57,8 @@ class AdminController extends Controller
             ->get([
                 'course.*',
                 'student_course.updated_at as registered_at',
-                'total_score'
+                'total_score',
+                'student_course.id as studentCourseID'
             ]);
 
         // Get person cources as a teacher
@@ -64,14 +66,47 @@ class AdminController extends Controller
             ->where('teacherID', $person->id)
             ->get([
                 'course.*',
-                'teacher_course.updated_at as registered_at'
+                'teacher_course.updated_at as registered_at',
+                'teacher_course.id as teacherCourseID'
+            ]);
+
+        $student_courses_add = Course::whereNotIn('id', $student_courses->pluck('id')->all())
+            ->get([
+                'course.id',
+                'course.shortcut',
+                'course.name'
+            ]);
+
+        $teacher_courses_add = Course::whereNotIn('id', $teacher_courses->pluck('id')->all())
+            ->get([
+                'course.id',
+                'course.shortcut',
+                'course.name'
             ]);
 
         return view('admin.person', [
             'person' => $person,
             'student_courses' => $student_courses,
-            'teacher_courses' => $teacher_courses
+            'teacher_courses' => $teacher_courses,
+            'student_courses_add' => $student_courses_add,
+            'teacher_courses_add' => $teacher_courses_add
         ]);
+    }
+
+    public function deletePersonTeacherCourse (Request $request) {
+        $toDelete = TeacherCourse::find($request->input('id'));
+        if (!$toDelete) return redirect()->route('admin-persons');
+        $personId = $toDelete->teacherID;
+        $toDelete->delete();
+        return redirect()->route('admin-person', $personId);
+    }
+
+    public function deletePersonStudentCourse (Request $request) {
+        $toDelete = StudentCourse::find($request->input('id'));
+        if (!$toDelete) return redirect()->route('admin-persons');
+        $personId = $toDelete->studentID;
+        $toDelete->delete();
+        return redirect()->route('admin-person', $personId);
     }
 
     public function showPersonCourse (Request $request, $personId, $courseId) {
@@ -88,6 +123,26 @@ class AdminController extends Controller
 
     public function showClassForm () {
         return view('admin.classCreate');
+    }
+
+    public function addPersonStudentCourse (Request $request, $personId) {
+        if ($request->input('student_course') != 'Nevybráno') {
+            StudentCourse::create([
+                'studentID' => $personId,
+                'courseID' => $request->input('student_course')
+            ]);
+        }
+        return redirect()->route('admin-person', $personId);
+    }
+
+    public function addPersonTeacherCourse (Request $request, $personId) {
+        if ($request->input('teacher_course') != 'Nevybráno') {
+            TeacherCourse::create([
+                'teacherID' => $personId,
+                'courseID' => $request->input('teacher_course')
+            ]);
+        }
+        return redirect()->route('admin-person', $personId);
     }
 
     public function createNewPerson (CreatePersonRequest $request) {

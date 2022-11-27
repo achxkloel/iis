@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
         Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management')->where('courseId', '[0-9]+');
         Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher')->where('courseId', '[0-9]+');
-        Route::get('/delete-teacher', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher')->where('teacherCourseId', '[0-9]+');;
+        Route::get('/delete-teacher', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher')->where('teacherCourseId', '[0-9]+');
 
         // Terms
         Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->name('course-edit-term')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
@@ -93,6 +93,10 @@ Route::middleware('auth')->group(function () {
             Route::post('/person/{personId}/update', 'updatePerson')->name('update-person')->where('personId', '[0-9]+');
             Route::post('/person/{personId}/setPassword', 'setNewPassword')->name('person-set-password')->where('personId', '[0-9]+');
             Route::get('/person/{personId}/course/{courseId}', 'showPersonCourse')->name('person-course')->where(['personId' => '[0-9]+', 'courseId' => '[0-9]+']);
+            Route::get('/person/{personId}/addStudentCourse', 'addPersonStudentCourse')->name('person-add-student-course')->where('personId', '[0-9]+');
+            Route::get('/person/{personId}/addTeacherCourse', 'addPersonTeacherCourse')->name('person-add-teacher-course')->where('personId', '[0-9]+');
+            Route::get('/person/deleteTeacherCourse', 'deletePersonTeacherCourse')->name('person-del-teacher-course');
+            Route::get('/person/deleteStudentCourse', 'deletePersonStudentCourse')->name('person-del-student-course');
 
             // Classes
             Route::get('/classes', 'showClasses')->name('classes');

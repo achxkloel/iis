@@ -137,7 +137,8 @@
                 <th scope="col">Název</th>
                 <th scope="col">Hodnocení</th>
                 <th scope="col">Registrace</th>
-                <th scope="col"></th>
+                <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -150,14 +151,30 @@
                     <td class="fit">
                         <a href="{{ route('admin-person-course', ['personId' => $person->id, 'courseId' => $course->id]) }}"><x-go-info-16 class="text-primary"/></a>
                     </td>
+                    <td class="fit">
+                        <button type="button" class="btn btn-link" onclick="showToast('confirmationStudentToast', {{ $course->studentCourseID }})">
+                            <x-go-circle-x-fill-16 class="text-danger"/>
+                        </button>
+                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Nejsou nalezené žadné kurzy</td>
+                    <td colspan="6" class="text-center">Nejsou nalezené žadné kurzy</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
+        <form action="{{ route('admin-person-add-student-course', $person->id) }}" class="add-teacher-select">
+            <div class="input-group mb-3">
+                <select id="student_course" name="student_course" class="form-control">
+                    <option>Nevybráno</option>
+                    @foreach($student_courses_add as $course)
+                    <option value="{{ $course->id }}"><span class="fw-bold">{{ $course->shortcut }}</span> - {{ $course->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-outline-secondary" id="button-addon2">Přidat</button>
+            </div>
+        </form>
     </x-card>
 
     <x-card>
@@ -172,6 +189,7 @@
                 <th scope="col">Název</th>
                 <th scope="col">Registrace</th>
                 <th scope="col">Garant</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -185,13 +203,66 @@
                             <x-go-check-circle-fill-16 class="text-success" />
                         @endif
                     </td>
+                    <td class="fit">
+                        <button type="button" class="btn btn-link" onclick="showToast('confirmationTeacherToast', {{ $course->teacherCourseID }})">
+                            <x-go-circle-x-fill-16 class="text-danger"/>
+                        </button>
+                    </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="text-center">Nejsou nalezené žadné kurzy</td>
+                    <td colspan="5" class="text-center">Nejsou nalezené žadné kurzy</td>
                 </tr>
             @endforelse
             </tbody>
         </table>
+        <form action="{{ route('admin-person-add-teacher-course', $person->id) }}" class="add-teacher-select">
+            <div class="input-group mb-3">
+                <select id="teacher_course" name="teacher_course" class="form-control">
+                    <option>Nevybráno</option>
+                    @foreach($teacher_courses_add as $course)
+                        <option value="{{ $course->id }}"><span class="fw-bold">{{ $course->shortcut }}</span> - {{ $course->name }}</option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-outline-secondary" id="button-addon2">Přidat</button>
+            </div>
+        </form>
     </x-card>
+    <div id="confirmationTeacherToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Opravdu chcete tento kurz odebrat?
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('admin-person-del-teacher-course') }}" method="get">
+                    @csrf
+                    <input type="hidden" id="confirmationTeacherToastID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div id="confirmationStudentToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            Opravdu chcete tento kurz odebrat?
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('admin-person-del-student-course') }}" method="get">
+                    @csrf
+                    <input type="hidden" id="confirmationStudentToastID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <x-slot:js>
+        <script>
+            function showToast(element, id) {
+                const toastElement = document.getElementById(element);
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                document.getElementById(element + 'ID').value = id;
+            }
+        </script>
+    </x-slot:js>
 </x-skeleton>
