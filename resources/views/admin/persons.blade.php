@@ -10,6 +10,19 @@
     </div>
 
     <x-card>
+
+        @if (Session::has('success'))
+            <div class="alert alert-success text-start" role="alert">
+                <h4 class="alert-heading">Uživatel byl úspěšně vytvořen</h4>
+                <p>Po aktualizaci stranky heslo nebude dostupné!</p>
+                <hr>
+                <p class="mb-0">
+                    <div>Login: <span class="fw-bold">{{ Session::get('login') }}</span></div>
+                    <div>Heslo: <span class="fw-bold">{{ Session::get('password') }}</span></div>
+                </p>
+            </div>
+        @endif
+
         <table class="table table-striped">
             <thead>
             <tr>
@@ -21,6 +34,7 @@
                 <th scope="col">Vytvoření</th>
                 <th scope="col">Změna</th>
                 <th class="fit" scope="col">Aktivní</th>
+                <th></th>
                 <th></th>
             </tr>
             </thead>
@@ -40,6 +54,9 @@
                         @endif
                     </td>
                     <td class="fit">
+                        <a href="{{ route('admin-person', $person->id) }}"><x-go-pencil-16 class="text-secondary"/></a>
+                    </td>
+                    <td class="fit">
                         <a href="#" data-bs-toggle="modal" data-bs-target="#deleteConfirmModal"><x-go-circle-x-fill-16 class="text-danger"/></a>
                     </td>
                 </tr>
@@ -52,11 +69,11 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Smazat</h5>
+                    <h5 class="modal-title">Uživatel <span id="modalLogin" class="fw-bold"></span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Opravdu si přejete smazat uživatele <span id="modalLogin" class="fw-bold"></span>?</p>
+                    <p>Opravdu si přejete smazat zvoleného uživatele?</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ne</button>

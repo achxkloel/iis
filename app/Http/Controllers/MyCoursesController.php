@@ -3,9 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
+use App\Http\Requests\TeacherCourseRequest;
 use App\Http\Requests\TermRequest;
+use App\Models\Classroom;
 use App\Models\Course;
+use App\Models\Person;
+use App\Models\TeacherCourse;
 use App\Models\Term;
+use DateTime;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 
 class MyCoursesController
@@ -16,9 +22,20 @@ class MyCoursesController
     }
 
     public function getCourse($id) {
-        $courses = Course::find($id);
+        $course = Course::find($id);
         $terms = Term::all()->where('courseID', $id);
-        return view('courseEdit', ['course' => $courses, 'terms' => $terms]);
+        $teacherCourse = TeacherCourse::all()->where('courseID', $id);
+
+        $teachers = Person::all()->where('role', 'teacher');
+        $guarantors = Person::all()->where('role', 'guarantor');
+        $teachers = $teachers->merge($guarantors);
+
+        $teachers = $teachers->filter(function ($item) use ($teacherCourse) {
+            $found = $teacherCourse->firstWhere('id', $item->id);
+            return $found == null;
+        });
+
+        return view('courseEdit', ['course' => $course, 'terms' => $terms, 'teacherCourse' => $teacherCourse, 'teachers' => $teachers]);
     }
 
     public function newCourse() {
@@ -49,11 +66,11 @@ class MyCoursesController
     }
 
     function getTerm($courseId, $termId) {
-        return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId)]);
+        return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId), 'rooms' => Classroom::all()]);
     }
 
     public function newTerm($courseId) {
-        return view('termEdit', ['courseId' => $courseId, 'term' => new Term()]);
+        return view('termEdit', ['courseId' => $courseId, 'term' => new Term(), 'rooms' => Classroom::all()]);
     }
 
     function deleteCourseTerm($courseId, $termId) {
@@ -68,19 +85,59 @@ class MyCoursesController
         return view('registrationManagement', ['course' => Course::all()->where('id', $id)->first()]);
     }
 
+    /**
+     * @throws Exception
+     */
     public function createTerm($courseId, TermRequest $request) {
+        // TODO: dates
         Term::create([
             'name' => $request->input('name'),
             'type' => $request->input('type'),
             'description' => $request->input('description'),
             'score' => (int)$request->input('score'),
-            'date_from' => now(),
-            'date_to' => now(),
+            'date_from' => new DateTime($request->input('date-from')),
+            'date_to' => $request->input('date-to'),
             'capacity' => (int)$request->input('capacity'),
             'courseID' => $courseId,
+            'classID' => $request->input('room') != 0 ? $request->input('room') : null,
             'teacherID' => Auth::id()
         ]);
 
-        return redirect('my-courses');
+        return redirect('course-edit/'.$courseId);
+    }
+
+    function updateTerm(TermRequest $request, $courseId, $termId) {
+        Term::find($termId)->update([
+            'name' => $request->input('name'),
+            'type' => $request->input('type'),
+            'description' => $request->input('description'),
+            'score' => (int)$request->input('score'),
+            'date_from' => $request->input('date-from'),
+            'date_to' => $request->input('date-to'),
+            'capacity' => (int)$request->input('capacity'),
+            'courseID' => $courseId,
+            'classID' => (int)$request->input('room') != 0 ? $request->input('room') : null,
+            'teacherID' => Auth::id()
+        ]);
+
+        return redirect('course-edit/'.$courseId);
+    }
+
+    public function addTeacher($courseId, TeacherCourseRequest $request) {
+        TeacherCourse::create([
+            'teacherID' => $request->input('teacher'),
+            'courseID' => $courseId
+        ]);
+
+        return redirect('course-edit/'.$courseId);
+    }
+
+    public function deleteTeacher($teacherCourseId) {
+        $toDelete = TeacherCourse::find($teacherCourseId);
+        if (!$toDelete) return redirect('my-courses');
+        $courseId = $toDelete->courseID;
+
+        $toDelete->delete();
+        return redirect('course-edit/'.$courseId);
     }
 }
