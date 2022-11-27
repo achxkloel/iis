@@ -51,10 +51,14 @@ class Person extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'is_active' => 'boolean',
+        'is_active' => 'boolean'
     ];
 
     protected $dates = [
         'birth_date'
     ];
+
+    public function registeredCourses() {
+        return $this->hasMany(StudentCourse::class, 'studentID');
+    }
 }
