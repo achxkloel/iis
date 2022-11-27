@@ -6,8 +6,8 @@
         <x-slot:title>
             Studenti registrující se na {{ $course->name }}
         </x-slot:title>
-        <a class="btn btn-primary">Potvrdit vše</a>
-        <a class="btn btn-outline-primary">Odmítnout vše</a>
+        <a href="{{ route('confirm-all-registrations', $course->id) }}" class="btn btn-primary">Potvrdit vše</a>
+        <a href="{{ route('delete-all-registrations', $course->id) }}" class="btn btn-outline-primary">Odmítnout vše</a>
         <table class="table align-middle">
             <thead>
                 <tr>
@@ -17,21 +17,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Jmeno Prijmeni</td>
-                    <td><a class="table-button btn btn-primary">Potvrdit</a></td>
-                    <td><a class="table-button btn btn-outline-primary">Odmítnout</a></td>
-                </tr>
-                <tr>
-                    <td>Jmeno Prijmeni</td>
-                    <td><a class="table-button btn btn-primary">Potvrdit</a></td>
-                    <td><a class="table-button btn btn-outline-primary">Odmítnout</a></td>
-                </tr>
-                <tr>
-                    <td>Jmeno Prijmeni</td>
-                    <td><a class="table-button btn btn-primary">Potvrdit</a></td>
-                    <td><a class="table-button btn btn-outline-primary">Odmítnout</a></td>
-                </tr>
+                @foreach($studentCourse as $student)
+                    <tr>
+                        <td>{{ $student->student->name }} {{ $student->student->surname }}</td>
+                        <td><a href="{{ route('confirm-registration', ['courseId' => $course->id, 'studentCourseId' => $student->id]) }}" class="table-button btn btn-primary">Potvrdit</a></td>
+                        <td><a href="{{ route('delete-registration', ['courseId' => $course->id, 'studentCourseId' => $student->id]) }}" class="table-button btn btn-outline-primary">Odmítnout</a></td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </x-card>

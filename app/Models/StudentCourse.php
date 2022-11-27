@@ -44,4 +44,8 @@ class StudentCourse extends Model
     protected $casts = [
         'is_active' => 'boolean'
     ];
+
+    public function student() {
+        return $this->belongsTo(Person::class, 'studentID');
+    }
 }
