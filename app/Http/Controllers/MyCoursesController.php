@@ -9,6 +9,7 @@ use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Person;
 use App\Models\TeacherCourse;
+use App\Models\StudentTerm;
 use App\Models\Term;
 use DateTime;
 use Exception;
@@ -143,5 +144,21 @@ class MyCoursesController
 
         $toDelete->delete();
         return redirect('course-edit/'.$courseId);
+    }
+
+    public function getTermStudents (Request $request, $courseId, $termId) {
+        $term = Term::where('id', $termId)->first();
+        $students = StudentTerm::join('person', 'person.id', '=', 'studentID')
+            ->where('termID', $termId)->get('person.*');
+
+        return view('termStudents', [
+            'courseId' => $courseId,
+            'term' => $term,
+            'students' => $students
+        ]);
+    }
+
+    public function setTermStudents () {
+        return back();
     }
 }
