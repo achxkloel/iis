@@ -46,12 +46,17 @@ class MyCoursesController
     }
 
     public function createCourse(CourseRequest $request) {
-        Course::create([
+        $course = Course::create([
             'shortcut' => $request->input('shortcut'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'capacity' => (int)$request->input('capacity'),
             'guarantorID' => Auth::id()
+        ]);
+
+        TeacherCourse::create([
+            'teacherID' => Auth::id(),
+            'courseID'=> $course->id
         ]);
 
         return redirect('my-courses');
