@@ -8,6 +8,7 @@ use App\Http\Requests\TermRequest;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\Person;
+use App\Models\StudentCourse;
 use App\Models\TeacherCourse;
 use App\Models\Term;
 use DateTime;
@@ -86,7 +87,30 @@ class MyCoursesController
     }
 
     function getCourseRegistrations($id) {
-        return view('registrationManagement', ['course' => Course::all()->where('id', $id)->first()]);
+        $course = Course::all()->where('id', $id)->first();
+        $studentCourse = StudentCourse::all()->where('courseID', $id)->where('is_active', 0);
+
+        return view('registrationManagement', ['course' => $course, 'studentCourse' => $studentCourse]);
+    }
+
+    function confirmRegistration($courseId, $studentCourseId) {
+        StudentCourse::find($studentCourseId)->update(['is_active' => 1]);
+        return redirect('registration-management/'.$courseId);
+    }
+
+    function deleteRegistration($courseId, $studentCourseId) {
+        StudentCourse::find($studentCourseId)->delete();
+        return redirect('registration-management/'.$courseId);
+    }
+
+    function confirmAllRegistrations($courseId) {
+        StudentCourse::where('courseID', $courseId)->update(['is_active' => 1]);
+        return redirect('registration-management/'.$courseId);
+    }
+
+    function deleteAllRegistrations($courseId) {
+        StudentCourse::where('courseID', $courseId)->delete();
+        return redirect('registration-management/'.$courseId);
     }
 
     /**

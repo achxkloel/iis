@@ -15,7 +15,6 @@ use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Requests\SetPasswordPersonRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class AdminController extends Controller
