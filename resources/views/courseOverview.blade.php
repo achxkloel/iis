@@ -14,18 +14,20 @@
                 </tr>
             </thead>
             <tbody>
+            @foreach($terms as $term)
                 <tr>
-                    <td>Termín 1</td>
-                    <td><button type="button" class="table-button btn btn-primary">Registrovat</button></td>
+                    <td>{{$term->name}}</td>
+                    <td>
+                        @if(!$term->open)
+                            <button type="button" class="table-button btn btn-outline-secondary" disabled>Nelze registrovat</button>
+                        @elseif(in_array($term->id, $userterms->pluck('id')->all()))
+                            <a href="{{ route('course-overview-unregterm', ['courseId'=>$course->id,'termId'=>$term->id]) }}" class="table-button btn btn-outline-primary">Odregistrovat</a>
+                        @else
+                            <a href="{{ route('course-overview-regterm', ['courseId'=>$course->id,'termId'=>$term->id]) }}" class="table-button btn btn-primary">Registrovat</a>
+                        @endif                        
+                    </td>
                 </tr>
-                <tr>
-                    <td>Termín 2</td>
-                    <td><button type="button" class="table-button btn btn-outline-primary">Odregistrovat</button></td>
-                </tr>
-                <tr>
-                    <td>Termín 3</td>
-                    <td><button type="button" class="table-button btn btn-outline-secondary" disabled>Nelze registrovat</button></td>
-                </tr>
+            @endforeach
             </tbody>
         </table>
     </x-card>

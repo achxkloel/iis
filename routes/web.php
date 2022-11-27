@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MyCoursesController;
 use App\Http\Controllers\StudiesOverviewController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,16 +37,25 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 
 // Only for authorized users
 Route::middleware('auth')->group(function () {
+
+    // Main page (for all users)
+    Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse');
+
     // Logout
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     // Study overview page
-    Route::get('/studies-overview', [StudiesOverviewController::class, 'get'])->name('studies-overview');
-    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview')->where('courseId', '[0-9]+');
+    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview');
+    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
+    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm');
+    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm');
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'update'])->name('profile');
+
+    // Schedule
+    Route::get('/schedule', [ScheduleController::class, 'get'])->name('schedule');
 
     // All roles except student
     Route::middleware('hasRole:teacher')->group(function () {
