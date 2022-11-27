@@ -27,7 +27,8 @@ class CourseRequest extends FormRequest
             'name' => 'required',
             'shortcut' => 'required',
             'description' => 'required',
-            'capacity' => 'required'
+            'capacity' => 'required',
+            'price' => 'required'
         ];
     }
 
@@ -42,7 +43,8 @@ class CourseRequest extends FormRequest
             'name.required' => 'Prazdné jméno',
             'shortcut.required' => 'Prazdná zkratka',
             'description.required' => 'Prazdný popis',
-            'capacity.required' => 'Prazdný limit'
+            'capacity.required' => 'Prazdný limit',
+            'price.required' => 'Prazdná cena'
         ];
     }
 }

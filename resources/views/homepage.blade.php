@@ -16,11 +16,11 @@
                 <div class="card" style="width: 25rem; margin: 10px;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $course->shortcut }} - {{ $course->name }}</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{ $course->guarantor }}</h6>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</h6>
                         @if(Auth::check())
                             <a href="{{ route('homepage-regcourse', $course->id) }}" class="card-link">Registrovat</a>
                         @endif
-                        <a href="#" class="card-link">Přejít na detail předmětu</a>
+                        <a href="{{ route('course-detail', $course->id) }}" class="card-link">Přejít na detail předmětu</a>
                     </div>
                 </div>
             @endforeach

@@ -18,7 +18,7 @@
                 <tr>
                     <td class="bold"><a href="{{ route('course-overview', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
-                    <td>{{ $course->guarantor }}</td>
+                    <td>{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</td>
                     <td>D</td>
                     <td>69</td>
                 </tr>
