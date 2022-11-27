@@ -40,4 +40,8 @@ class TeacherCourse extends Model
      * @var array
      */
     protected $casts = [];
+
+    public function teacher() {
+        return $this->hasMany(Person::class, 'id', 'teacherID');
+    }
 }

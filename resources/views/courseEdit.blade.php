@@ -104,23 +104,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Lektor Prvni</td>
-                    <td><x-go-trash-24 /></td> {{-- TODO: on click actions --}}
-                </tr>
-                <tr>
-                    <td>Lektor Druhy</td>
-                    <td><x-go-trash-24 /></td>
-                </tr>
-                <tr>
-                    <td>Lektor Treti</td>
-                    <td><x-go-trash-24 /></td>
-                </tr>
+                    @foreach($teacherCourse as $item)
+                        <tr>
+                            <td>{{ $item->teacher->first()->name }} {{ $item->teacher->first()->surname }}</td>
+                            <td><a href="{{ route('delete-teacher', $item->id) }}"><x-go-trash-24 /></a></td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
-            <div class="d-grid gap-2 col-6 mx-auto">
-                <a href="{{ route('my-courses') }}" class="btn btn-primary">Přidat lektora</a>
-            </div>
+            <form action="{{ route('add-teacher', $course->id) }}" class="add-teacher-select">
+                <div class="input-group mb-3">
+                    <select id="teacher" name="teacher" class="form-control">
+                        <option>Nevybráno</option>
+                        @foreach($teachers as $teacher)
+                            <option value="{{ $teacher->id }}">{{ $teacher->name }} {{ $teacher->surname }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn btn-outline-secondary" id="button-addon2">Přidat</button>
+                </div>
+            </form>
         </x-card>
     @endunless
 </x-skeleton>

@@ -56,6 +56,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');
         Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
         Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management')->where('courseId', '[0-9]+');
+        Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher');
+        Route::get('/delete-teacher/{teacherCourseId}', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher');
 
         // Terms
         Route::get('/course-edit/{courseId}/term-edit/{termId}', [MyCoursesController::class, 'getTerm'])->name('course-edit-term')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
