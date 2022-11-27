@@ -19,7 +19,6 @@ class StudiesOverviewController
         $course = Course::join('student_course', 'course.id', '=', 'courseID')
         ->join('person', 'person.id', '=', 'studentID')
         ->where('person.id', Auth::user()->id)->where('student_course.is_active', '=', '1')->get('course.*');
-        Log::debug($course);
 
         return view('studiesOverview', ['courses' => $course]);
     }
@@ -48,9 +47,6 @@ class StudiesOverviewController
                 'termID'=>$termId,
             ]);
         }
-        else{
-            return redirect()->route('course-overview', $courseId);
-        }
         return redirect()->route('course-overview', $courseId);
     }
 
@@ -61,9 +57,6 @@ class StudiesOverviewController
             StudentTerm::
                 where('studentID', Auth::user()->id)
                 ->where('termID', $termId)->delete();
-        }
-        else{
-            return redirect()->route('course-overview', $courseId);
         }
         return redirect()->route('course-overview', $courseId);
     }
