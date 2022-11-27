@@ -40,7 +40,13 @@ class PersonTableSeeder extends Seeder
         // Add roles
         Person::where('login', 'admin')->first()->assignRole('admin', 'guarantor', 'teacher', 'student');
         Person::where('login', 'guarantor')->first()->assignRole('guarantor', 'teacher', 'student');
+        Person::where('login', 'guarantor1')->first()->assignRole('guarantor', 'teacher', 'student');
         Person::where('login', 'teacher')->first()->assignRole('teacher', 'student');
+        Person::where('login', 'teacher1')->first()->assignRole('teacher', 'student');
+        Person::where('login', 'teacher2')->first()->assignRole('teacher', 'student');
         Person::where('login', 'student')->first()->assignRole('student');
+        Person::where('login', 'student1')->first()->assignRole('student');
+        Person::where('login', 'student2')->first()->assignRole('student');
+        Person::where('login', 'student3')->first()->assignRole('student');
     }
 }
