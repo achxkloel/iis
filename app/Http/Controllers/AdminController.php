@@ -6,6 +6,7 @@ use App\Models\Person;
 use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\StudentScore;
+use App\Models\StudentCourse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonRequest;
 use App\Http\Requests\CreateClassRequest;
@@ -71,6 +72,14 @@ class AdminController extends Controller
             'student_courses' => $student_courses,
             'teacher_courses' => $teacher_courses
         ]);
+    }
+
+    public function showPersonCourse (Request $request, $personId, $courseId) {
+        // TODO:
+        // Get all course terms
+        // Get only user terms
+        // Register/unregister student
+        return view('admin.personCourse');
     }
 
     public function showPersonForm () {

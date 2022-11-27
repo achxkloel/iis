@@ -137,6 +137,7 @@
                 <th scope="col">Název</th>
                 <th scope="col">Hodnocení</th>
                 <th scope="col">Registrace</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -146,6 +147,9 @@
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->total_score ?? '-' }} / 100</td>
                     <td>{{ $course->registered_at }}</td>
+                    <td class="fit">
+                        <a href="{{ route('admin-person-course', ['personId' => $person->id, 'courseId' => $course->id]) }}"><x-go-info-16 class="text-primary"/></a>
+                    </td>
                 </tr>
             @empty
                 <tr>

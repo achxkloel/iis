@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/person/{personId}', 'showPerson')->name('person')->where('personId', '[0-9]+');
             Route::post('/person/{personId}/update', 'updatePerson')->name('update-person')->where('personId', '[0-9]+');
             Route::post('/person/{personId}/setPassword', 'setNewPassword')->name('person-set-password')->where('personId', '[0-9]+');
+            Route::get('/person/{personId}/course/{courseId}', 'showPersonCourse')->name('person-course')->where(['personId' => '[0-9]+', 'courseId' => '[0-9]+']);
 
             // Classes
             Route::get('/classes', 'showClasses')->name('classes');
