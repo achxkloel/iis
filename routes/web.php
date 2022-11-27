@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     // Main page (for all users)
     Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse');
+    Route::get('/course-detail/{courseID}', [HomepageController::class, 'getCourseDetail'])->name('course-detail');
 
     // Logout
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');

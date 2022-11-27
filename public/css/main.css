@@ -180,6 +180,16 @@ form {
     padding: 0;
 }
 
+.course-detail-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.course-detail-number {
+    font-size: 40px;
+}
+
 /* unset bs3 setting */
 /* TODO */
 /* body.modal-open {

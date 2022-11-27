@@ -18,10 +18,7 @@ class Course extends Model
      *
      * @var array
      */
-    protected $attributes = [
-        'is_public' => false,
-        'allow_registration' => false
-    ];
+    protected $attributes = [];
 
     /**
      * The attributes that are not mass assignable.
@@ -42,12 +39,13 @@ class Course extends Model
      *
      * @var array
      */
-    protected $casts = [
-        'is_public' => 'boolean',
-        'allow_registration' => 'boolean'
-    ];
+    protected $casts = [];
 
     public function terms() {
         return $this->hasMany(Term::class, 'courseID');
+    }
+
+    public function guarantor() {
+        return $this->belongsTo(Person::class, 'guarantorID');
     }
 }

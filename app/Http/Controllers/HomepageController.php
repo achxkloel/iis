@@ -36,4 +36,8 @@ class HomepageController
         }
         return redirect()->route('homepage');
     }
+
+    public function getCourseDetail($courseID) {
+        return view('courseDetail', ['course' => Course::all()->where('id', $courseID)->first()]);
+    }
 }
