@@ -14,7 +14,6 @@ class HomepageController
     public function getCourses(Request $request) {
         $courses = Course::where('is_confirmed', true)->get();
         $fulltextString = $request->query('fulltext');
-
         $courses = $courses->filter(function ($course) use ($fulltextString) {
             return str_contains($course->shortcut, $fulltextString) || str_contains($course->name, $fulltextString);
         });

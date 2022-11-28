@@ -24,9 +24,9 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($teachingcourses as $teachingCourse)
+                @forelse($teachingcourses as $teachingCourse)
                     <tr>
-                        <td class="bold"><a href="{{ route('course-detail', $teachingCourse->id) }}">{{ $teachingCourse->shortcut }}</a></td>
+                        <td><a href="{{ route('course-detail', $teachingCourse->id) }}">{{ $teachingCourse->shortcut }}</a></td>
                         <td>{{ $teachingCourse->name }}</td>
                         <td class='text-center'>
                             @if($teachingCourse->guarantorID == Auth::id())
@@ -52,7 +52,12 @@
                             <a href="#"><x-go-info-24/></a>
                         </td>
                     </tr>
-                @endforeach
+
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">Nejsou nalezené žadné kurzy</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </x-card>
@@ -71,14 +76,19 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($unconfirmedcourses as $unconfirmedCourse)
+                @forelse($unconfirmedcourses as $unconfirmedCourse)
                     <tr>
                         <td class="bold"><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
                         <td>{{ $unconfirmedCourse->name }}</td>
                         <td><a href="{{ route('course-edit', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-pencil-24 /></a></td>
                         <td><a href="{{ route('registration-management', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-trash-24 class='text-danger'/></a></td>
                     </tr>
-                @endforeach
+
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">Nejsou nalezené žadné kurzy</td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </x-card>

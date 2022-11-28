@@ -14,7 +14,7 @@
                 </tr>
             </thead>
             <tbody>
-            @foreach($terms as $term)
+            @forelse($terms as $term)
                 <tr>
                     <td>{{$term->name}}</td>
                     <td>
@@ -27,7 +27,11 @@
                         @endif                        
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="2" class="text-center">Nejsou nalezené žadné termíny</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </x-card>
