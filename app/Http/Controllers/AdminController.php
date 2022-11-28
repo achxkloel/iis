@@ -16,6 +16,7 @@ use App\Http\Requests\SetPasswordPersonRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -25,6 +26,16 @@ class AdminController extends Controller
 
     public function showClasses () {
         return view('admin.classes', ['classes' => Classroom::all()]);
+    }
+
+    public function showClass (Request $request, $classId) {
+        $class = Classroom::where('id', $classId)->first();
+
+        if (!$class) {
+            return abort(404);
+        }
+
+        return view('admin.classEdit', ['class' => $class]);
     }
 
     public function showPerson (Request $request, $personId) {
@@ -160,7 +171,7 @@ class AdminController extends Controller
 
         $person->assignRole($this->getRolesList($data['role']));
 
-        return back()->with([
+        return redirect()->route('admin-persons')->with([
             'success' => true,
             'login' => $data['login'],
             'password' => $password
@@ -173,12 +184,27 @@ class AdminController extends Controller
         Classroom::create($data);
 
         return redirect()->route('admin-classes')->with([
-            'success' => true,
+            'success_create' => true,
+            'name' => $data['name']
+        ]);
+    }
+
+    public function updateClass (CreateClassRequest $request, $classId) {
+        $data = $request->validated();
+
+        Classroom::where('id', $classId)->update($data);
+
+        return redirect()->route('admin-classes')->with([
+            'success_update' => true,
             'name' => $data['name']
         ]);
     }
 
     public function deletePerson (Request $request) {
+        if ((int) $request->input['id'] == Auth::user()->id) {
+            back();
+        }
+        
         Person::where('id', $request->input('id'))->delete();
         return back();
     }
