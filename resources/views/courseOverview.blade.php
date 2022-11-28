@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th scope="col">Termín</th>
+                    <th scope="col">Hodnocení</th>
                     <th scope="col" class="button-column">Registrace</th>
                 </tr>
             </thead>
@@ -17,6 +18,7 @@
             @forelse($terms as $term)
                 <tr>
                     <td>{{$term->name}}</td>
+                    <td>{{ in_array($term->id, $userterms_ids) ? $userterms[array_search($term->id, $userterms_ids, true)]->studentScore ?? '-' : '-' }}</td>
                     <td>
                         @if(!$term->open)
                             <button type="button" class="table-button btn btn-outline-secondary" disabled>Nelze registrovat</button>
@@ -29,7 +31,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="2" class="text-center">Nejsou nalezené žadné termíny</td>
+                    <td colspan="3" class="text-center">Nejsou nalezené žadné termíny</td>
                 </tr>
             @endforelse
             </tbody>
