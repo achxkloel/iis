@@ -53,7 +53,7 @@ zodpovědný za implementaci FE a pohled pro učitele
 <p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
 
 <h2>Implementace</h2>
-<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+
 <p>K implementaci front-endu byl využitý PHP framework Laravel a k implementaci back-endu a komunikaci s databází bylo použito PHP.</p>
 
 <p>
@@ -85,12 +85,24 @@ Zde vložte grafické schéma relační databáze (tabulek v databázi).
 
 <h2>Instalace</h2>
 
-Stručně popište:
+Požadavky:
 <ul>
-<li>postup instalace na server,</li>
-<li>softwarové požadavky (verze PHP apod.),</li>
-<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+   <li>PHP >= 7.2.5</li>
+   <li>Zapnuté rozšíření <strong>fileinfo</strong> v konfiguračním souboru PHP (php.ini)</li>
+   <li>Composer Dependency Manager</li>
 </ul>
+
+Postup instalace:
+<ol>
+   <li>Rozbalit archiv s projektem</li>
+   <li>Přesunout obsah složky <strong>src</strong> do kořenového adresaře webu</li>
+   <li>Příkazem <strong>composer install</strong> nainstalovat vsechny závislosti</li>
+   <li>Zkopirovat obsah souboru <strong>.env.example</strong> do <strong>.env</strong></li>
+   <li>V <strong>.env</strong> souboru nastavit přípojení k databáze</li>
+   <li>Vygenerovat klíč aplikace příkazem <strong>php artisan key:generate</strong></li>
+   <li>Vygenerovat databázaové tabulky a předem definovaná data příkazem <strong>php artisan migrate --seed</strong></li>
+   <li>Spustit projekt příkazem <strong>php artisan serve</strong></li>
+</ol>
 
 <h2>Známé problémy</h2>
 <p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit hodnocení, když neimplementované funkce nebudeme muset dlouze hledat.</p>
