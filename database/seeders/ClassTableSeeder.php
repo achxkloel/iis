@@ -19,7 +19,7 @@ class ClassTableSeeder extends Seeder
 
     public function createDefaultClassrooms (): void {
         $classes = [
-            ['name' => 'Domaci uloha', 'description' => 'Domaci uloha', 'type' => 'practical', 'capacity' => 0, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['name' => 'Domácí úloha', 'description' => 'Domaci uloha', 'type' => 'practical', 'capacity' => 0, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'A100', 'description' => 'Short description', 'type' => 'practical', 'capacity' => 20, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'B100', 'description' => 'Short description', 'type' => 'laboratory', 'capacity' => 10, 'floor' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['name' => 'C200', 'description' => 'Short description', 'type' => 'auditorium', 'capacity' => 200, 'floor' => 2, 'created_at' => now(), 'updated_at' => now()],
