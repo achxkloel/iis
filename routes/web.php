@@ -74,7 +74,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/registration-management/{courseId}/delete/{studentCourseId}', [MyCoursesController::class, 'deleteRegistration'])->name('delete-registration')->where(['courseId' => '[0-9]+', 'studentCourseId' => '[0-9]+']);
         Route::get('/registration-management/{courseId}/delete-all', [MyCoursesController::class, 'deleteAllRegistrations'])->name('delete-all-registrations')->where('courseId','[0-9]+');
         Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher')->where('courseId', '[0-9]+');
-        Route::get('/delete-teacher', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher')->where('teacherCourseId', '[0-9]+');
+        Route::get('/delete-teacher', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher');
+        Route::get('/delete-student', [MyCoursesController::class, 'deleteStudent'])->name('delete-student');
+        Route::get('/delete-student-term', [MyCoursesController::class, 'deleteStudentTerm'])->name('delete-student-term');
         Route::get('/teacher-course-overview/{courseId}', [MyCoursesController::class, 'getTeacherCourse'])->name('teacher-course-overview')->where('courseId', '[0-9]+');
 
 

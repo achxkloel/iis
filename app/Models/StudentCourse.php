@@ -48,4 +48,8 @@ class StudentCourse extends Model
     public function student() {
         return $this->belongsTo(Person::class, 'studentID');
     }
+
+    public function course() {
+        return $this->belongsTo(Course::class, 'courseID');
+    }
 }
