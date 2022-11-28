@@ -26,9 +26,11 @@ class CourseRequest extends FormRequest
         return [
             'name' => 'required',
             'shortcut' => 'required',
-            'description' => 'required',
-            'capacity' => 'required',
-            'price' => 'required'
+            'description' => 'nullable',
+            'capacity' => 'required|integer|min:1',
+            'price' => 'nullable|integer|min:0',
+            'date_from' => 'required|date_format:d.m.Y',
+            'date_to' => 'required|date_format:d.m.Y'
         ];
     }
 
@@ -42,9 +44,15 @@ class CourseRequest extends FormRequest
         return [
             'name.required' => 'Prazdné jméno',
             'shortcut.required' => 'Prazdná zkratka',
-            'description.required' => 'Prazdný popis',
             'capacity.required' => 'Prazdný limit',
-            'price.required' => 'Prazdná cena'
+            'capacity.integer' => 'Limit má obsahovat pouze celé číslo',
+            'capacity.min' => 'Minmální limit: :min',
+            'price.integer' => 'Cena má obsahovat pouze celé číslo',
+            'price.min' => 'Cena může být pouze kladná',
+            'date_from.required' => 'Prazdný začatek',
+            'date_to.required' => 'Prazdný konec',
+            'date_from.date_format' => 'Špatný formát',
+            'date_to.date_format' => 'Špatný formát',
         ];
     }
 }

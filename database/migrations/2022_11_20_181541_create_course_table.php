@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('capacity');
             $table->integer('guarantorID');
             $table->integer('is_confirmed')->default(0);
+            $table->dateTime('date_from');
+            $table->dateTime('date_to');
             $table->timestamps();
             $table->foreign('guarantorID')->references('id')->on('person')->onDelete('cascade');
         });
