@@ -10,15 +10,19 @@
                 <th scope="col">Název</th>
                 <th scope="col">Garant</th>
                 <th scope="col">Body</th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
             @forelse($courses as $course)
                 <tr>
-                    <td class="bold"><a href="{{ route('course-overview', $course->id) }}">{{ $course->shortcut }}</a></td>
+                    <td class="bold"><a href="{{ route('course-detail', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</td>
                     <td>69</td>
+                    <td>
+                        <a href="{{ route('course-overview', $course->id) }}"><x-go-info-24/></a>
+                    </td>
                 </tr>
             @empty
             <tr>

@@ -26,7 +26,7 @@
             <tbody>
                 @forelse($teachingcourses as $teachingCourse)
                     <tr>
-                        <td>{{ $teachingCourse->shortcut }}</td>
+                        <td><a href="{{ route('course-detail', $teachingCourse->id) }}">{{ $teachingCourse->shortcut }}</a></td>
                         <td>{{ $teachingCourse->name }}</td>
                         <td class='text-center'> 
                             @if($teachingCourse->guarantorID == Auth::id())
