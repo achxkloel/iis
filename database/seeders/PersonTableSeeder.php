@@ -20,7 +20,7 @@ class PersonTableSeeder extends Seeder
 
     public function createDefaultUsers (): void {
         $users = [
-            ['login' => 'admin', 'password' => Hash::make('admin'), 'name' => 'Admin', 'surname' => 'admin', 'role' => 'admin', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()], // 'phone_number' => '789 456 132', 'email' => 'testing@mail.cz'
+            ['login' => 'admin', 'password' => Hash::make('admin'), 'name' => 'Admin', 'surname' => 'admin', 'role' => 'admin', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
 
             ['login' => 'student1', 'password' => Hash::make('student1'), 'name' => 'Student', 'surname' => 'One', 'role' => 'student', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['login' => 'student2', 'password' => Hash::make('student2'), 'name' => 'Student', 'surname' => 'Two', 'role' => 'student', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],

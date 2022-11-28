@@ -19,10 +19,10 @@ class StudentScoreTableSeeder extends Seeder
 
     public function createDefaultStudentScore (): void {
         $student_scores = [
-            ['teacherID' => 9, 'studentID' => 2, 'termID' => 1, 'score' => 50 ],
-            ['teacherID' => 9, 'studentID' => 2, 'termID' => 2, 'score' => 75 ],
-            ['teacherID' => 8, 'studentID' => 2, 'termID' => 3, 'score' => 40 ],
-            ['teacherID' => 8, 'studentID' => 2, 'termID' => 4, 'score' => 60 ],
+            ['teacherID' => 9, 'studentID' => 2, 'termID' => 1, 'score' => 50, 'created_at' => now(), 'updated_at' => now() ],
+            ['teacherID' => 9, 'studentID' => 2, 'termID' => 2, 'score' => 75, 'created_at' => now(), 'updated_at' => now() ],
+            ['teacherID' => 8, 'studentID' => 2, 'termID' => 3, 'score' => 40, 'created_at' => now(), 'updated_at' => now() ],
+            ['teacherID' => 8, 'studentID' => 2, 'termID' => 4, 'score' => 60, 'created_at' => now(), 'updated_at' => now() ],
         ];
 
         StudentScore::insert($student_scores);
