@@ -7,7 +7,7 @@
         @endif
         <form action="{{ route('homepage') }}" method="GET" class="fulltext-bar">
             <div class="input-group mb-3">
-                <input name="fulltext" type="text" class="form-control" placeholder="Vyhledávání v předmětech">
+                <input name="fulltext" type="text" class="form-control" placeholder="Vyhledávání v předmětech" value={{ request()->get('fulltext') ?? '' }}>
                 <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Vyhledat</button>
             </div>
         </form>
