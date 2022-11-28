@@ -49,7 +49,7 @@ class StudentCourseTableSeeder extends Seeder
             ['studentID' => 5, 'courseID' => 13, 'is_active' => 0, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 5, 'courseID' => 14, 'is_active' => 0, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 5, 'courseID' => 15, 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'courseID' => 16, 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['studentID' => 5, 'courseID' => 16, 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()]
         ];
 
         StudentCourse::insert($student_courses);
