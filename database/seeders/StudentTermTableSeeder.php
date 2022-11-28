@@ -21,8 +21,6 @@ class StudentTermTableSeeder extends Seeder
         $student_terms = [
             ['studentID' => 2, 'termID' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 2, 'termID' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 4, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 3, 'termID' => 7, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 3, 'termID' => 9, 'created_at' => now(), 'updated_at' => now()],
             ['studentID' => 3, 'termID' => 8, 'created_at' => now(), 'updated_at' => now()],
