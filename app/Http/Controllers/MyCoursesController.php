@@ -35,7 +35,7 @@ class MyCoursesController
 
     public function getCourse($id) {
         $course = Course::find($id);
-        if(!$course) {
+        if (!$course) {
             return abort(404);
         }
         $terms = Term::all()->where('courseID', $id);
@@ -53,7 +53,7 @@ class MyCoursesController
 
     public function getTeacherCourse($id) {
         $course = Course::find($id);
-        if(!$course) {
+        if (!$course) {
             return abort(404);
         }
         $terms = Term::all()->where('courseID', $id);
@@ -298,5 +298,14 @@ class MyCoursesController
         }
 
         return back();
+    }
+
+    public function deleteStudent(Request $request) {
+        $toDelete = StudentCourse::find($request->input('id'));
+        if (!$toDelete) return redirect('my-courses');
+        $courseId = $toDelete->courseID;
+
+        $toDelete->delete();
+        return redirect('teacher-course-overview/'.$courseId);
     }
 }
