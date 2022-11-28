@@ -85,6 +85,7 @@
                         <th scope="col">Místnost</th>
                         <th scope="col" class="small-button-column"></th>
                         <th scope="col" class="small-button-column"></th>
+                        <th scope="col" class="small-button-column"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -93,6 +94,7 @@
                             <td>{{ $term->name }}</td>
                             <td>{{ $term->type }}</td>
                             <td>{{ $term->class?->name }}</td>
+                            <td><a href="{{ route('course-term-students', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-person-24 /></a></td>
                             <td><a href="{{ route('course-edit-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-pencil-24 /></a></td>
                             <td>
                                 <button type="button" class="btn btn-link" onclick="showToast('confirmationToastTerm', {{ $term->id }})">

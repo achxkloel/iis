@@ -15,7 +15,6 @@ use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Requests\SetPasswordPersonRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 
 class AdminController extends Controller
@@ -71,6 +70,7 @@ class AdminController extends Controller
             ]);
 
         $student_courses_add = Course::whereNotIn('id', $student_courses->pluck('id')->all())
+            ->where('is_confirmed', true)
             ->get([
                 'course.id',
                 'course.shortcut',
@@ -107,14 +107,6 @@ class AdminController extends Controller
         $personId = $toDelete->studentID;
         $toDelete->delete();
         return redirect()->route('admin-person', $personId);
-    }
-
-    public function showPersonCourse (Request $request, $personId, $courseId) {
-        // TODO:
-        // Get all course terms
-        // Get only user terms
-        // Register/unregister student
-        return view('admin.personCourse');
     }
 
     public function showPersonForm () {

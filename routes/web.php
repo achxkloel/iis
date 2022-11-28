@@ -39,17 +39,17 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 Route::middleware('auth')->group(function () {
 
     // Main page (for all users)
-    Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse');
-    Route::get('/course-detail/{courseID}', [HomepageController::class, 'getCourseDetail'])->name('course-detail');
+    Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse')->where('courseID', '[0-9]+');
+    Route::get('/course-detail/{courseID}', [HomepageController::class, 'getCourseDetail'])->name('course-detail')->where('courseID', '[0-9]+');
 
     // Logout
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
 
     // Study overview page
-    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview')->where('courseId', '[0-9]+');
-    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview');
-    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);;
-    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);;
+    Route::get('/studies-overview', [StudiesOverviewController::class, 'getRegCourses'])->name('studies-overview');
+    Route::get('/studies-overview/{courseId}', [StudiesOverviewController::class, 'getCourse'])->name('course-overview')->where('courseId', '[0-9]+');
+    Route::get('/studies-overview/reg/{courseId}/{termId}', [StudiesOverviewController::class, 'regTerm'])->name('course-overview-regterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
+    Route::get('/studies-overview/unreg/{courseId}/{termId}', [StudiesOverviewController::class, 'unregTerm'])->name('course-overview-unregterm')->where(['courseId' => '[0-9]+', 'termId' => '[0-9]+']);
 
     // Profile
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
@@ -67,6 +67,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');
         Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
         Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management')->where('courseId', '[0-9]+');
+        Route::get('/registration-management/{courseId}/confirm/{studentCourseId}', [MyCoursesController::class, 'confirmRegistration'])->name('confirm-registration')->where(['courseId' => '[0-9]+', 'studentCourseId' => '[0-9]+']);
+        Route::get('/registration-management/{courseId}/confirm-all', [MyCoursesController::class, 'confirmAllRegistrations'])->name('confirm-all-registrations')->where('courseId','[0-9]+');
+        Route::get('/registration-management/{courseId}/delete/{studentCourseId}', [MyCoursesController::class, 'deleteRegistration'])->name('delete-registration')->where(['courseId' => '[0-9]+', 'studentCourseId' => '[0-9]+']);
+        Route::get('/registration-management/{courseId}/delete-all', [MyCoursesController::class, 'deleteAllRegistrations'])->name('delete-all-registrations')->where('courseId','[0-9]+');
         Route::get('/add-teacher/{courseId}', [MyCoursesController::class, 'addTeacher'])->name('add-teacher')->where('courseId', '[0-9]+');
         Route::get('/delete-teacher', [MyCoursesController::class, 'deleteTeacher'])->name('delete-teacher')->where('teacherCourseId', '[0-9]+');
 
@@ -97,7 +101,6 @@ Route::middleware('auth')->group(function () {
             Route::get('/person/{personId}', 'showPerson')->name('person')->where('personId', '[0-9]+');
             Route::post('/person/{personId}/update', 'updatePerson')->name('update-person')->where('personId', '[0-9]+');
             Route::post('/person/{personId}/setPassword', 'setNewPassword')->name('person-set-password')->where('personId', '[0-9]+');
-            Route::get('/person/{personId}/course/{courseId}', 'showPersonCourse')->name('person-course')->where(['personId' => '[0-9]+', 'courseId' => '[0-9]+']);
             Route::get('/person/{personId}/addStudentCourse', 'addPersonStudentCourse')->name('person-add-student-course')->where('personId', '[0-9]+');
             Route::get('/person/{personId}/addTeacherCourse', 'addPersonTeacherCourse')->name('person-add-teacher-course')->where('personId', '[0-9]+');
             Route::get('/person/deleteTeacherCourse', 'deletePersonTeacherCourse')->name('person-del-teacher-course');
