@@ -33,7 +33,7 @@
                 </tr>
             @empty
                 <tr>
-                    <td colspan="3" class="text-center">Nejsou nalezené žadné termíny</td>
+                    <td colspan="4" class="text-center">Nejsou nalezené žadné termíny</td>
                 </tr>
             @endforelse
             </tbody>

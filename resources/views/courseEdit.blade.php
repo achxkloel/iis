@@ -129,7 +129,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Nejsou nalezené žadné termíny</td>
+                            <td colspan="7" class="text-center">Nejsou nalezené žadné termíny</td>
                         </tr>
                     @endforelse
                 </tbody>
