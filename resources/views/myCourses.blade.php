@@ -2,25 +2,81 @@
     <x-slot:title>
         Mé kurzy
     </x-slot:title>
+    <div style="margin: 20px 0" class="d-flex justify-content-end">
+        <a href="{{ route('course-create') }}" class="btn btn-success">
+            <x-go-plus-16 style="margin: 0 2px" /> Přidat kurz
+        </a>
+    </div>
     <x-card>
+        <x-slot:title>
+        Aktuální kurzy
+        </x-slot:title>
         <table class="table align-middle">
             <thead>
                 <tr>
-                    <th scope="col" class="shortcut-column">Kurz</th>
-                    <th scope="col"></th>
-                    <th scope="col" class="button-column"></th>
-                    <th scope="col" class="button-column">
-                        <a href="{{ route('course-create') }}" class="table-button btn btn-primary">Nový kurz</a>
-                    </th>
+                    <th scope="col" class="shortcut-column">Zkratka</th>
+                    <th scope="col">Název</th>
+                    <th scope="col" class="small-button-column">Garant</th>
+                    <th scope="col" class="small-button-column"></th>
+                    <th scope="col" class="small-button-column"></th>
+                    <th scope="col" class="small-button-column"></th>
+                    <th scope="col" class="small-button-column"></th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($courses as $course)
+                @foreach($teachingcourses as $teachingCourse)
                     <tr>
-                        <td>{{ $course->shortcut }}</td>
-                        <td>{{ $course->name }}</td>
-                        <td><a href="{{ route('course-edit', ['courseId' => $course->id]) }}" class="table-button btn btn-primary">Upravit</a></td>
-                        <td><a href="{{ route('registration-management', ['courseId' => $course->id]) }}" class="table-button btn btn-primary">Správa registrací</a></td>
+                        <td>{{ $teachingCourse->shortcut }}</td>
+                        <td>{{ $teachingCourse->name }}</td>
+                        <td class='text-center'> 
+                            @if($teachingCourse->guarantorID == Auth::id())
+                                <x-go-check-circle-fill-16 class="text-success"/>
+                            @endif
+                        </td>
+                        <td>
+                            @if($teachingCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
+                                <a href="{{ route('course-edit', ['courseId' => $teachingCourse->id]) }}"><x-go-pencil-24 /></a>
+                            @endif
+                        </td>
+                        <td>
+                            @if($teachingCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
+                                <a href="{{ route('registration-management', ['courseId' => $teachingCourse->id]) }}"><x-go-versions-24 /></a>
+                            @endif
+                        </td>
+                        <td>
+                            @if($teachingCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
+                                <a href="{{ route('registration-management', ['courseId' => $teachingCourse->id]) }}"><x-go-trash-24 class='text-danger'/></a>
+                            @endif
+                        </td>
+                        <td>
+                            <a href="#"><x-go-info-24/></a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </x-card>
+    
+    <x-card>
+        <x-slot:title>
+            Kurzy ke schválení
+        </x-slot:title>
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th scope="col" class="shortcut-column">Zkratka</th>
+                    <th scope="col">Název</th>
+                    <th scope="col" class="small-button-column"></th>
+                    <th scope="col" class="small-button-column"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($unconfirmedcourses as $unconfirmedCourse)
+                    <tr>
+                        <td>{{ $unconfirmedCourse->shortcut }}</td>
+                        <td>{{ $unconfirmedCourse->name }}</td>
+                        <td><a href="{{ route('course-edit', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-pencil-24 /></a></td>
+                        <td><a href="{{ route('registration-management', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-trash-24 class='text-danger'/></a></td>
                     </tr>
                 @endforeach
             </tbody>

@@ -21,9 +21,16 @@ use Illuminate\Support\Facades\Log;
 
 class MyCoursesController
 {
-    public function get() {
-        $foundCourses = Auth::user()->role == 'admin' ? Course::all() : Course::all()->where('guarantorID', Auth::id());
-        return view('myCourses', ['courses' => $foundCourses]);
+    public function getTeachingCourses() {
+        
+        $teachingCourses = Course::all()->where('is_confirmed', true);
+        $unconfirmedCourses = Course::all()->where('is_confirmed', false);
+
+        if(Auth::user()->role != 'admin') {
+            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->get();
+            $unconfirmedCourses = Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
+        }
+        return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
     }
 
     public function getCourse($id) {
@@ -48,13 +55,18 @@ class MyCoursesController
     }
 
     public function createCourse(CourseRequest $request) {
-        Course::create([
+        $course = Course::create([
             'shortcut' => $request->input('shortcut'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'capacity' => (int)$request->input('capacity'),
             'price' => (int)$request->input('price'),
             'guarantorID' => Auth::id()
+        ]);
+
+        TeacherCourse::create([
+            'teacherID' => Auth::id(),
+            'courseID'=> $course->id
         ]);
 
         return redirect('my-courses');

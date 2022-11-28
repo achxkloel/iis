@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     // All roles except student
     Route::middleware('hasRole:teacher')->group(function () {
         // Courses
-        Route::get('/my-courses', [MyCoursesController::class, 'get'])->name('my-courses');
+        Route::get('/my-courses', [MyCoursesController::class, 'getTeachingCourses'])->name('my-courses');
         Route::get('/course-edit/{courseId}', [MyCoursesController::class, 'getCourse'])->name('course-edit')->where('courseId', '[0-9]+');
         Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->name('course-edit')->where('courseId', '[0-9]+');
         Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');

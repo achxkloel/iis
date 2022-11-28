@@ -19,10 +19,10 @@ class CourseTableSeeder extends Seeder
 
     public function createDefaultCourses (): void {
         $courses = [
-            ['shortcut' => 'IJA', 'name' => 'Seminar Java', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['shortcut' => 'ITU', 'name' => 'Tvorba uzivatelskych rozhrani', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['shortcut' => 'IIS', 'name' => 'Informacni systemy', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 10, 'created_at' => now(), 'updated_at' => now()],
-            ['shortcut' => 'ISS', 'name' => 'Signaly a systemy', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 10, 'created_at' => now(), 'updated_at' => now()]
+            ['shortcut' => 'IJA', 'name' => 'Seminar Java', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 4, 'is_confirmed' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['shortcut' => 'ITU', 'name' => 'Tvorba uzivatelskych rozhrani', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 4, 'is_confirmed' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['shortcut' => 'IIS', 'name' => 'Informacni systemy', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 10, 'is_confirmed' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['shortcut' => 'ISS', 'name' => 'Signaly a systemy', 'description' => 'Short description', 'capacity' => 5, 'guarantorID' => 10, 'is_confirmed' => 1, 'created_at' => now(), 'updated_at' => now()]
         ];
 
         Course::insert($courses);

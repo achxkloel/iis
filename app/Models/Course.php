@@ -18,7 +18,9 @@ class Course extends Model
      *
      * @var array
      */
-    protected $attributes = [];
+    protected $attributes = [
+        'is_confirmed' => false
+    ];
 
     /**
      * The attributes that are not mass assignable.
@@ -39,7 +41,9 @@ class Course extends Model
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'is_confirmed' => 'boolean'
+    ];
 
     public function terms() {
         return $this->hasMany(Term::class, 'courseID');
