@@ -18,10 +18,26 @@ use Illuminate\Support\Facades\Auth;
 
 class MyCoursesController
 {
-    public function get() {
-        $foundCourses = Auth::user()->role == 'admin' ? Course::all() : Course::all()->where('guarantorID', Auth::id());
-        return view('myCourses', ['courses' => $foundCourses]);
+    public function getTeachingCourses() {
+        // $teachingCourses = Auth::user()->role == 'admin' ? Course::all() : Course::all()->where('guarantorID', Auth::id());
+        // TeacherCourse::all()->where('teacherID', Auth::id());
+        // $unconfirmedCourses = Auth::user()->role == 'admin' ? Course::all()->where('is_confirmed', false) : Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
+        
+        
+        $teachingCourses = Course::all()->where('is_confirmed', true);
+        $unconfirmedCourses = Course::all()->where('is_confirmed', false);
+
+        if(Auth::user()->role != 'admin') {
+            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->get();
+            $unconfirmedCourses = Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
+        }
+        return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
     }
+
+    // public function getUnconfirmedCourses() {
+    //     $foundCourses = Auth::user()->role == 'admin' ? Course::all()->where('is_confirmed', false) : Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
+    //     return view('myCourses', ['unconfirmedcourses' => $foundCourses]);
+    // }
 
     public function getCourse($id) {
         $course = Course::find($id);

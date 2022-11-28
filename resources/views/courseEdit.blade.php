@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="price" class="col-sm-2 col-form-label required-label">Cena</label>
+                <label for="price" class="col-sm-2 col-form-label">Cena</label>
                 <div class="col-sm-10 number-input">
                     <input id="price" name="price" class="form-control @error('price') is-invalid @enderror" type="text" value="{{ $course->price }}">
                     @error('price')
