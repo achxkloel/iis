@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>Projekt IIS</title>
+<style type="text/css">
+table { border-collapse: collapse; }
+td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+dt { font-weight: bold; margin-top: 0.5em; }
+</style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu
+podle použitého editoru -->
+
+<h1>WIS2</h1> <!-- Nahradte názvem svého zadání -->
+
+<dl>
+<dt>Autoři</dt>
+<dd>Evgeny Torbin <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+<a href="mailto:xtorbi00@stud.fit.vutbr.cz">xtorbi00@stud.fit.vutbr.cz</a> -
+velitel týmu, zodpovědný za práci s databází a pohled pro administrátora
+</dd>
+<dd>Dmitriy Astapov <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+<a href="mailto:xastap00@stud.fit.vutbr.cz">xastap00@stud.fit.vutbr.cz</a> -
+zodpovědný za implementaci BE a pohled pro studenta
+</dd>
+<dd>Lukáš Vincenc <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+<a href="mailto:xvince01@stud.fit.vutbr.cz">xvince01@stud.fit.vutbr.cz</a> -
+zodpovědný za implementaci FE a pohled pro učitele
+</dd>
+<dt>URL aplikace</dt>
+<dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
+<dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>
+    Pro role <strong>teacher</strong> a <strong>student</strong> existují účty s přidanou číslovkou od 1 do 4 na konci. Pro ně platí, že je jejich login stejný, jako jejich heslo.
+    <strong>Příklad: </strong> lze se přihlásit jako 'teacher3' pomocí hesla 'teacher3'.
+</p>
+<table>
+<tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>admin</td><td>admin</td><td>Administrátor</td></tr>
+<tr><td>teacher1</td><td>teacher1</td><td>Učitel</td></tr>
+<tr><td>student1</td><td>student1</td><td>Student</td></tr>
+</table>
+
+<h3>Video</h3>
+
+<p>Přiložte odkaz na komentované video demostrující použití informačního systému. Zaměřte se na případy užití definované zadáním (např. registrace uživatele, správa uživatelů a činnosti jednotlivých rolí). Video nahrajte například na VUT Google Drive, kde ho bude možné přímo spustit z odkazu.</p>
+
+<h2>Implementace</h2>
+<p>Stručná dokumentace k implementaci, která popisuje, které části projektu (např. PHP skripty) implementují jednotlivé případy použití.</p>
+<p>K implementaci front-endu byl využitý PHP framework Laravel a k implementaci back-endu a komunikaci s databází bylo použito PHP.</p>
+
+<p>
+    Využíváme základní složkovou strukturu, která byla vytvořena při nastavování nového Laravel projektu. Práce s databází se nachází ve složce database. Ta obsahuje dvě důležité složky.
+    Jednou z nich je složka migrations, ve které jsou soubory vytvářející všechny potřebné tabulky v databázi při spuštění příkazu <strong>php artisan migrate</strong>.
+    Tou druhou je seeders, ve které jsou soubory plnící databázi výchozími daty pomocí příkazu <strong>php artisan migrate --seed</strong>.
+</p>
+
+ <p>
+    Ve složce public se nachází css styly a logo systému. K těm potom lze v kódu jednodušše přistoupit přes <strong>URL::asset()</strong>
+ </p>
+
+ <p>
+    Front-end aplikace je implemetován pomocí blade souborů nacházející se ve složce resources/views. V této složce je také podsložka
+    components, kde jsou připravené komponentz pro jednoduché přepoužití. Například soubor card.blade.php lze použít přes tag x-card
+    v jakémkoliv souboru.
+ </p>
+
+ <p>
+    Nejdůležitějším adresářem je app. V něm jsou uloženy soubory implementující back-end aplikace. Složka Model obsahuje PHP soubory reprezentující
+    jednotlivé tabulky v databázi. Pomocí nich lze v kódu načíst záznamy z databáze - například v souborech ve složce Http/Controllers. V této
+    složce jsou PHP soubory, které obsahují metody volané při různých requestech. Jaká metoda má být zavolaná při kterém requestu je definováno
+    v souboru routes/web.php.
+ </p>
+
+<h3>Databáze</h3>
+
+Zde vložte grafické schéma relační databáze (tabulek v databázi).
+
+<h2>Instalace</h2>
+
+Stručně popište:
+<ul>
+<li>postup instalace na server,</li>
+<li>softwarové požadavky (verze PHP apod.),</li>
+<li>jak rozbalit, konfigurovat, inicializovat databázi, ...</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit hodnocení, když neimplementované funkce nebudeme muset dlouze hledat.</p>
+
+</body>
+</html>
