@@ -19,7 +19,20 @@ class HomepageController
             return str_contains($course->shortcut, $fulltextString) || str_contains($course->name, $fulltextString);
         });
 
-        return view('homepage', ['courses' => $courses]);
+        $studentCourses = StudentCourse::all()->where('studentID', Auth::id());
+
+        $unregisteredCourses = collect();
+        $registeredCourses = $courses->filter(function ($course) use ($studentCourses, $unregisteredCourses) {
+            foreach ($studentCourses as $studentCourse) {
+                if ($course->id == $studentCourse->courseID) {
+                    return true;
+                }
+            }
+            $unregisteredCourses->add($course);
+            return false;
+        });
+
+        return view('homepage', ['courses' => $courses, 'registered' => $registeredCourses, 'unregistered' => $unregisteredCourses]);
     }
 
     public function regCourse(Request $request, $courseID) {
