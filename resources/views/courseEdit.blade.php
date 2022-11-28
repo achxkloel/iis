@@ -136,7 +136,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="2" class="text-center">Nejsou nalezené žadné lektory</td>
+                            <td colspan="2" class="text-center">Nejsou nalezeni žádní lektoři</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -168,6 +168,7 @@
             </div>
         </div>
     </div>
+
     <div id="confirmationToastTeacher" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-body">
             Opravdu chcete tohoto učitele odebrat?
