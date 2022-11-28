@@ -11,6 +11,7 @@
                 <th scope="col">Garant</th>
                 <th scope="col">Body</th>
                 <th scope="col"></th>
+
             </tr>
             </thead>
             <tbody>

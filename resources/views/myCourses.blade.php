@@ -28,7 +28,7 @@
                     <tr>
                         <td><a href="{{ route('course-detail', $teachingCourse->id) }}">{{ $teachingCourse->shortcut }}</a></td>
                         <td>{{ $teachingCourse->name }}</td>
-                        <td class='text-center'> 
+                        <td class='text-center'>
                             @if($teachingCourse->guarantorID == Auth::id())
                                 <x-go-check-circle-fill-16 class="text-success"/>
                             @endif
@@ -61,7 +61,7 @@
             </tbody>
         </table>
     </x-card>
-    
+
     <x-card>
         <x-slot:title>
             Kurzy ke schválení
@@ -78,7 +78,7 @@
             <tbody>
                 @forelse($unconfirmedcourses as $unconfirmedCourse)
                     <tr>
-                        <td>{{ $unconfirmedCourse->shortcut }}</td>
+                        <td class="bold"><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
                         <td>{{ $unconfirmedCourse->name }}</td>
                         <td><a href="{{ route('course-edit', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-pencil-24 /></a></td>
                         <td><a href="{{ route('registration-management', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-trash-24 class='text-danger'/></a></td>

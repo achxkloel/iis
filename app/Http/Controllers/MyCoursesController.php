@@ -17,12 +17,10 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class MyCoursesController
 {
     public function getTeachingCourses() {
-        
         $teachingCourses = Course::all()->where('is_confirmed', true);
         $unconfirmedCourses = Course::all()->where('is_confirmed', false);
 
@@ -39,8 +37,6 @@ class MyCoursesController
         $teacherCourse = TeacherCourse::all()->where('courseID', $id);
 
         $teachers = Person::all()->where('role', 'teacher');
-        $guarantors = Person::all()->where('role', 'guarantor');
-        $teachers = $teachers->merge($guarantors);
 
         $teachers = $teachers->filter(function ($item) use ($teacherCourse) {
             $found = $teacherCourse->firstWhere('id', $item->id);

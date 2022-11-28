@@ -19,26 +19,22 @@ class StudentTermTableSeeder extends Seeder
 
     public function createDefaultStudentTerm (): void {
         $student_terms = [
-            ['studentID' => 2, 'termID' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 7, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 8, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 2, 'termID' => 9, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'termID' => 8, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'termID' => 9, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'termID' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'termID' => 5, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 5, 'termID' => 7, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 6, 'termID' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 6, 'termID' => 2, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 6, 'termID' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 6, 'termID' => 6, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 6, 'termID' => 7, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 7, 'termID' => 3, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 7, 'termID' => 4, 'created_at' => now(), 'updated_at' => now()],
-            ['studentID' => 7, 'termID' => 7, 'created_at' => now(), 'updated_at' => now()]
+            ['studentID' => 2, 'termID' => 1],
+            ['studentID' => 2, 'termID' => 2],
+            ['studentID' => 2, 'termID' => 3],
+            ['studentID' => 2, 'termID' => 4],
+            ['studentID' => 3, 'termID' => 7],
+            ['studentID' => 3, 'termID' => 8],
+            ['studentID' => 3, 'termID' => 9],
+            ['studentID' => 3, 'termID' => 8],
+            ['studentID' => 4, 'termID' => 9],
+            ['studentID' => 4, 'termID' => 3],
+            ['studentID' => 4, 'termID' => 5],
+            ['studentID' => 4, 'termID' => 7],
+            ['studentID' => 5, 'termID' => 1],
+            ['studentID' => 5, 'termID' => 2],
+            ['studentID' => 5, 'termID' => 3],
+            ['studentID' => 5, 'termID' => 6]
         ];
 
         StudentTerm::insert($student_terms);

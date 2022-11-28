@@ -18,16 +18,20 @@ class HomepageController
             return str_contains($course->shortcut, $fulltextString) || str_contains($course->name, $fulltextString);
         });
 
-        if(Auth::check()) {
+        $studentCourses = StudentCourse::all()->where('studentID', Auth::id());
 
-            $studentcourses = StudentCourse::where('studentID', Auth::user()->id)->get();
-            return view('homepage', ['courses' => $courses, 'studentcourses'=>$studentcourses]);
-            
-        }
-        else
-        {
-            return view('homepage', ['courses' => $courses]);
-        }
+        $unregisteredCourses = collect();
+        $registeredCourses = $courses->filter(function ($course) use ($studentCourses, $unregisteredCourses) {
+            foreach ($studentCourses as $studentCourse) {
+                if ($course->id == $studentCourse->courseID) {
+                    return true;
+                }
+            }
+            $unregisteredCourses->add($course);
+            return false;
+        });
+
+        return view('homepage', ['courses' => $courses, 'registered' => $registeredCourses, 'unregistered' => $unregisteredCourses]);
     }
 
     public function regCourse(Request $request, $courseID) {
@@ -51,6 +55,8 @@ class HomepageController
     }
 
     public function getCourseDetail($courseID) {
-        return view('courseDetail', ['course' => Course::all()->where('id', $courseID)->first()]);
+        $course = Course::all()->where('id', $courseID)->first();
+        if (!$course) return redirect('/');
+        return view('courseDetail', ['course' => $course]);
     }
 }

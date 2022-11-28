@@ -30,7 +30,7 @@ class CreatePersonRequest extends FormRequest
             'surname' => 'required',
             'role' => [
                 'required',
-                Rule::in(['guarantor', 'teacher', 'student'])
+                Rule::in(['teacher', 'student'])
             ]
         ];
     }
