@@ -79,7 +79,7 @@
             <tbody>
                 @forelse($unconfirmedcourses as $unconfirmedCourse)
                     <tr>
-                        <td class="bold"><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
+                        <td><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
                         <td>{{ $unconfirmedCourse->name }}</td>
                         <td>
                             @if (Auth::user()->hasRole('admin'))
