@@ -24,7 +24,6 @@ class StudentTermTableSeeder extends Seeder
             ['studentID' => 2, 'termID' => 3],
             ['studentID' => 2, 'termID' => 4],
             ['studentID' => 3, 'termID' => 7],
-            ['studentID' => 3, 'termID' => 8],
             ['studentID' => 3, 'termID' => 9],
             ['studentID' => 3, 'termID' => 8],
             ['studentID' => 4, 'termID' => 9],

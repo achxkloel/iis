@@ -4,7 +4,7 @@
     </x-slot:title>
     <x-card>
         <x-slot:title>
-            {{ $course->name }} - 69
+            {{ $course->name }}
         </x-slot:title>
         <table class="table align-middle">
             <thead>

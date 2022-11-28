@@ -17,6 +17,8 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class MyCoursesController
 {
@@ -25,7 +27,7 @@ class MyCoursesController
         $unconfirmedCourses = Course::all()->where('is_confirmed', false);
 
         if(Auth::user()->role != 'admin') {
-            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->get();
+            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->where('is_confirmed', true)->get();
             $unconfirmedCourses = Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
         }
         return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
@@ -33,6 +35,9 @@ class MyCoursesController
 
     public function getCourse($id) {
         $course = Course::find($id);
+        if(!$course) {
+            return abort(404);
+        }
         $terms = Term::all()->where('courseID', $id);
         $teacherCourse = TeacherCourse::all()->where('courseID', $id);
 
@@ -44,6 +49,18 @@ class MyCoursesController
         });
 
         return view('courseEdit', ['course' => $course, 'terms' => $terms, 'teacherCourse' => $teacherCourse, 'teachers' => $teachers]);
+    }
+
+    public function getTeacherCourse($id) {
+        $course = Course::find($id);
+        if(!$course) {
+            return abort(404);
+        }
+        $terms = Term::all()->where('courseID', $id);
+        $students = Person::join('student_course', 'person.id', '=', 'studentID')
+        ->where('courseID', $id)->get();
+
+        return view('teachercourseoverview', ['course' => $course, 'terms' => $terms, 'students' => $students]);
     }
 
     public function newCourse() {
