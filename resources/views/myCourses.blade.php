@@ -73,6 +73,7 @@
                     <th scope="col">Název</th>
                     <th scope="col" class="small-button-column"></th>
                     <th scope="col" class="small-button-column"></th>
+                    <th scope="col" class="small-button-column"></th>
                 </tr>
             </thead>
             <tbody>
@@ -80,6 +81,11 @@
                     <tr>
                         <td class="bold"><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
                         <td>{{ $unconfirmedCourse->name }}</td>
+                        <td>
+                            @if (Auth::user()->hasRole('admin'))
+                                <a href="{{ route('admin-course-confirm', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-verified-24 /></a>
+                            @endif
+                        </td>
                         <td><a href="{{ route('course-edit', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-pencil-24 /></a></td>
                         <td>
                             @if($unconfirmedCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
