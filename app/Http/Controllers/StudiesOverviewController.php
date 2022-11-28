@@ -8,20 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\StudentScore;
+use App\Models\StudentCourse;
 use App\Models\Term;
 use App\Models\StudentTerm;
 
 
 class StudiesOverviewController
 {
-
-    //TODO ask Evzen about how this works
-    public function getRegCourses() {
-        
-        // $course = Course::join('student_course', 'course.id', '=', 'courseID')
-        // ->join('person', 'person.id', '=', 'studentID')
-        // ->where('person.id', Auth::user()->id)->where('student_course.is_active', '=', '1')->get('course.*');
-        
+    public function getRegCourses() {        
         $person = Person::where('id', Auth::user()->id)->first();
 
         if (!$person) {
@@ -54,8 +48,12 @@ class StudiesOverviewController
                 'student_course.id as studentCourseID'
             ]);
 
+        $inactive_courses = Course::join('student_course', 'course.id', '=', 'courseID')
+            ->where('student_course.studentID', $person->id)
+            ->where('student_course.is_active', false)
+            ->get('course.*');
 
-        return view('studiesOverview', ['courses' => $student_courses]);
+        return view('studiesOverview', ['courses' => $student_courses, 'inactive_courses' => $inactive_courses]);
     }
 
     public function getCourse(Request $request, $courseId) {
@@ -97,5 +95,12 @@ class StudiesOverviewController
                 ->where('termID', $termId)->delete();
         }
         return redirect()->route('course-overview', $courseId);
+    }
+
+    public function unregCourse (Request $request, $courseId) {
+        StudentCourse::where('courseID', $courseId)
+            ->where('studentID', Auth::id())->delete();
+
+        return redirect()->route('studies-overview');
     }
 }

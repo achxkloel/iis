@@ -30,7 +30,7 @@
                             <h5 class="card-title">{{ $course->shortcut }} - {{ $course->name }}</h5>
                             <h6 class="card-subtitle mb-2 text-muted">{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</h6>
                             @if(Auth::check())
-                                <a class="card-link link-disabled" aria-disabled="true">Registrováno</a>
+                                <a href="{{ route('studies-overview') }}" class="card-link" aria-disabled="true">Registrováno</a>
                             @endif
                             <a href="{{ route('course-detail', $course->id) }}" class="card-link">Přejít na detail předmětu</a>
                         </div>
