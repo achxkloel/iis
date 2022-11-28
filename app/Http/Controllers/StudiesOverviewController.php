@@ -7,7 +7,7 @@ use App\Models\Person;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
-use App\Models\StudentCourse;
+use App\Models\StudentScore;
 use App\Models\Term;
 use App\Models\StudentTerm;
 
@@ -55,6 +55,9 @@ class StudiesOverviewController
         $term = StudentTerm::where('studentID', Auth::user()->id)->where('termID', $termId)->first();
         if($term){
             StudentTerm::
+                where('studentID', Auth::user()->id)
+                ->where('termID', $termId)->delete();
+            StudentScore::
                 where('studentID', Auth::user()->id)
                 ->where('termID', $termId)->delete();
         }
