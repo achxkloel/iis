@@ -70,17 +70,6 @@ form {
     margin-bottom: 0;
 }
 
-.activation-card {
-    height: 100%;
-    display: table;
-}
-
-.activation-card {
-    display: table-cell;
-    vertical-align: table;
-    width: 500px;
-}
-
 .fulltext-bar {
     width: 700px;
 }

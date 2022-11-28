@@ -1,6 +1,6 @@
 <x-skeleton>
-    <div class="activation-card-container">
-        <div class="activation-card">
+    <div class="login-card-container">
+        <div class="login-card">
             <div class="card text-center">
                 <h5 class="card-header">
                     Aktivace účtu
