@@ -49,7 +49,7 @@ class MyCoursesController
             return $found == null;
         });
 
-        return view('courseEdit', ['course' => $course, 'terms' => $terms, 'teacherCourse' => $teacherCourse, 'teachers' => $teachers]);
+        return view('courseEdit', ['course' => $course, 'terms' => $terms, 'teacherCourse' => $teacherCourse, 'teachers' => $teachers, 'days' => ['Po', 'Út', 'St', 'Čt', 'Pá']]);
     }
 
     public function getTeacherCourse($id) {
@@ -61,7 +61,7 @@ class MyCoursesController
         $students = Person::join('student_course', 'person.id', '=', 'studentID')
         ->where('courseID', $id)->get();
 
-        return view('teachercourseoverview', ['course' => $course, 'terms' => $terms, 'students' => $students]);
+        return view('teachercourseoverview', ['course' => $course, 'terms' => $terms, 'students' => $students, 'days' => ['Po', 'Út', 'St', 'Čt', 'Pá']]);
     }
 
     public function newCourse() {
