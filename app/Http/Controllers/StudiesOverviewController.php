@@ -46,7 +46,7 @@ class StudiesOverviewController
                 $join->on('student_course.studentID', '=', 'student_scores.studentID');
                 $join->on('course.id', '=', 'student_scores.courseID');
             })
-            ->where('student_course.studentID', $person->id)
+            ->where('student_course.studentID', $person->id)->where('student_course.is_active', true)
             ->get([
                 'course.*',
                 'student_course.updated_at as registered_at',
