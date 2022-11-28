@@ -11,6 +11,7 @@
                 <tr>
                     <th scope="col">Termín</th>
                     <th scope="col">Hodnocení</th>
+                    <th scope="col">Čas</th>
                     <th scope="col" class="button-column">Registrace</th>
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                 <tr>
                     <td>{{$term->name}}</td>
                     <td>{{ in_array($term->id, $userterms_ids) ? $userterms[array_search($term->id, $userterms_ids, true)]->studentScore ?? '-' : '-' }}</td>
+                    <td>{{ ($term->day) ? $days[$term->day - 1] . " " . $term->duration_from . ":00 - " . $term->duration_to . ":00" : "-" }}</td>
                     <td>
                         @if(!$term->open)
                             <button type="button" class="table-button btn btn-outline-secondary" disabled>Nelze registrovat</button>

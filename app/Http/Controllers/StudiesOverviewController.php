@@ -84,7 +84,8 @@ class StudiesOverviewController
             'course' => $course,
             'terms' => $terms,
             'userterms' => $userterms,
-            'userterms_ids' => $userterms_ids
+            'userterms_ids' => $userterms_ids,
+            'days' => ['Po', 'Út', 'St', 'Čt', 'Pá']
         ]);
     }
 
