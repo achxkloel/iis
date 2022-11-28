@@ -110,6 +110,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/classes', 'showClasses')->name('classes');
             Route::get('/class/create', 'showClassForm')->name('create-class');
             Route::post('/class/create', 'createNewClass')->name('create-class');
+            Route::get('/class/{classId}', 'showClass')->name('class')->where('classId', '[0-9]+');
+            Route::post('/class/{classId}', 'updateClass')->name('class')->where('classId', '[0-9]+');
             Route::delete('/class/delete', 'deleteClass')->name('delete-class');
         });
 });
