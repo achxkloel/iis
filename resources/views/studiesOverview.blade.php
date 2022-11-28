@@ -19,7 +19,7 @@
                     <td class="bold"><a href="{{ route('course-detail', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</td>
-                    <td>69</td>
+                    <td>{{ !$course->total_score ? '-': ($course->total_score > 100 ? '100' : $course->total_score) }}</td>
                     <td>
                         <a href="{{ route('course-overview', $course->id) }}"><x-go-info-24/></a>
                     </td>

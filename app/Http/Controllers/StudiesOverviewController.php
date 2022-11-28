@@ -14,13 +14,48 @@ use App\Models\StudentTerm;
 
 class StudiesOverviewController
 {
+
+    //TODO ask Evzen about how this works
     public function getRegCourses() {
         
-        $course = Course::join('student_course', 'course.id', '=', 'courseID')
-        ->join('person', 'person.id', '=', 'studentID')
-        ->where('person.id', Auth::user()->id)->where('student_course.is_active', '=', '1')->get('course.*');
+        // $course = Course::join('student_course', 'course.id', '=', 'courseID')
+        // ->join('person', 'person.id', '=', 'studentID')
+        // ->where('person.id', Auth::user()->id)->where('student_course.is_active', '=', '1')->get('course.*');
+        
+        $person = Person::where('id', Auth::user()->id)->first();
 
-        return view('studiesOverview', ['courses' => $course]);
+        if (!$person) {
+            return abort(404);
+        }
+
+        // Get total score for every student and course
+        $student_scores = StudentScore::select([
+                'studentID',
+                'courseID',
+                StudentScore::raw('SUM(student_score.score) as total_score')
+            ])
+            ->join('term', 'term.id', '=', 'termID')
+            ->groupBy([
+                'studentID',
+                'courseID'
+            ]);
+
+        // Get person courses as a student
+        $student_courses = Course::join('student_course', 'course.id', '=', 'courseID')
+            ->leftJoinSub($student_scores, 'student_scores', function ($join) {
+                $join->on('student_course.studentID', '=', 'student_scores.studentID');
+                $join->on('course.id', '=', 'student_scores.courseID');
+            })
+            ->where('student_course.studentID', $person->id)
+            ->get([
+                'course.*',
+                'student_course.updated_at as registered_at',
+                'total_score',
+                'student_course.id as studentCourseID'
+            ]);
+
+
+        return view('studiesOverview', ['courses' => $student_courses]);
     }
 
     public function getCourse(Request $request, $courseId) {
