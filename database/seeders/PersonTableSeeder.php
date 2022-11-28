@@ -30,7 +30,7 @@ class PersonTableSeeder extends Seeder
             ['login' => 'teacher1', 'password' => Hash::make('teacher1'), 'name' => 'Teacher', 'surname' => 'One', 'role' => 'teacher', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['login' => 'teacher2', 'password' => Hash::make('teacher2'), 'name' => 'Teacher', 'surname' => 'Two', 'role' => 'teacher', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
             ['login' => 'teacher3', 'password' => Hash::make('teacher3'), 'name' => 'Teacher', 'surname' => 'Three', 'role' => 'teacher', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
-            ['login' => 'teacher4', 'password' => Hash::make('teacher4'), 'name' => 'Teacher', 'surname' => 'Four', 'role' => 'teacher', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['login' => 'teacher4', 'password' => Hash::make('teacher4'), 'name' => 'Teacher', 'surname' => 'Four', 'role' => 'teacher', 'is_active' => 1, 'created_at' => now(), 'updated_at' => now()]
         ];
 
         Person::insert($users);
