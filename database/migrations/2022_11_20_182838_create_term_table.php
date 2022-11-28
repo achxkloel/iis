@@ -19,11 +19,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('type');
             $table->integer('score');
-            $table->dateTime('date_from');
-            $table->dateTime('date_to');
-            // $table->dateTime('duration_from');
-            // $table->dateTime('duration_to');
-            // $table->string('day');
+            $table->integer('duration_from')->nullable();
+            $table->integer('duration_to')->nullable();
+            $table->integer('day')->nullable();
             $table->integer('capacity');
             $table->integer('open')->default(0);
             $table->integer('courseID');

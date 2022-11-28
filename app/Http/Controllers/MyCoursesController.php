@@ -17,6 +17,7 @@ use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 
@@ -68,12 +69,21 @@ class MyCoursesController
     }
 
     public function createCourse(CourseRequest $request) {
+        $data = $request->validated();
+
+        $date_from = Carbon::createFromFormat('d.m.Y', $data['date_from']);
+        $date_to = Carbon::createFromFormat('d.m.Y', $data['date_to']);
+        $date_from->setTimeFromTimeString('00:00:00');
+        $date_to->setTimeFromTimeString('00:00:00');
+
         $course = Course::create([
-            'shortcut' => $request->input('shortcut'),
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'capacity' => (int)$request->input('capacity'),
-            'price' => (int)$request->input('price'),
+            'shortcut' => $data['shortcut'],
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'capacity' => (int) $data['capacity'],
+            'price' => (int) $data['price'],
+            'date_from' => $date_from,
+            'date_to' => $date_to,
             'guarantorID' => Auth::id()
         ]);
 
@@ -86,12 +96,21 @@ class MyCoursesController
     }
 
     function updateCourse(CourseRequest $request, $id) {
+        $data = $request->validated();
+
+        $date_from = Carbon::createFromFormat('d.m.Y', $data['date_from']);
+        $date_to = Carbon::createFromFormat('d.m.Y', $data['date_to']);
+        $date_from->setTimeFromTimeString('00:00:00');
+        $date_to->setTimeFromTimeString('00:00:00');
+
         Course::find($id)->update([
-            'shortcut' => $request->input('shortcut'),
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'capacity' => (int)$request->input('capacity'),
-            'price' => (int)$request->input('price')
+            'shortcut' => $data['shortcut'],
+            'name' => $data['name'],
+            'description' => $data['description'],
+            'capacity' => (int) $data['capacity'],
+            'price' => (int) $data['price'],
+            'date_from' => $date_from,
+            'date_to' => $date_to,
         ]);
 
         return redirect('my-courses');
@@ -152,16 +171,18 @@ class MyCoursesController
     /**
      * @throws Exception
      */
-    public function createTerm($courseId, TermRequest $request) {
-        // TODO: dates
+    public function createTerm(TermRequest $request, $courseId) {
+        $data = $request->validated();
+
         Term::create([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'description' => $request->input('description'),
-            'score' => (int)$request->input('score'),
-            'date_from' => new DateTime($request->input('date-from')),
-            'date_to' => $request->input('date-to'),
-            'capacity' => (int)$request->input('capacity'),
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'description' => $data['description'],
+            'score' => (int)$data['score'],
+            'capacity' => (int)$data['capacity'],
+            'duration_from' => $data['duration_from'],
+            'duration_to' => $data['duration_to'],
+            'day' => $data['day'],
             'courseID' => $courseId,
             'classID' => $request->input('room') != 0 ? $request->input('room') : null,
             'teacherID' => Auth::id()
@@ -171,16 +192,19 @@ class MyCoursesController
     }
 
     function updateTerm(TermRequest $request, $courseId, $termId) {
+        $data = $request->validated();
+        
         Term::find($termId)->update([
-            'name' => $request->input('name'),
-            'type' => $request->input('type'),
-            'description' => $request->input('description'),
-            'score' => (int)$request->input('score'),
-            'date_from' => $request->input('date-from'),
-            'date_to' => $request->input('date-to'),
-            'capacity' => (int)$request->input('capacity'),
+            'name' => $data['name'],
+            'type' => $data['type'],
+            'description' => $data['description'],
+            'score' => (int)$data['score'],
+            'capacity' => (int)$data['capacity'],
+            'duration_from' => $data['duration_from'],
+            'duration_to' => $data['duration_to'],
+            'day' => $data['day'],
             'courseID' => $courseId,
-            'classID' => (int)$request->input('room') != 0 ? $request->input('room') : null,
+            'classID' => $request->input('room') != 0 ? $request->input('room') : null,
             'teacherID' => Auth::id()
         ]);
 

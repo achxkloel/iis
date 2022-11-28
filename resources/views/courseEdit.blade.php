@@ -15,7 +15,7 @@
             <div class="mb-3 row">
                 <label for="name" class="col-sm-2 col-form-label required-label">Název</label>
                 <div class="col-sm-10">
-                    <input id="name" name="name" class="form-control @error('name') is-invalid @enderror" type="text" value="{{ $course->name }}">
+                    <input id="name" name="name" class="form-control @error('name') is-invalid @enderror" type="text" value="{{ $course->name ?? old('name') }}">
                     @error('name')
                         <div class="invalid-feedback text-start">
                             {{ $message }}
@@ -26,7 +26,7 @@
             <div class="mb-3 row">
                 <label for="shortcut" class="col-sm-2 col-form-label required-label">Zkratka</label>
                 <div class="col-sm-10">
-                    <input id="shortcut" name="shortcut" class="form-control @error('shortcut') is-invalid @enderror" type="text" value="{{ $course->shortcut }}">
+                    <input id="shortcut" name="shortcut" class="form-control @error('shortcut') is-invalid @enderror" type="text" value="{{ $course->shortcut ?? old('shortcut') }}">
                     @error('shortcut')
                         <div class="invalid-feedback text-start">
                             {{ $message }}
@@ -35,9 +35,9 @@
                 </div>
             </div>
             <div class="mb-3 row">
-                <label for="description" class="col-sm-2 col-form-label required-label">Popis</label>
+                <label for="description" class="col-sm-2 col-form-label">Popis</label>
                 <div class="col-sm-10">
-                    <input id="description" name="description" class="form-control @error('description') is-invalid @enderror" type="text" value="{{ $course->description }}">
+                    <input id="description" name="description" class="form-control @error('description') is-invalid @enderror" type="text" value="{{ $course->description ?? old('description') }}">
                     @error('description')
                         <div class="invalid-feedback text-start">
                             {{ $message }}
@@ -46,9 +46,32 @@
                 </div>
             </div>
             <div class="mb-3 row">
+                <label for="date_from" class="col-sm-2 col-form-label required-label">Začátek</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control @error('date_from') is-invalid @enderror" id="date_from" name="date_from" value="{{ $course->date_from?->format('d.m.Y') ?? old('date_from') }}" aria-describedby="dateFromError">
+                    @error('date_from')
+                        <div id="dateFromError" class="invalid-feedback text-start">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                    <div class="form-text text-start">Příklad: {{ now()->isoFormat('DD.MM.YYYY') }}</div>
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <label for="date_to" class="col-sm-2 col-form-label required-label">Konec</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control @error('date_to') is-invalid @enderror" id="date_to" name="date_to" value="{{ $course->date_to?->format('d.m.Y') ?? old('date_to') }}" aria-describedby="dateToError">
+                    @error('date_to')
+                        <div id="dateToError" class="invalid-feedback text-start">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+            <div class="mb-3 row">
                 <label for="capacity" class="col-sm-2 col-form-label required-label">Limit</label>
                 <div class="col-sm-10 number-input">
-                    <input id="capacity" name="capacity" class="form-control @error('capacity') is-invalid @enderror" type="text" value="{{ $course->capacity }}">
+                    <input id="capacity" name="capacity" class="form-control @error('capacity') is-invalid @enderror" type="text" value="{{ $course->capacity ?? old('capacity') }}">
                     @error('capacity')
                         <div class="invalid-feedback text-start">
                             {{ $message }}
@@ -59,7 +82,7 @@
             <div class="mb-3 row">
                 <label for="price" class="col-sm-2 col-form-label">Cena</label>
                 <div class="col-sm-10 number-input">
-                    <input id="price" name="price" class="form-control @error('price') is-invalid @enderror" type="text" value="{{ $course->price }}">
+                    <input id="price" name="price" class="form-control @error('price') is-invalid @enderror" type="text" value="{{ $course->price ?? old('price') }}">
                     @error('price')
                     <div class="invalid-feedback text-start">
                         {{ $message }}

@@ -45,6 +45,11 @@ class Course extends Model
         'is_confirmed' => 'boolean'
     ];
 
+    protected $dates = [
+        'date_from',
+        'date_to'
+    ];
+
     public function terms() {
         return $this->hasMany(Term::class, 'courseID');
     }
