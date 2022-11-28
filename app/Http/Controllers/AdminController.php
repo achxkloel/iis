@@ -109,14 +109,6 @@ class AdminController extends Controller
         return redirect()->route('admin-person', $personId);
     }
 
-    public function showPersonCourse (Request $request, $personId, $courseId) {
-        // TODO:
-        // Get all course terms
-        // Get only user terms
-        // Register/unregister student
-        return view('admin.personCourse');
-    }
-
     public function showPersonForm () {
         return view('admin.personCreate');
     }
