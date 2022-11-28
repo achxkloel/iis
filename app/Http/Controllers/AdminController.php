@@ -70,6 +70,7 @@ class AdminController extends Controller
             ]);
 
         $student_courses_add = Course::whereNotIn('id', $student_courses->pluck('id')->all())
+            ->where('is_confirmed', true)
             ->get([
                 'course.id',
                 'course.shortcut',

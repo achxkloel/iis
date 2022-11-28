@@ -10,11 +10,14 @@ use App\Models\Course;
 use App\Models\Person;
 use App\Models\StudentCourse;
 use App\Models\TeacherCourse;
+use App\Models\StudentTerm;
+use App\Models\StudentScore;
 use App\Models\Term;
 use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class MyCoursesController
 {
@@ -168,5 +171,95 @@ class MyCoursesController
 
         $toDelete->delete();
         return redirect('course-edit/'.$courseId);
+    }
+
+    public function getTermStudents (Request $request, $courseId, $termId) {
+        $course = Course::where('id', $courseId)->first();
+        $term = Term::where('id', $termId)
+            ->where('courseID', $courseId)
+            ->first();
+
+        if (!$course || !$term) {
+            return abort(404);
+        }
+
+        $student_scores = StudentScore::select([
+            'studentID',
+            'termID',
+            'score'
+        ]);
+
+        $students = StudentTerm::join('person', 'person.id', '=', 'student_term.studentID')
+            ->leftJoinSub($student_scores, 'student_scores', function ($join) {
+                $join->on('student_scores.studentID', '=', 'student_term.studentID');
+                $join->on('student_scores.termID', '=', 'student_term.termID');
+            })
+            ->where('student_term.termID', $termId)->get([
+                'person.*',
+                'student_scores.score as studentScore'
+            ]);
+
+        return view('termStudents', [
+            'course' => $course,
+            'term' => $term,
+            'students' => $students
+        ]);
+    }
+
+    public function setTermScore (Request $request, $courseId, $termId) {
+        $course = Course::where('id', $courseId)->first();
+        $term = Term::where('id', $termId)
+            ->where('courseID', $courseId)
+            ->first();
+
+        if (!$course || !$term) {
+            return abort(404);
+        }
+
+        $data = $request->all();
+        $errors = [];
+
+        foreach ($data as $key => $value) {
+            $value = trim($value);
+
+            if (empty($value)) {
+                continue;
+            }
+
+            if ($value != (int) $value) {
+                $errors[$key] = true;
+                continue;
+            }
+
+            $newScore = abs((int) $value);
+            $studentID = (int) $key;
+
+            if ($newScore > $term->score) {
+                $newScore = $term->score;
+            }
+
+            $score = StudentScore::where('studentID', $studentID)
+                ->where('termID', $termId);
+
+            if (!$score->first()) {
+                StudentScore::create([
+                    'studentID' => $studentID,
+                    'termID' => $termId,
+                    'teacherID' => Auth::user()->id,
+                    'score' => $newScore
+                ]);
+            } else {
+                $score->update([
+                    'score' => $newScore,
+                    'teacherID' => Auth::user()->id
+                ]);
+            }
+        }
+
+        if (!empty($errors)) {
+            return back()->withErrors($errors);
+        }
+
+        return back();
     }
 }

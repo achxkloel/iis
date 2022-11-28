@@ -146,10 +146,10 @@
                 <tr>
                     <td class="bold">{{ $course->shortcut }}
                     <td>{{ $course->name }}</td>
-                    <td>{{ $course->total_score ?? '-' }} / 100</td>
+                    <td>{{ !$course->total_score ? '-': ($course->total_score > 100 ? '100' : $course->total_score) }} / 100</td>
                     <td>{{ $course->registered_at }}</td>
                     <td class="fit">
-                        <a href="{{ route('admin-person-course', ['personId' => $person->id, 'courseId' => $course->id]) }}"><x-go-info-16 class="text-primary"/></a>
+                        <a href="{{ route('course-edit', ['courseId' => $course->id]) }}"><x-go-info-16 class="text-primary"/></a>
                     </td>
                     <td class="fit">
                         <button type="button" class="btn btn-link" onclick="showToast('confirmationStudentToast', {{ $course->studentCourseID }})">

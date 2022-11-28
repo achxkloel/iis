@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Log;
 class HomepageController
 {
     public function getCourses(Request $request) {
-        $courses = Course::all();
+        $courses = Course::where('is_confirmed', true)->get();
         $fulltextString = $request->query('fulltext');
 
         $courses = $courses->filter(function ($course) use ($fulltextString) {
@@ -23,6 +23,11 @@ class HomepageController
     }
 
     public function regCourse(Request $request, $courseID) {
+        $course = Course::where('id', $courseID)->first();
+
+        if (!$course->is_confirmed) {
+            return redirect()->route('homepage');
+        }
 
         $course = Person::where('id', Auth::user()->id)->first()->registeredCourses()->where('courseID', $courseID)->first();
         if(!$course){
