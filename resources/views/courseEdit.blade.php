@@ -89,7 +89,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($terms as $term)
+                    @forelse($terms as $term)
                         <tr>
                             <td>{{ $term->name }}</td>
                             <td>{{ $term->type }}</td>
@@ -102,7 +102,11 @@
                                 </button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">Nejsou nalezené žadné termíny</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             <div class="d-grid gap-2 col-6 mx-auto">
@@ -121,7 +125,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($teacherCourse as $item)
+                    @forelse($teacherCourse as $item)
                         <tr>
                             <td>{{ $item->teacher->first()->name }} {{ $item->teacher->first()->surname }}</td>
                             <td>
@@ -130,7 +134,11 @@
                                 </button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="2" class="text-center">Nejsou nalezené žadné lektory</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
             <form action="{{ route('add-teacher', $course->id) }}" class="add-teacher-select">

@@ -27,7 +27,7 @@ class MyCoursesController
         $unconfirmedCourses = Course::all()->where('is_confirmed', false);
 
         if(Auth::user()->role != 'admin') {
-            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->where('is_confirmed', true)->get();
+            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->where('is_confirmed', true)->get('course.*');
             $unconfirmedCourses = Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
         }
         return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
@@ -94,6 +94,14 @@ class MyCoursesController
             'price' => (int)$request->input('price')
         ]);
 
+        return redirect('my-courses');
+    }
+
+    function deleteCourse(Request $request) {
+        $toDelete = Course::find($request->input('id'));
+        if (!$toDelete) return redirect('my-courses');
+
+        $toDelete->delete();
         return redirect('my-courses');
     }
 
@@ -246,6 +254,10 @@ class MyCoursesController
 
         foreach ($data as $key => $value) {
             $value = trim($value);
+
+            if ($key != (int) $key) {
+                continue;
+            }
 
             if (empty($value)) {
                 continue;
