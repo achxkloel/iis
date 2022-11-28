@@ -23,22 +23,18 @@ class StudentTermTableSeeder extends Seeder
             ['studentID' => 2, 'termID' => 2],
             ['studentID' => 2, 'termID' => 3],
             ['studentID' => 2, 'termID' => 4],
-            ['studentID' => 2, 'termID' => 7],
-            ['studentID' => 2, 'termID' => 8],
-            ['studentID' => 2, 'termID' => 9],
-            ['studentID' => 5, 'termID' => 8],
-            ['studentID' => 5, 'termID' => 9],
+            ['studentID' => 3, 'termID' => 7],
+            ['studentID' => 3, 'termID' => 8],
+            ['studentID' => 3, 'termID' => 9],
+            ['studentID' => 3, 'termID' => 8],
+            ['studentID' => 4, 'termID' => 9],
+            ['studentID' => 4, 'termID' => 3],
+            ['studentID' => 4, 'termID' => 5],
+            ['studentID' => 4, 'termID' => 7],
+            ['studentID' => 5, 'termID' => 1],
+            ['studentID' => 5, 'termID' => 2],
             ['studentID' => 5, 'termID' => 3],
-            ['studentID' => 5, 'termID' => 5],
-            ['studentID' => 5, 'termID' => 7],
-            ['studentID' => 6, 'termID' => 1],
-            ['studentID' => 6, 'termID' => 2],
-            ['studentID' => 6, 'termID' => 3],
-            ['studentID' => 6, 'termID' => 6],
-            ['studentID' => 6, 'termID' => 7],
-            ['studentID' => 7, 'termID' => 3],
-            ['studentID' => 7, 'termID' => 4],
-            ['studentID' => 7, 'termID' => 7]
+            ['studentID' => 5, 'termID' => 6]
         ];
 
         StudentTerm::insert($student_terms);

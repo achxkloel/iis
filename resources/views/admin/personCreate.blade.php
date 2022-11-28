@@ -52,7 +52,6 @@
                     <select class="form-select @error('role') is-invalid  @enderror" id="role" name="role" value="{{ old('role') }}" aria-describedby="roleError" >
                         <option value="student" {{ old('role') == 'student' ? "selected" : "" }}>Student</option>
                         <option value="teacher" {{ old('role') == 'teacher' ? "selected" : "" }}>Učitel</option>
-                        {{-- <option value="guarantor" {{ old('role') == 'guarantor' ? "selected" : "" }}>Garant</option> --}}
                     </select>
                     @error('role')
                         <div id="roleError" class="invalid-feedback text-start">
