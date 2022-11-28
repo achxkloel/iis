@@ -43,6 +43,8 @@ class HomepageController
     }
 
     public function getCourseDetail($courseID) {
-        return view('courseDetail', ['course' => Course::all()->where('id', $courseID)->first()]);
+        $course = Course::all()->where('id', $courseID)->first();
+        if (!$course) return redirect('/');
+        return view('courseDetail', ['course' => $course]);
     }
 }

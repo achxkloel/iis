@@ -144,7 +144,7 @@
             <tbody>
             @forelse($student_courses as $course)
                 <tr>
-                    <td class="bold">{{ $course->shortcut }}
+                    <td class="bold"><a href="{{ route('course-detail', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
                     <td>{{ !$course->total_score ? '-': ($course->total_score > 100 ? '100' : $course->total_score) }} / 100</td>
                     <td>{{ $course->registered_at }}</td>
@@ -195,7 +195,7 @@
             <tbody>
             @forelse($teacher_courses as $course)
                 <tr>
-                    <td class="bold">{{ $course->shortcut }}
+                    <td class="bold"><a href="{{ route('course-detail', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
                     <td>{{ $course->registered_at }}</td>
                     <td class="fit text-center">
