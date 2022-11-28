@@ -22,10 +22,6 @@ use Illuminate\Support\Facades\Log;
 class MyCoursesController
 {
     public function getTeachingCourses() {
-        // $teachingCourses = Auth::user()->role == 'admin' ? Course::all() : Course::all()->where('guarantorID', Auth::id());
-        // TeacherCourse::all()->where('teacherID', Auth::id());
-        // $unconfirmedCourses = Auth::user()->role == 'admin' ? Course::all()->where('is_confirmed', false) : Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
-        
         
         $teachingCourses = Course::all()->where('is_confirmed', true);
         $unconfirmedCourses = Course::all()->where('is_confirmed', false);
@@ -36,11 +32,6 @@ class MyCoursesController
         }
         return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
     }
-
-    // public function getUnconfirmedCourses() {
-    //     $foundCourses = Auth::user()->role == 'admin' ? Course::all()->where('is_confirmed', false) : Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
-    //     return view('myCourses', ['unconfirmedcourses' => $foundCourses]);
-    // }
 
     public function getCourse($id) {
         $course = Course::find($id);
