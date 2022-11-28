@@ -26,9 +26,9 @@
                     </td>
                 </tr>
             @empty
-            <tr>
-                <td colspan="4" class="text-center">Nejsou nalezené žadné kurzy</td>
-            </tr>
+                <tr>
+                    <td colspan="5" class="text-center">Nejsou nalezené žadné kurzy</td>
+                </tr>
             @endforelse
             </tbody>
         </table>

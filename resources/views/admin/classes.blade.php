@@ -38,7 +38,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($classes as $class)
+            @forelse($classes as $class)
                 <tr data-id="{{ $class->id }}">
                     <td>{{ $class->name }}</td>
                     <td>{{ $class->description }}</td>
@@ -56,7 +56,11 @@
                         </button>
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="9" class="text-center">Nejsou nalezené žadné místnosti</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </x-card>

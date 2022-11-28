@@ -4,6 +4,9 @@
     </x-slot:title>
 
     <x-card>
+        <x-slot:title>
+            <span class="fw-bold">Seznam studentů kurzu</span>
+        </x-slot:title>
         <form class="form-hidden" action="{{ route('course-term-students', ['courseId' => $course->id, 'termId' => $term->id]) }}" method="post">
             @csrf
 
@@ -19,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($students as $student)
+                @forelse($students as $student)
                     <tr>
                         <td class="bold">{{ $student->login }}
                         <td>{{ $student->name }}</td>
@@ -30,10 +33,16 @@
                         <td>{{ $student->studentScore ?? '-' }}</td>
                         <td>{{ $term->score }}</td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center">Nejsou nalezené žadné studenti</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
-            <button type="submit" class="btn btn-primary">Ulozit</button>
+            @if (!$students)
+                <button type="submit" class="btn btn-primary">Přidat hodnocení</button>
+            @endif
         </form>
     </x-card>
 </x-skeleton>

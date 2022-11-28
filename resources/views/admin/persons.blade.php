@@ -39,7 +39,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($persons as $person)
+            @forelse($persons as $person)
                 <tr data-id="{{ $person->id }}">
                     <td class="bold">{{ $person->login }}
                     <td>{{ $person->name }}</td>
@@ -66,7 +66,11 @@
                         @endif
                     </td>
                 </tr>
-            @endforeach
+            @empty
+                <tr>
+                    <td colspan="10" class="text-center">Nejsou nalezené žadné místnosti</td>
+                </tr>
+            @endforelse
             </tbody>
         </table>
     </x-card>
