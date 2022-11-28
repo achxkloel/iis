@@ -189,16 +189,7 @@ class AdminController extends Controller
     }
 
     private function getRolesList (string $role) {
-        $additional_roles = [];
-
-        switch ($role) {
-            case 'guarantor':
-                $additional_roles = ['teacher', 'student'];
-                break;
-            case 'teacher':
-                $additional_roles = ['student'];
-                break;
-        }
+        $additional_roles = ($role == 'teacher') ? ['student'] : [];
 
         return array_push($additional_roles, $role);
     }
