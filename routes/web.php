@@ -95,6 +95,9 @@ Route::middleware('auth')->group(function () {
         ->middleware('auth', 'role:admin')
         ->controller(AdminController::class)
         ->group(function () {
+            // Course confirm
+            Route::get('/course-confirm/{courseId}', 'confirmCourse')->name('course-confirm')->where('courseId', '[0-9]+');;
+
             // Users
             Route::get('/persons', 'showPersons')->name('persons');
             Route::get('/person/create', 'showPersonForm')->name('create-person');

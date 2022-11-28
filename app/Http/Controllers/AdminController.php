@@ -252,4 +252,12 @@ class AdminController extends Controller
         Person::where('id', $personId)->update(['password' => Hash::make($data['newPassword'])]);
         return back();
     }
+
+    public function confirmCourse (Request $request, $courseId) {
+        Course::where('id', $courseId)->update([
+            'is_confirmed' => true
+        ]);
+
+        return redirect()->route('my-courses');
+    }
 }
