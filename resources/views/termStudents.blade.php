@@ -40,7 +40,7 @@
                 @endforelse
                 </tbody>
             </table>
-            @if (!$students)
+            @if ($students)
                 <button type="submit" class="btn btn-primary">Přidat hodnocení</button>
             @endif
         </form>
