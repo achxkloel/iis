@@ -57,17 +57,34 @@ class StudiesOverviewController
     }
 
     public function getCourse(Request $request, $courseId) {
-        
 
         $course = Course::where('id', $courseId)->first();
         $terms = $course->terms()->get();
+
+        $student_scores = StudentScore::select([
+            'studentID',
+            'termID',
+            'score'
+        ]);
+
         $userterms = Term::join('student_term', 'term.id','=','termID')
-        ->where('studentID', Auth::user()->id)->get('term.*');
+            ->leftJoinSub($student_scores, 'student_scores', function ($join) {
+                $join->on('student_scores.studentID', '=', 'student_term.studentID');
+                $join->on('student_scores.termID', '=', 'student_term.termID');
+            })
+            ->where('student_term.studentID', Auth::user()->id)
+            ->get([
+                'term.*',
+                'student_scores.score as studentScore'
+            ]);
+
+        $userterms_ids = $userterms->pluck('id')->all();
 
         return view('courseOverview', [
             'course' => $course,
             'terms' => $terms,
-            'userterms' => $userterms
+            'userterms' => $userterms,
+            'userterms_ids' => $userterms_ids
         ]);
     }
 
