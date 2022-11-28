@@ -32,8 +32,7 @@ zodpovědný za implementaci BE a pohled pro studenta
 zodpovědný za implementaci FE a pohled pro učitele
 </dd>
 <dt>URL aplikace</dt>
-<dd><a href="http://www.stud.fit.vutbr.cz/~xautor01/IIS">http://www.stud.fit.vutbr.cz/~xautor01/IIS</a></dd>
-<dd>(pokud má aplikace více vstupních stránek, napište obdobně další URL)</dd>
+<dd><a href="https://iis.fly.dev/">https://iis.fly.dev/</a></dd>
 </dl>
 
 <h2>Uživatelé systému pro testování</h2>
@@ -81,7 +80,14 @@ zodpovědný za implementaci FE a pohled pro učitele
 
 <h3>Databáze</h3>
 
-Zde vložte grafické schéma relační databáze (tabulek v databázi).
+<ul>
+   <li><a href="https://drive.google.com/file/d/1qQRMulRStR1HbSZpO3tWE-7YUcrCsxyX/view?usp=share_link">Původní ER diagram</a></li>
+   <li><a href="https://drive.google.com/file/d/16uRi-KU9-b7cIVmOrOpQf7zcrWCRJ9bu/view?usp=share_link">Výsledný model relační databáze</a></li>
+</ul>
+
+<p>
+   Schémata tabulek jsou ve složce <strong>database/migrations</strong>.
+</p>
 
 <h2>Instalace</h2>
 
@@ -95,17 +101,17 @@ Požadavky:
 Postup instalace:
 <ol>
    <li>Rozbalit archiv s projektem</li>
-   <li>Přesunout obsah složky <strong>src</strong> do kořenového adresaře webu</li>
+   <li>Přesunout obsah do kořenového adresaře webu</li>
    <li>Příkazem <strong>composer install</strong> nainstalovat vsechny závislosti</li>
    <li>Zkopirovat obsah souboru <strong>.env.example</strong> do <strong>.env</strong></li>
    <li>V <strong>.env</strong> souboru nastavit přípojení k databáze</li>
    <li>Vygenerovat klíč aplikace příkazem <strong>php artisan key:generate</strong></li>
-   <li>Vygenerovat databázaové tabulky a předem definovaná data příkazem <strong>php artisan migrate --seed</strong></li>
+   <li>Vygenerovat databázové tabulky a předem definovaná data příkazem <strong>php artisan migrate --seed</strong></li>
    <li>Spustit projekt příkazem <strong>php artisan serve</strong></li>
 </ol>
 
 <h2>Známé problémy</h2>
-<p>Zde popište, které body zadání nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit hodnocení, když neimplementované funkce nebudeme muset dlouze hledat.</p>
+<p>-</p>
 
 </body>
 </html>
