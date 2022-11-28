@@ -106,6 +106,7 @@
                         <th scope="col">Název</th>
                         <th scope="col">Typ</th>
                         <th scope="col">Místnost</th>
+                        <th scope="col">Čas</th>
                         <th scope="col" class="small-button-column"></th>
                         <th scope="col" class="small-button-column"></th>
                         <th scope="col" class="small-button-column"></th>
@@ -117,6 +118,7 @@
                             <td>{{ $term->name }}</td>
                             <td>{{ $term->type }}</td>
                             <td>{{ $term->class?->name }}</td>
+                            <td>{{ ($term->day) ? $days[$term->day - 1] . " " . $term->duration_from . ":00 - " . $term->duration_to . ":00" : "-" }}</td>
                             <td><a href="{{ route('course-term-students', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-person-24 /></a></td>
                             <td><a href="{{ route('course-edit-term', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-pencil-24 /></a></td>
                             <td>
@@ -127,7 +129,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="text-center">Nejsou nalezené žadné termíny</td>
+                            <td colspan="7" class="text-center">Nejsou nalezené žadné termíny</td>
                         </tr>
                     @endforelse
                 </tbody>
