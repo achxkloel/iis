@@ -7,6 +7,7 @@ use App\Models\Classroom;
 use App\Models\Course;
 use App\Models\StudentScore;
 use App\Models\StudentCourse;
+use App\Models\StudentTerm;
 use App\Models\TeacherCourse;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonRequest;
@@ -116,6 +117,20 @@ class AdminController extends Controller
         $toDelete = StudentCourse::find($request->input('id'));
         if (!$toDelete) return redirect()->route('admin-persons');
         $personId = $toDelete->studentID;
+        $courseId = $toDelete->courseID;
+
+        // Delete student term
+        StudentTerm::join('term', 'term.id', '=', 'termID')
+            ->where('studentID', $personId)
+            ->where('courseID', $courseId)
+            ->delete();
+
+        // Delete student score
+        StudentScore::join('term', 'term.id', '=', 'termID')
+            ->where('studentID', $personId)
+            ->where('courseID', $courseId)
+            ->delete();
+        
         $toDelete->delete();
         return redirect()->route('admin-person', $personId);
     }
@@ -132,7 +147,8 @@ class AdminController extends Controller
         if ($request->input('student_course') != 'Nevybráno') {
             StudentCourse::create([
                 'studentID' => $personId,
-                'courseID' => $request->input('student_course')
+                'courseID' => $request->input('student_course'),
+                'is_active' => true
             ]);
         }
         return redirect()->route('admin-person', $personId);
