@@ -19,13 +19,13 @@ class TeacherCourseTableSeeder extends Seeder
 
     public function createDefaultTeacherCourse (): void {
         $teacher_courses = [
-            ['teacherID' => 8, 'courseID' => 1],
-            ['teacherID' => 4, 'courseID' => 1],
-            ['teacherID' => 4, 'courseID' => 2],
-            ['teacherID' => 9, 'courseID' => 2],
-            ['teacherID' => 3, 'courseID' => 2],
-            ['teacherID' => 10, 'courseID' => 3],
-            ['teacherID' => 10, 'courseID' => 4]
+            ['teacherID' => 8, 'courseID' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 4, 'courseID' => 1, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 4, 'courseID' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 9, 'courseID' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 3, 'courseID' => 2, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 10, 'courseID' => 3, 'created_at' => now(), 'updated_at' => now()],
+            ['teacherID' => 10, 'courseID' => 4, 'created_at' => now(), 'updated_at' => now()]
         ];
 
         TeacherCourse::insert($teacher_courses);
