@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Route;
 
 // Main page (for all users)
 Route::get('/', [HomepageController::class, 'getCourses'])->name('homepage');
+Route::get('/course-detail/{courseID}', [HomepageController::class, 'getCourseDetail'])->name('course-detail')->where('courseID', '[0-9]+');
 
 // Only for guests
 Route::middleware('guest')->controller(LoginController::class)->group(function () {
@@ -38,9 +39,8 @@ Route::middleware('guest')->controller(LoginController::class)->group(function (
 // Only for authorized users
 Route::middleware('auth')->group(function () {
 
-    // Main page (for all users)
+    // Main page course registration
     Route::get('/regCourse/{courseID}', [HomepageController::class, 'regCourse'])->name('homepage-regcourse')->where('courseID', '[0-9]+');
-    Route::get('/course-detail/{courseID}', [HomepageController::class, 'getCourseDetail'])->name('course-detail')->where('courseID', '[0-9]+');
 
     // Logout
     Route::get('/logout', [LogoutController::class, 'logout'])->name('logout');
