@@ -27,7 +27,7 @@ class MyCoursesController
         $unconfirmedCourses = Course::all()->where('is_confirmed', false);
 
         if(Auth::user()->role != 'admin') {
-            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->where('is_confirmed', true)->get();
+            $teachingCourses = Course::join('teacher_course', 'course.id', '=', 'courseID')->where('teacherID', Auth::id())->where('is_confirmed', true)->get('course.*');
             $unconfirmedCourses = Course::all()->where('guarantorID', Auth::id())->where('is_confirmed', false);
         }
         return view('myCourses', ['unconfirmedcourses' => $unconfirmedCourses,'teachingcourses' => $teachingCourses]);
