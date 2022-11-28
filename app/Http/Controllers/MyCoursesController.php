@@ -97,6 +97,14 @@ class MyCoursesController
         return redirect('my-courses');
     }
 
+    function deleteCourse(Request $request) {
+        $toDelete = Course::find($request->input('id'));
+        if (!$toDelete) return redirect('my-courses');
+
+        $toDelete->delete();
+        return redirect('my-courses');
+    }
+
     function getTerm($courseId, $termId) {
         return view('termEdit', ['courseId' => $courseId, 'term' => Term::find($termId), 'rooms' => Classroom::all()]);
     }

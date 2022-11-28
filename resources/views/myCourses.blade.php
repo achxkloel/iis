@@ -45,7 +45,7 @@
                         </td>
                         <td>
                             @if($teachingCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
-                                <a href="#"><x-go-trash-24 class='text-danger'/></a>
+                                <button type="button" class="btn btn-link" onclick="showToast('confirmationToast', {{ $teachingCourse->id }})"><x-go-trash-24 class='text-danger'/></button>
                             @endif
                         </td>
                         <td>
@@ -81,7 +81,11 @@
                         <td class="bold"><a href="{{ route('course-detail', $unconfirmedCourse->id) }}">{{ $unconfirmedCourse->shortcut }}</a></td>
                         <td>{{ $unconfirmedCourse->name }}</td>
                         <td><a href="{{ route('course-edit', ['courseId' => $unconfirmedCourse->id]) }}"><x-go-pencil-24 /></a></td>
-                        <td><a href="#"><x-go-trash-24 class='text-danger'/></a></td>
+                        <td>
+                            @if($unconfirmedCourse->guarantorID == Auth::id() || Auth::user()->hasRole('admin'))
+                                <button type="button" class="btn btn-link" onclick="showToast('confirmationToast', {{ $unconfirmedCourse->id }})"><x-go-trash-24 class='text-danger'/></button>
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
@@ -91,4 +95,30 @@
             </tbody>
         </table>
     </x-card>
+
+    <div id="confirmationToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-body">
+            <p>Opravdu si přejete smazat tento kurz?</p>
+            <div class="mt-2 pt-2 border-top toast-buttons">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="toast">Ne</button>
+                <form class="form-hidden" action="{{ route('delete-course') }}" method="get">
+                    @csrf
+                    <input type="hidden" id="confirmationToastID" name="id" />
+                    <button type="submit" class="btn btn-danger">Ano</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <x-slot:js>
+        <script>
+            function showToast(element, id) {
+                const toastElement = document.getElementById(element);
+                const toast = new bootstrap.Toast(toastElement);
+                toast.show();
+
+                document.getElementById(element + 'ID').value = id;
+            }
+        </script>
+    </x-slot:js>
 </x-skeleton>

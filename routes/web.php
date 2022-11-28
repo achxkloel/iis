@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/course-edit/{courseId}', [MyCoursesController::class, 'updateCourse'])->name('course-edit')->where('courseId', '[0-9]+');
         Route::get('/course-create', [MyCoursesController::class, 'newCourse'])->name('course-create');
         Route::post('/course-create', [MyCoursesController::class, 'createCourse'])->name('course-create');
+        Route::get('/delete-course', [MyCoursesController::class, 'deleteCourse'])->name('delete-course');
         Route::get('/registration-management/{courseId}', [MyCoursesController::class, 'getCourseRegistrations'])->name('registration-management')->where('courseId', '[0-9]+');
         Route::get('/registration-management/{courseId}/confirm/{studentCourseId}', [MyCoursesController::class, 'confirmRegistration'])->name('confirm-registration')->where(['courseId' => '[0-9]+', 'studentCourseId' => '[0-9]+']);
         Route::get('/registration-management/{courseId}/confirm-all', [MyCoursesController::class, 'confirmAllRegistrations'])->name('confirm-all-registrations')->where('courseId','[0-9]+');
