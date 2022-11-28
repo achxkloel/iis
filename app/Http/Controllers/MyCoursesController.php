@@ -228,6 +228,7 @@ class MyCoursesController
                 $join->on('student_scores.termID', '=', 'student_term.termID');
             })
             ->where('student_term.termID', $termId)->get([
+                'student_term.id as studentTermId',
                 'person.*',
                 'student_scores.score as studentScore'
             ]);
@@ -307,5 +308,15 @@ class MyCoursesController
 
         $toDelete->delete();
         return redirect('teacher-course-overview/'.$courseId);
+    }
+
+    public function deleteStudentTerm(Request $request) {
+        $toDelete = StudentTerm::find($request->input('id'));
+        if (!$toDelete) return redirect('my-courses');
+        $courseId = $request->input('courseId');
+        $termId = $toDelete->termID;
+
+        $toDelete->delete();
+        return redirect('course/'.$courseId.'/term/'.$termId);
     }
 }
