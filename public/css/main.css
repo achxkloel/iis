@@ -168,6 +168,12 @@ form {
     padding: 0;
 }
 
+.link-disabled {
+    color: grey;
+    text-decoration: none;
+    cursor: default;
+}
+
 .course-detail-info {
     display: flex;
     width: 100%;

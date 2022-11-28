@@ -8,19 +8,19 @@
             <tr>
                 <th scope="col">Zkratka</th>
                 <th scope="col">Název</th>
-                <th scope="col">Garant</th>
                 <th scope="col">Hodnocení</th>
                 <th scope="col">Body</th>
+                <th scope="col" class="small-button-column"></th>
             </tr>
             </thead>
             <tbody>
             @foreach($courses as $course)
                 <tr>
-                    <td class="bold"><a href="{{ route('course-overview', $course->id) }}">{{ $course->shortcut }}</a></td>
+                    <td class="bold"><a href="{{ route('course-detail', $course->id) }}">{{ $course->shortcut }}</a></td>
                     <td>{{ $course->name }}</td>
-                    <td>{{ $course->guarantor->name }} {{ $course->guarantor->surname }}</td>
                     <td>D</td>
                     <td>69</td>
+                    <td><a href="{{ route('course-overview', $course->id) }}"><x-go-arrow-right-24 /></a></td>
                 </tr>
             @endforeach
             </tbody>
