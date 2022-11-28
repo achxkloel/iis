@@ -247,6 +247,10 @@ class MyCoursesController
         foreach ($data as $key => $value) {
             $value = trim($value);
 
+            if ($key != (int) $key) {
+                continue;
+            }
+
             if (empty($value)) {
                 continue;
             }
