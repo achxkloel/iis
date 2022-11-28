@@ -86,13 +86,13 @@
             <div class="mb-3 row">
                 <label for="day" class="col-sm-2 col-form-label">Den</label>
                 <div class="col-sm-10">
-                    <select class="form-select @error('day') is-invalid  @enderror" id="day" name="day" value="{{ old('day') }}" aria-describedby="dayError" >
-                        <option value="" {{ old('day') == '' ? "selected" : "" }}>Nevybráno</option>
-                        <option value="1" {{ old('day') == '1' ? "selected" : "" }}>Pondělí</option>
-                        <option value="2" {{ old('day') == '2' ? "selected" : "" }}>Úterý</option>
-                        <option value="3" {{ old('day') == '3' ? "selected" : "" }}>Středa</option>
-                        <option value="4" {{ old('day') == '4' ? "selected" : "" }}>Čtvrtek</option>
-                        <option value="5" {{ old('day') == '5' ? "selected" : "" }}>Pátek</option>
+                    <select class="form-select @error('day') is-invalid  @enderror" id="day" name="day" value="{{ $term->day ?? old('day') }}" aria-describedby="dayError" >
+                        <option value="" {{ ($term->day ?? old('day')) == '' ? "selected" : "" }}>Nevybráno</option>
+                        <option value="1" {{ ($term->day ?? old('day')) == '1' ? "selected" : "" }}>Pondělí</option>
+                        <option value="2" {{ ($term->day ?? old('day')) == '2' ? "selected" : "" }}>Úterý</option>
+                        <option value="3" {{ ($term->day ?? old('day')) == '3' ? "selected" : "" }}>Středa</option>
+                        <option value="4" {{ ($term->day ?? old('day')) == '4' ? "selected" : "" }}>Čtvrtek</option>
+                        <option value="5" {{ ($term->day ?? old('day')) == '5' ? "selected" : "" }}>Pátek</option>
                     </select>
                     @error('day')
                         <div id="dayError" class="invalid-feedback text-start">
