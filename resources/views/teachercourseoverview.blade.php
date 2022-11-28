@@ -12,6 +12,7 @@
                     <th scope="col">Název</th>
                     <th scope="col">Typ</th>
                     <th scope="col">Místnost</th>
+                    <th scope="col">Čas</th>
                     <th scope="col" class="small-button-column"></th>
                 </tr>
             </thead>
@@ -21,6 +22,7 @@
                         <td>{{ $term->name }}</td>
                         <td>{{ $term->type }}</td>
                         <td>{{ $term->class?->name }}</td>
+                        <td>{{ ($term->day) ? $days[$term->day - 1] . " " . $term->duration_from . ":00 - " . $term->duration_to . ":00" : "-" }}</td>
                         <td><a href="{{ route('course-term-students', ['courseId' => $course->id, 'termId' => $term->id]) }}"><x-go-person-24 /></a></td>
                     </tr>
                 @empty
