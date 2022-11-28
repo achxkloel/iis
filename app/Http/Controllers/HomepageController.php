@@ -7,7 +7,6 @@ use App\Models\StudentCourse;
 use Illuminate\Http\Request;
 use App\Models\Person;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class HomepageController
 {

@@ -7,7 +7,6 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ActivateRequest;
 use App\Models\Person;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {

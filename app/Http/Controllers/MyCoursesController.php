@@ -13,12 +13,10 @@ use App\Models\TeacherCourse;
 use App\Models\StudentTerm;
 use App\Models\StudentScore;
 use App\Models\Term;
-use DateTime;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Log;
 
 
 class MyCoursesController
