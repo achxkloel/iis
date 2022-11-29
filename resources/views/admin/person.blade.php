@@ -190,6 +190,7 @@
                 <th scope="col">Registrace</th>
                 <th scope="col">Garant</th>
                 <th></th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -202,6 +203,9 @@
                         @if ($course->guarantorID == $person->id)
                             <x-go-check-circle-fill-16 class="text-success" />
                         @endif
+                    </td>
+                    <td class="fit">
+                        <a href="{{ route('course-edit', ['courseId' => $course->id]) }}"><x-go-info-16 class="text-primary"/></a>
                     </td>
                     <td class="fit">
                         <button type="button" class="btn btn-link" onclick="showToast('confirmationTeacherToast', {{ $course->teacherCourseID }})">
