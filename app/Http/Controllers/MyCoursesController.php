@@ -43,7 +43,7 @@ class MyCoursesController
         $teachers = Person::all()->where('role', 'teacher');
 
         $teachers = $teachers->filter(function ($item) use ($teacherCourse) {
-            $found = $teacherCourse->firstWhere('id', $item->id);
+            $found = $teacherCourse->firstWhere('teacherID', $item->id);
             return $found == null;
         });
 
