@@ -111,7 +111,7 @@ class MyCoursesController
             'date_to' => $date_to,
         ]);
 
-        return redirect('my-courses');
+        return redirect('course-edit/'.$id);
     }
 
     function deleteCourse(Request $request) {
