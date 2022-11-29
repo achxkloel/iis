@@ -239,9 +239,11 @@ class AdminController extends Controller
     public function updatePerson (UpdatePersonRequest $request, $personId) {
         $data = $request->validated();
 
-        $birth_date = Carbon::createFromFormat('d.m.Y', $data['birth_date']);
-        $birth_date->setTimeFromTimeString('00:00:00');
-        $data['birth_date'] = $birth_date;
+        if ($data['birth_date'] != NULL) {
+            $birth_date = Carbon::createFromFormat('d.m.Y', $data['birth_date']);
+            $birth_date->setTimeFromTimeString('00:00:00');
+            $data['birth_date'] = $birth_date;
+        }
 
         Person::where('id', $personId)->update($data);
         return back();
