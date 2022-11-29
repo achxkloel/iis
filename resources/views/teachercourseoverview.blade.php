@@ -49,13 +49,13 @@
                 @forelse($students as $student)
                     <tr>
                         <td>{{ $student->name }} {{ $student->surname }}</td>
-                        @if(Auth::user()->role == 'admin' || $course->guarantorID == Auth::id())
-                            <td>
+                        <td>
+                            @if(Auth::user()->role == 'admin' || $course->guarantorID == Auth::id())
                                 <button type="button" class="btn btn-link" onclick="showToast('confirmationToast', {{ $student->id }})">
                                     <x-go-trash-24 />
                                 </button>
-                            </td>
-                        @endif
+                            @endif
+                        </td>
                     </tr>
                 @empty
                     <tr>
