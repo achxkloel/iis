@@ -217,7 +217,7 @@ class AdminController extends Controller
     }
 
     public function deletePerson (Request $request) {
-        if ((int) $request->input['id'] == Auth::user()->id) {
+        if ((int) $request->input('id') == Auth::user()->id) {
             back();
         }
         
